@@ -1,21 +1,29 @@
 import './RutaConductor.css'
+import Usuario from './Assets/Usuario.svg'
+import Ojo from './Assets/Ojo.svg'
 export const RutaConductor =()=>{
     return(
-        <div class="contInfo">
-            <div class="infoConductor">
-                <img src="../../images/perfil.png" class="imgUser"/>
+        <div className="contInfo">
+            <div className="infoConductor">
+                <div className='div'>
+                <img src={Usuario} className="imgUser"/>
                 <p>Conductor 1</p>
-                <img src="../../images/ojo-rojo.png" class="imgEye" onclick="abrirParadero()"/>
+                </div>
+                <img src={Ojo} className="imgEye" onclick="abrirParadero()"/>
             </div>
-            <div class="infoConductor">
-                <img src="../../images/perfil.png" class="imgUser"/>
+            <div className="infoConductor">
+                <div className='div'>
+                <img src={Usuario} className="imgUser"/>
                 <p>Conductor 2</p>
-                <img src="../../images/ojo-rojo.png" class="imgEye"/>
+                </div>
+                <img src={Ojo} className="imgEye" onclick="abrirParadero()"/>
             </div>
-            <div class="infoConductor">
-                <img src="../../images/perfil.png" class="imgUser"/>
+            <div className="infoConductor">
+                <div className='div'>
+                <img src={Usuario} className="imgUser"/>
                 <p>Conductor 3</p>
-                <img src="../../images/ojo-rojo.png" class="imgEye"/>
+                </div>
+                <img src={Ojo} className="imgEye" onclick="abrirParadero()"/>
             </div>
         </div>
     )

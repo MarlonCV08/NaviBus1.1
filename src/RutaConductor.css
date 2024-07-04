@@ -3,8 +3,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 8.5%;
+    top: 17vh;
     gap: 20px;
+    position: relative;
 }
 .infoConductor{
     width: 70vh;
@@ -12,12 +13,19 @@
     border: #7579E7 2px solid;
     border-radius: 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     padding: 2.6% 0;
 }
+.div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .imgUser{
     margin: 15px 0 15px 10px;
+    width: 64px;
+    height: 64px;
 }
 .infoConductor p{
     margin-left: 30px;
@@ -25,7 +33,7 @@
     color: #7579E7;
 }
 .imgEye{
-    margin: 5px 0 -3px 28vh;
+    margin-right: 10px;
     cursor: pointer;
 }
 .imgEye:hover{
