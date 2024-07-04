@@ -1,0 +1,12 @@
+.curved {
+    position: fixed;
+    top: 0;
+    height: 15vh;
+    width: 100%;
+    background: #7579E7;
+    border-bottom-left-radius: 50% 15%;
+    border-bottom-right-radius: 50% 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,0 +1,89 @@
+.divActivar{
+    margin-left: 1.5%;
+}
+button{
+    display: flex;
+    flex-direction: column;
+    width: 3rem;
+    height: 3rem;
+    border: 0;
+    gap: 0.93rem;
+    background: transparent;
+}
+button > div{
+    background: #fefefe;
+    height: 2px;
+    width: 120%;
+    border-radius: 5px;
+    transition: all .5s;
+    transform-origin: left;
+}
+button{
+    cursor: pointer;
+}
+.divBtn1{
+    transform: rotate(35deg);
+}
+.divBtn2{
+    opacity: 0;
+}
+.divBtn3{
+    transform: rotate(-35deg);
+}
+.divBtn1A{
+    transform: rotate(0deg);
+}
+.divBtn2A{
+    opacity: 1;
+}
+.divBtn3A{
+    transform: rotate(0deg);
+}
+.menu {
+    position: fixed;
+    background: #fefefe;
+    min-width: 220px;
+    text-align: center;
+    outline: none;
+    border: solid 1px #7579E7;
+    border-radius: 5px;
+    margin: 15px;
+    top: 15.5vh;
+    color: #7579E7;
+    transition: all .5s;
+    list-style: none;
+    display: none;
+}
+.menu a{
+    text-decoration: none;
+    color: #7579E7;
+}
+.menu li{
+    padding: 5px 2px 5px 2px;
+    cursor: pointer;
+}
+.menu li:hover{
+    background: rgba(117, 121, 231, 0.25);
+}
+.visible{
+    display: inline;
+}
+
+/* @media (max-width: 768px) {
+    .menu {
+        width: 80%;
+        margin: 10px;
+        margin-top: 15.5vh;
+    }
+}
+@media (max-width: 480px) {
+    .menu {
+        width: 100%;
+        margin: 0;
+        margin-top: 15.5vh;
+    }
+
+    .menu li {
+        padding: 10px 0;
+    }
+} */
