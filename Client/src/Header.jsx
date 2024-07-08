@@ -1,7 +1,7 @@
-import "./Header.css";
+import "./Styles/Header.css";
 import { useLocation } from "react-router-dom";
-import { Lupa } from "./Lupa";
-import { Menu } from "./Menu";
+import { Lupa } from "./Components/Lupa";
+import { Menu } from "./Components/Menu";
 
 export const Header = () => {
   const location = useLocation();
