@@ -66,9 +66,11 @@ button{
     background: rgba(117, 121, 231, 0.25);
 }
 .visible{
-    display: inline;
+    display: block;
 }
-
+.encima{
+    z-index: 2;
+}
 /* @media (max-width: 768px) {
     .menu {
         width: 80%;
