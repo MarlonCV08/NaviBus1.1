@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import "./Styles/Menu.css";
+import "../Styles/Menu.css";
 
 export const Menu = () => {
   const [activar, setActivar] = useState(false);
@@ -17,12 +17,12 @@ export const Menu = () => {
           <div className={`${activar ? "divBtn3" : "divBtn3A"}`}></div>
         </button>
       </div>
-      <ul className={`menu ${activar ? "visible" : ""}`}>
+      <ul className={`menu ${activar ? "visible encima" : "abajo"}`}>
         <li>
           <Link to="/Ruta">Inicio</Link>
         </li>
         <li>
-          <Link to="/SelectRegistro">Registro</Link>
+          <Link to="/Registro">Registro</Link>
         </li>
         <li>
           <Link to="/Actualizar">Actualizar datos</Link>

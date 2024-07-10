@@ -1,5 +1,5 @@
-import "./Styles/Lupa.css"
-import lupaImage from "./Assets/Images/lupa.png"
+import "../Styles/Lupa.css"
+import lupaImage from "../Assets/Images/Lupa.svg"
 import { useState } from "react";
 export const Lupa = ()=>{
     const [lupa, setLupa] = useState(false);

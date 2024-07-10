@@ -8,7 +8,7 @@ export const Ruta = ()=>{
             <Header />
 
             <div className="contRutas">
-                <Link to='/RutaConductor' className="link">
+                <Link to='/Ruta/Conductor' className="linkRuta">
                     <div className="rutas">
                         <img src={RutaImg} className="imgRuta"/>
                         <p>Ruta 1</p>
@@ -34,8 +34,6 @@ export const Ruta = ()=>{
                     <img src={RutaImg} className="imgRuta"/>
                     <p>Ruta 6</p>
                 </div>
-
-
 
             </div>
         </>

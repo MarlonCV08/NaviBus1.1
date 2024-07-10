@@ -32,6 +32,11 @@
     font-size: 25px;
     color: #7579E7;
 }
+.link{
+    text-decoration: none;
+    display: inline-block;
+    height: 32px;
+}
 .imgEye{
     margin-right: 10px;
     cursor: pointer;
