@@ -9,7 +9,7 @@ export const Login = () => {
 
   return (
     <div className="login">
-      <form className="contenedor">
+      <form className="contenedorLog">
         <div className="contenedortitulo">
           <label className="titulo">Iniciar Sesión</label>
         </div>

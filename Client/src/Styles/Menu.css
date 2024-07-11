@@ -53,6 +53,7 @@ button{
     transition: all .5s;
     list-style: none;
     display: none;
+    z-index: -1;
 }
 .menu a{
     text-decoration: none;
@@ -66,9 +67,14 @@ button{
     background: rgba(117, 121, 231, 0.25);
 }
 .visible{
-    display: inline;
+    display: block;
 }
-
+.encima{
+    z-index: 2;
+}
+.abajo{
+    z-index: -1;
+}
 /* @media (max-width: 768px) {
     .menu {
         width: 80%;

@@ -1,10 +1,15 @@
 import "./App.css"
 import { createBrowserRouter, RouterProvider} from "react-router-dom"
-import { SelectRegistro } from "./Routes/SelectRegistro"
+import { Registro } from "./Routes/Registro"
 import { Ruta } from './Routes/Ruta'
-import { RutaConductor } from "./Routes/RutaConductor"
+import { Conductor } from "./Routes/Conductor"
 import { Login } from "./Routes/Login"
 import { RutaProtegida } from "./Routes/RutaProtegida"
+import { Control } from "./Routes/Control"
+import { Usuario } from "./Routes/Usuario"
+import { Vehiculo } from "./Routes/Vehiculo"
+import { Admin } from "./Routes/Admin"
+import { Despachador } from "./Routes/Despachador"
 
 const router = createBrowserRouter ([
     {
@@ -22,13 +27,33 @@ const router = createBrowserRouter ([
         ]
     },
     {
-        path: "/Ruta/RutaConductor",
-        element: <RutaConductor />
+        path: "/Ruta/Conductor",
+        element: <Conductor />
     },
     {
-        path: "/SelectRegistro",
-        element: <SelectRegistro />
+        path: "/Ruta/Conductor/Control",
+        element: <Control />
     },
+    {
+        path: "/Registro",
+        element: <Registro />
+    },
+    {
+        path: "/Registro/Usuario",
+        element: <Usuario />
+    },
+    {
+        path: "/Registro/Usuario/Admin",
+        element: <Admin />
+    },
+    {
+        path: "/Registro/Usuario/Despachador",
+        element: <Despachador />
+    },
+    {
+        path: "/Registro/Vehiculo",
+        element: <Vehiculo />
+    }
 ])
 
 export const App = ()=>{

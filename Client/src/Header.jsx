@@ -5,7 +5,7 @@ import { Menu } from "./Components/Menu";
 
 export const Header = () => {
   const location = useLocation();
-  const noLupa = ["/SelectRegistro"]; // Asegúrate de que la ruta sea correcta
+  const noLupa = ["/Registro", "/Registro/Usuario", "/Registro/Usuario/Admin", "/Registro/Usuario/Despachador", "/Registro/Vehiculo", "/Ruta/Conductor/Control"];
 
   return (
     <section className="curved">
