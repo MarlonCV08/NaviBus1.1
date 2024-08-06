@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Dropdown } from "../Components/Dropdown";
 import { Header } from "../Header";
 import "../Styles/Admin.css"
@@ -27,7 +28,9 @@ export const Admin =()=>{
                         <input type="hidden" name="1"/>
                     </section>
                     <section class="botones">
-                        <input type="button" value="Cancelar" class="boton" onclick="cancelar()"/>
+                    <Link to='/Registro/Usuario' className="linkRegistro">
+                        <input type="button" value="Cancelar" class="boton"/>
+                    </Link>
                         <input type="submit" value="Enviar" class="boton"/>
                     </section>
                 </form>
