@@ -1,19 +1,21 @@
-import express from 'express';
+const express = require('express');
 
 const router = express.Router();
  
 const userRoutes = (db) => {
-  router.get('/', async(req, res) => {
-    try {
-      const [rows] = await db.query('SELECT * FROM login');
-
-      res.json(rows);
-    } catch (err) {
-      console.error("Error al obtener los usuarios: ", err)
-      res.status(500).json({ error: "Error interno del servidor" })
-    }
+  router.get('/conductores', (req, res)=> {
+    const sql = 'SELECT * FROM conductor';
+  
+    db.query(sql, (err, results) => {
+      if (err) {
+        console.error('Error al ejecutar la consulta:', err);
+        res.status(500).send('Error al ejecutar la consulta');
+        return;
+      }
+      res.json(results);
+    });
   });
   return router;
 };
 
-export default userRoutes;
+module.exports = userRoutes;
