@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
+import { Header } from "../Header"
 import { Dropdown } from "../Components/Dropdown";
-import { Header } from "../Header";
 import "../Styles/Admin.css"
 import React, { useState } from 'react';
-export const Admin =()=>{
-    return(
+import { Link } from "react-router-dom";
+export const Actualizar = ()=>{
+    return (
         <>
-        <Header/>
+            <Header/>
             <div className="contenedorPadre">
                 <form className="contenedor">
                     <section>

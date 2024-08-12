@@ -6,9 +6,8 @@ export const Ruta = ()=>{
     return(
         <>
             <Header />
-
             <div className="contRutas">
-                <Link to='/Ruta/Conductor' className="linkRuta">
+                <Link to='/Ruta/Conductores' className="linkRuta">
                     <div className="rutas">
                         <img src={RutaImg} className="imgRuta"/>
                         <p>Ruta 1</p>

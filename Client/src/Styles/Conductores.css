@@ -1,0 +1,46 @@
+.contInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 17vh;
+    gap: 20px;
+    position: relative;
+}
+.infoConductor{
+    width: 70vh;
+    height: 11vh;
+    border: #7579E7 2px solid;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.6% 0;
+}
+.div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imgUser{
+    margin: 15px 0 15px 10px;
+    width: 64px;
+    height: 64px;
+}
+.infoConductor p{
+    margin-left: 30px;
+    font-size: 25px;
+    color: #7579E7;
+}
+.link{
+    text-decoration: none;
+    display: inline-block;
+    height: 32px;
+}
+.imgEye{
+    margin-right: 10px;
+    cursor: pointer;
+}
+.imgEye:hover{
+    transform: scale(1.1);
+}

@@ -2,7 +2,6 @@ import "./App.css"
 import { createBrowserRouter, RouterProvider} from "react-router-dom"
 import { Registro } from "./Routes/Registro"
 import { Ruta } from './Routes/Ruta'
-import { Conductor } from "./Routes/Conductor"
 import { Login } from "./Routes/Login"
 import { RutaProtegida } from "./Routes/RutaProtegida"
 import { Control } from "./Routes/Control"
@@ -10,6 +9,9 @@ import { Usuario } from "./Routes/Usuario"
 import { Vehiculo } from "./Routes/Vehiculo"
 import { Admin } from "./Routes/Admin"
 import { Despachador } from "./Routes/Despachador"
+import { Conductores } from "./Routes/Conductores"
+import { Conductor } from "./Routes/Conductor"
+import { Actualizar } from "./Routes/Actualizar"
 
 const router = createBrowserRouter ([
     {
@@ -27,8 +29,8 @@ const router = createBrowserRouter ([
         ]
     },
     {
-        path: "/Ruta/Conductor",
-        element: <Conductor />
+        path: "/Ruta/Conductores",
+        element: <Conductores />
     },
     {
         path: "/Ruta/Conductor/Control",
@@ -51,8 +53,16 @@ const router = createBrowserRouter ([
         element: <Despachador />
     },
     {
+        path: "/Registro/Usuario/Conductor",
+        element: <Conductor/>
+    },
+    {
         path: "/Registro/Vehiculo",
         element: <Vehiculo />
+    },
+    {
+        path:"/Actualizar",
+        element: <Actualizar/>
     }
 ])
 

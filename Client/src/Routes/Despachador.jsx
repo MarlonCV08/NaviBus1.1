@@ -34,7 +34,7 @@ export const Despachador = ()=>{
                                     <input type="text" class="input" placeholder="Correo"/>
                                 </section>
                                 <section>
-                                    <input type="hidden" name="3"/>
+                                    <input type="hidden" value={2}/>
                                 </section>
                             </div>
                         </div>

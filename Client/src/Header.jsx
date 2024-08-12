@@ -5,7 +5,7 @@ import { Menu } from "./Components/Menu";
 
 export const Header = () => {
   const location = useLocation();
-  const noLupa = ["/Registro", "/Registro/Usuario", "/Registro/Usuario/Admin", "/Registro/Usuario/Despachador", "/Registro/Vehiculo", "/Ruta/Conductor/Control"];
+  const noLupa = ["/Registro", "/Registro/Usuario", "/Registro/Usuario/Admin", "/Registro/Usuario/Despachador", "/Registro/Usuario/Conductor", "/Registro/Vehiculo", "/Ruta/Conductor/Control", "/Actualizar"];
 
   return (
     <section className="curved">

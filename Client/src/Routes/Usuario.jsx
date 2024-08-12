@@ -21,10 +21,12 @@ export const Usuario =()=>{
                         <p>Despachador</p>
                     </div>
                 </Link>
-                <div class="rol" onclick="abrirRegistroCondu()">
-                    <img src={Conductor}/>
-                    <p>Conductor</p>
-                </div>
+                <Link to="/Registro/Usuario/Conductor" className="Link">
+                    <div class="rol">
+                        <img src={Conductor}/>
+                        <p>Conductor</p>
+                    </div>
+                </Link>
             </div>
         </>
     )
