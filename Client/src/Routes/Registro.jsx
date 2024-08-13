@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export const Registro = ()=>{
     return(
     <>
-    <Header />
+        <Header />
         <div className="containerRol">
             <Link to='/Registro/Usuario' className="linkRegistro">
                 <div className="rol">

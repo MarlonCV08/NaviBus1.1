@@ -28,7 +28,7 @@ export const Menu = () => {
           <Link to="/Actualizar">Actualizar datos</Link>
         </li>
         <li>
-          <Link to="/AsignarRuta">Asignar ruta</Link>
+          <Link to="/Asignar">Asignar Ruta</Link>
         </li>
         <li>
           <a href="../../sesiones/logout.php">Cerrar sesión</a>

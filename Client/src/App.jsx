@@ -12,6 +12,8 @@ import { Despachador } from "./Routes/Despachador"
 import { Conductores } from "./Routes/Conductores"
 import { Conductor } from "./Routes/Conductor"
 import { Actualizar } from "./Routes/Actualizar"
+import { Asignar } from "./Routes/Asignar"
+import { AsignarDespa } from "./Routes/AsignarDespa"
 
 const router = createBrowserRouter ([
     {
@@ -63,6 +65,14 @@ const router = createBrowserRouter ([
     {
         path:"/Actualizar",
         element: <Actualizar/>
+    },
+    {
+        path:"/Asignar",
+        element: <Asignar/>
+    },
+    {
+        path: "/Asignar/Despachador",
+        element: <AsignarDespa/>
     }
 ])
 
