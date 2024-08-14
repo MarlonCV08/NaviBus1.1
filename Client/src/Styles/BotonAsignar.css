@@ -1,0 +1,40 @@
+.Toastify__toast-container {
+    width: 23vw;
+}
+.botonAsignar {
+    width: 7vw;
+    color: #fefefe;
+    background: #7579E7;
+    border-radius: 5px;
+    border: none;
+    position: fixed;
+    right: 2%;
+    bottom: 2%;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    z-index: 1;
+}
+
+.aviso {
+    background-color: #4CAF50;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    height: 10vh;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; /* Transición de 0.5 segundos */
+}
+
+.aviso.mostrar {
+    opacity: 1; /* Hace que el aviso sea visible */
+}
+
+.aviso.oculto {
+    opacity: 0; /* Hace que el aviso sea invisible */
+}
