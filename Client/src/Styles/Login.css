@@ -9,6 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 .contenedorLog{
   backdrop-filter: blur(5.5px);
@@ -67,6 +68,9 @@
 .visible{
   visibility: visible;
   cursor: pointer;
+}
+.noVisible{
+  visibility: collapse;
 }
 .button{
   position: relative;

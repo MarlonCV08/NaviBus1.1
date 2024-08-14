@@ -5,7 +5,7 @@ import "../Styles/BotonAsignar.css"
 export const BotonAsignar=()=>{
   const notify = () => toast.success('La ruta ha sido asignada correctamente', {
     position: "bottom-left",
-    autoClose: 5000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
