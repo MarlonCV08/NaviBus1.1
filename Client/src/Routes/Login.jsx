@@ -46,8 +46,7 @@ export const Login = () => {
       return () => clearTimeout(timer);
     }
   }, [mostrarError]);
-
-
+  
   return (
     <div className="login">
       <form className="contenedorLog" onSubmit={handleSubmit}>
@@ -66,17 +65,22 @@ export const Login = () => {
         </div>
         <div className="usuario">
           <input 
-            type="password" 
+            type={mostrarClave ? "text" : "password"} // Cambia el tipo de input basado en el estado
             className="inputusuario" 
             value={clave} 
-            onChange={(e) => setClave(e.target.value)}
+            onChange={handleClaveChange}
           />
           <label className="usuariotxt">Contraseña</label>
-          <img src={OjoAbierto} className='ojo' />
+          <img 
+            src={mostrarClave ? OjoCerrado : OjoAbierto} 
+            className={`ojo ${mostrarOjo ? 'visible' : 'noVisible'}`} 
+            onClick={toggleMostrarClave}
+            alt="Toggle visibility"
+          />
         </div>
         <input type="submit" className='button' value="Ingresar" />
       </form>
       {mostrarError && <div className="mensajeError">{error}</div>}
     </div>
-  )
-}
+  );
+};

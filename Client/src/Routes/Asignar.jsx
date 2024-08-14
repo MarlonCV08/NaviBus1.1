@@ -14,7 +14,7 @@ export const Asignar = ()=>{
                     <p>Despachador</p>
                 </div>
             </Link>
-            <Link to='/Registro/Vehiculo' className="linkRegistro">
+            <Link to='/Asignar/Conductor' className="linkRegistro">
                 <div className="rol">
                     <img src={Conductor}/>
                     <p>Administrador</p>
