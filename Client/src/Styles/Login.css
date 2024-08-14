@@ -102,20 +102,6 @@ position:fixed;
 -webkit-filter: url("#goo");
         filter: url("#goo");
 }
-.asignar {
-  background-color: #ff0000;
-  color: #fff;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: grid;
-  place-content: center;
-  text-align: center;
-  transition: opacity 0.5s ease;
-  height: 10vh;
-  opacity: 0;
-}
 @keyframes mostrar {
   from {
       opacity: 0; /* Invisible al inicio */
@@ -142,4 +128,17 @@ position:fixed;
   animation: ocultar 1s ease-out forwards;
   z-index: 0;
   -webkit-animation: ocultar 1s ease-out forwards;
+}
+
+.mensajeError {
+  background-color: #ff0000;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  height: 10vh;
 }

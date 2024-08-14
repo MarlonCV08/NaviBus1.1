@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Logout } from "./Logout";
 import "../Styles/Menu.css";
 
 export const Menu = () => {
@@ -31,7 +32,7 @@ export const Menu = () => {
           <Link to="/Asignar">Asignar Ruta</Link>
         </li>
         <li>
-          <a href="../../sesiones/logout.php">Cerrar sesión</a>
+          <Link to={"/"}>Cerrar sesión</Link>
         </li>
       </ul>
     </>

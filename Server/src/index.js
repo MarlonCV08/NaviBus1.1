@@ -1,26 +1,16 @@
 const express = require('express');
-const mysql = require('mysql2');
-const userRoutes = require('./routes/userRoutes');
-
 const app = express();
 const PORT = 3000;
 
-//Configurar la conexion a la base de datos
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'navibus'
-});
+const db = require('./db');
+const cors = require('./cors');
+const userRoutes = require('./routes/userRoutes');
 
-//Conectar la base de datos
-db.connect((err)=> {
-  if (err) {
-    console.error('Error de conexion a la base de datos:', err);
-    return;
-  }
-  console.log('Conectado a la base de datos MYSQL');
-});
+//Configurar Express para manejar JSON
+app.use(express.json());
+
+//configurar CORS
+app.use(cors);
 
 app.get('/', (req, res)=> {
   res.send('Hola soy la raiz');
@@ -41,6 +31,7 @@ app.get('/usuarios', (req, res)=> {
 });
 
 app.use('/', userRoutes(db));
+
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
