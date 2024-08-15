@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import OjoAbierto from '../Assets/Images/Ojo.svg';
 import OjoCerrado from '../Assets/Images/OjoCerrado.svg';
 import '../Styles/Login.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -12,6 +13,17 @@ export const Login = () => {
   const [mostrarOjo, setMostrarOjo] = useState(false);
   const [subirUser, setSubirUser] = useState(false);
   const [subirPass, setSubirPass] = useState(false);
+  
+  const notify = () => toast.error('Usuario o contraseña incorrectos', {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored"
+    });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +42,7 @@ export const Login = () => {
         console.log('Inicio de sesión exitoso', data);
         window.location.href = '/Ruta';
       } else {
-        setError(data.message || 'Usuario o clave incorrectos');
+        setError(notify);
         setMostrarError(true);
       }
     } catch (error) {
@@ -39,16 +51,6 @@ export const Login = () => {
       setMostrarError(true);
     }
   };
-
-  useEffect(() => {
-    if(mostrarError) {
-      const timer = setTimeout(() => {
-        setMostrarError(false);
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [mostrarError]);
-
   const toggleMostrarClave = () => {
     setMostrarClave(!mostrarClave);
   };
@@ -98,7 +100,7 @@ export const Login = () => {
         </div>
         <input type="submit" className='button' value="Ingresar" />
       </form>
-      {mostrarError && <div className="mensajeError">{error}</div>}
+      <ToastContainer closeButton={false}/>
     </div>
   );
 };

@@ -108,7 +108,7 @@ position:fixed;
 -webkit-filter: url("#goo");
         filter: url("#goo");
 }
-.asignar {
+.mensajeError {
   background-color: #ff0000;
   color: #fff;
   position: fixed;
