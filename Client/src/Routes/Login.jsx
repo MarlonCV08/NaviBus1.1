@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef} from 'react';
 import OjoAbierto from '../Assets/Images/Ojo.svg';
 import OjoCerrado from '../Assets/Images/OjoCerrado.svg';
 import '../Styles/Login.css';
@@ -31,28 +31,6 @@ export const Login = () => {
     setUsuario(value);
     setSubirUser(value.length > 0); // Mueve la etiqueta si hay texto
   };
-
-  const handleClickOutside = (e) => {
-    if (
-      usuarioRef.current && !usuarioRef.current.contains(e.target) &&
-      claveRef.current && !claveRef.current.contains(e.target)
-    ) {
-      // Desactiva las etiquetas si los campos están vacíos
-      if (usuario.length === 0) {
-        setSubirUser(false);
-      }
-      if (clave.length === 0) {
-        setSubirPass(false);
-      }
-    }
-  };
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [usuario, clave]);
-
   return (
     <div className="login">
       <form className="contenedorLog">
