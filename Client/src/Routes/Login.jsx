@@ -1,76 +1,84 @@
-import { useState, useEffect } from 'react';
-import OjoAbierto from '../Assets/Images/OjoAbierto.svg';
+import { useState, useRef, useEffect } from 'react';
+import OjoAbierto from '../Assets/Images/Ojo.svg';
 import OjoCerrado from '../Assets/Images/OjoCerrado.svg';
 import '../Styles/Login.css';
 
 export const Login = () => {
   const [usuario, setUsuario] = useState('');
   const [clave, setClave] = useState('');
-  const [error, setError] = useState('');
-  const [mostrarError, setMostrarError] = useState(false)
+  const [mostrarClave, setMostrarClave] = useState(false);
+  const [mostrarOjo, setMostrarOjo] = useState(false);
+  const [subirUser, setSubirUser] = useState(false);
+  const [subirPass, setSubirPass] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // Referencias para los inputs
+  const usuarioRef = useRef(null);
+  const claveRef = useRef(null);
 
-    try {
-      const response = await fetch('http://localhost:3000/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ usuario, clave }),
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        console.log('Inicio de sesión exitoso', data);
-        window.location.href = '/Ruta';
-      } else {
-        setError(data.message || 'Usuario o clave incorrectos');
-        setMostrarError(true);
-      }
-    } catch (error) {
-      console.error('Error al iniciar sesión: ', error);
-      setError('Hubo un problema con el servidor, por favor intente nuevamente más tarde');
-      setMostrarError(true);
-    }
+  const toggleMostrarClave = () => {
+    setMostrarClave(!mostrarClave);
   };
 
-  useEffect(() => {
-    if(mostrarError) {
-      const timer = setTimeout(() => {
-        setMostrarError(false);
-      }, 5000);
+  const handleClaveChange = (e) => {
+    const value = e.target.value;
+    setClave(value);
+    setMostrarOjo(value.length > 0);
+    setSubirPass(value.length > 0); // Mueve la etiqueta si hay texto
+  };
 
-      return () => clearTimeout(timer);
+  const handleUsuarioChange = (e) => {
+    const value = e.target.value;
+    setUsuario(value);
+    setSubirUser(value.length > 0); // Mueve la etiqueta si hay texto
+  };
+
+  const handleClickOutside = (e) => {
+    if (
+      usuarioRef.current && !usuarioRef.current.contains(e.target) &&
+      claveRef.current && !claveRef.current.contains(e.target)
+    ) {
+      // Desactiva las etiquetas si los campos están vacíos
+      if (usuario.length === 0) {
+        setSubirUser(false);
+      }
+      if (clave.length === 0) {
+        setSubirPass(false);
+      }
     }
-  }, [mostrarError]);
-  
+  };
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [usuario, clave]);
+
   return (
     <div className="login">
-      <form className="contenedorLog" onSubmit={handleSubmit}>
+      <form className="contenedorLog">
         <div className="contenedortitulo">
           <label className="titulo">Iniciar Sesión</label>
         </div>
-        <div className="usuario">
+        <div className="usuario" ref={usuarioRef}>
           <input 
             type="text" 
             id="usuario" 
-            className="inputusuario" 
+            className="inputusuario"
             value={usuario} 
-            onChange={(e) => setUsuario(e.target.value)} 
+            onChange={handleUsuarioChange}
+            onFocus={() => handleFocus('usuario')} // Maneja el enfoque en el input de usuario
           />
-          <label className="usuariotxt">Usuario</label>
+          <label className={`usuariotxt ${subirUser ? 'subir' : ''}`}>Usuario</label>
         </div>
-        <div className="usuario">
+        <div className="usuario" ref={claveRef}>
           <input 
-            type={mostrarClave ? "text" : "password"} // Cambia el tipo de input basado en el estado
+            type={mostrarClave ? "text" : "password"}
             className="inputusuario" 
             value={clave} 
             onChange={handleClaveChange}
+            onFocus={() => handleFocus('clave')} // Maneja el enfoque en el input de contraseña
           />
-          <label className="usuariotxt">Contraseña</label>
+          <label className={`usuariotxt ${subirPass ? 'subir' : ''}`}>Contraseña</label>
           <img 
             src={mostrarClave ? OjoCerrado : OjoAbierto} 
             className={`ojo ${mostrarOjo ? 'visible' : 'noVisible'}`} 
@@ -80,7 +88,6 @@ export const Login = () => {
         </div>
         <input type="submit" className='button' value="Ingresar" />
       </form>
-      {mostrarError && <div className="mensajeError">{error}</div>}
     </div>
   );
 };
