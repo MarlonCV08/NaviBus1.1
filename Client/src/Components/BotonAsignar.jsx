@@ -15,7 +15,7 @@ export const BotonAsignar=()=>{
     });
   return (
     <div>
-      <button className='botonAsignar' onClick={notify}>Notify!</button>
+      <button className='botonAsignar' onClick={notify}>Asignar</button>
       <ToastContainer closeButton={false}/>
     </div>
   );

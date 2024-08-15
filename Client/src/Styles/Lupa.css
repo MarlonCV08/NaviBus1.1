@@ -1,6 +1,4 @@
 .lupa{
-    position: fixed;
-    right: 1%;
     background: #7579E7;
 }
 .lupaHijo{
@@ -12,7 +10,7 @@
 .lupa img{
     cursor: pointer;
 }
-.lupa input{
+.lupaInput{
     width: 0;
     height: 40px;
     position: relative;
@@ -21,9 +19,6 @@
     outline: none;
     border-radius: 10px;
     padding: 0;
-}
-.lupa input::placeholder{
-    margin-left: 50px;
 }
 @keyframes growFromLeft {
     from {
@@ -64,4 +59,38 @@
 }
 .noVisible{
     display: none;
+}
+@media (max-width: 600px) {
+    @keyframes growFromLeftSmall {
+        from {
+            display: none;
+            width: 0;
+            padding-left: 0;
+        }
+        to {
+            display: inline;
+            width: 200px; /* Ancho reducido para pantallas pequeñas */
+            padding-left: 5px;
+        }
+    }
+    @keyframes shrinkToLeftSmall {
+        from {
+            display: inline;
+            width: 200px;
+            padding-left: 5px;
+        }
+        to {
+          width: 0;
+          display: none;
+          padding-left: 0;
+        }
+    }
+    .grow {
+        animation: growFromLeftSmall .7s ease-out forwards;
+        -webkit-animation: growFromLeftSmall .7s ease-out forwards;
+    }
+    .shrink {
+        animation: shrinkToLeftSmall .7s ease-out;
+        -webkit-animation: shrinkToLeftSmall .7s ease-out;
+}
 }

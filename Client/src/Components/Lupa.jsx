@@ -9,7 +9,7 @@ export const Lupa = ()=>{
     return(
         <div className="lupa">
             <div className="lupaHijo">
-                <input type="text" className={`${lupa ? 'grow visible' : 'shrink  noVisible'}`} placeholder="Buscar..."/>
+                <input type="text" className={`lupaInput ${lupa ? 'grow visible' : 'shrink noVisible'}`} placeholder="Buscar..."/>
 
                 <img src={lupaImage} className="imgLupa"  onClick={handleMenuToggle}/>
             </div>

@@ -29,3 +29,9 @@
 .linkRegistro{
     text-decoration: none;
 }
+@media (max-width: 600px) {
+    .containerRol {
+        flex-direction: column;
+        top: 17vh;
+    }
+}
