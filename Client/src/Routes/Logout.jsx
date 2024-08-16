@@ -10,6 +10,6 @@ export const Logout = () => {
   };
 
   return (
-    <button onClick={handleLogout}>Cerrar sesion</button>
+    <button className="btnLogout" onClick={handleLogout}>Cerrar sesion</button>
   );
 };

@@ -8,8 +8,6 @@ import { useNavigate } from 'react-router-dom';
 export const Login = () => {
   const [usuario, setUsuario] = useState('');
   const [clave, setClave] = useState('');
-  const [error, setError] = useState('');
-  const [mostrarError, setMostrarError] = useState(false);
   const [mostrarClave, setMostrarClave] = useState(false);
   const [mostrarOjo, setMostrarOjo] = useState(false);
   const [subirUser, setSubirUser] = useState(false);
@@ -17,7 +15,7 @@ export const Login = () => {
 
   const navigate = useNavigate();
   
-  const notify = () => toast.error('Usuario o contraseña incorrectos', {
+  const notify = (message) => toast.error(message, {
     position: "top-center",
     autoClose: 2000,
     hideProgressBar: false,
@@ -48,11 +46,11 @@ export const Login = () => {
         localStorage.setItem('token', token);
         navigate('/Ruta');
       } else {
-        notify();
+        notify(data.message || "Error desconocido.");
       }
     } catch (error) {
       console.error('Error al iniciar sesión: ', error);
-      notify();
+      notify('Error al conectar con el servidor');
     }
   };
   const toggleMostrarClave = () => {

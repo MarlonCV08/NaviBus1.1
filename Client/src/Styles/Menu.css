@@ -55,13 +55,22 @@ button{
     display: none;
     z-index: -1;
 }
-.menu a{
+.menu a, .btnLogout{
     text-decoration: none;
     color: #7579E7;
+    font-size: medium;
+}
+.btnLogout {
+    width: auto;
+    margin-bottom: 0;
+    height: auto;
 }
 .menu li{
     padding: 5px 2px 5px 2px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .menu li:hover{
     background: rgba(117, 121, 231, 0.25);

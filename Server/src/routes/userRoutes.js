@@ -24,8 +24,7 @@ const userRoutes = (db) => {
       if(results.length > 0) {
         const token = jwt.sign(
           { usuario: results[0].usuario, rol: results[0].rol }, 
-          SECRET_KEY, 
-          { expiresIn: '10s' }
+          SECRET_KEY
         );
 
         res.json({ token, message: 'Inicio de sesión exitoso', user: results[0] });
