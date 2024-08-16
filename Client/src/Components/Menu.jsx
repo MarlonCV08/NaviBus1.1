@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Logout } from "./Logout";
 import "../Styles/Menu.css";
+import { Logout } from "../Routes/Logout";
 
 export const Menu = () => {
   const [activar, setActivar] = useState(false);
@@ -32,7 +32,7 @@ export const Menu = () => {
           <Link to="/Asignar">Asignar Ruta</Link>
         </li>
         <li>
-          <Link to={"/"}>Cerrar sesión</Link>
+          <Logout />
         </li>
       </ul>
     </>

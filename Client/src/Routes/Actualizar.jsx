@@ -10,28 +10,28 @@ export const Actualizar = ()=>{
             <div className="contenedorPadre">
                 <form className="contenedor">
                     <section>
-                        <input type="text" class="input" placeholder="Nombres"/>
+                        <input type="text" className="input" placeholder="Nombres"/>
                     </section>
                     <section>
-                        <input type="text" class="input" placeholder="Apellidos"/>
+                        <input type="text" className="input" placeholder="Apellidos"/>
                     </section>
                     <section>
                         <Dropdown/>
                     </section>
                     <section>
-                        <input type="text" class="input" placeholder="Documento"/>
+                        <input type="text" className="input" placeholder="Documento"/>
                     </section>
                     <section>
-                        <input type="text" class="input" placeholder="Correo"/>
+                        <input type="text" className="input" placeholder="Correo"/>
                     </section>
                     <section>
                         <input type="hidden" value={1}/>
                     </section>
-                    <section class="botones">
+                    <section className="botones">
                     <Link to='/Registro/Usuario' className="linkRegistro">
-                        <input type="button" value="Cancelar" class="boton"/>
+                        <input type="button" value="Cancelar" className="boton"/>
                     </Link>
-                        <input type="submit" value="Enviar" class="boton"/>
+                        <input type="submit" value="Enviar" className="boton"/>
                     </section>
                 </form>
             </div>

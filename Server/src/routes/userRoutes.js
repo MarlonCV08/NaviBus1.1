@@ -1,6 +1,9 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
+
+const SECRET_KEY = 'Steven';
  
 const userRoutes = (db) => {
   router.post('/', (req, res) => {
@@ -19,7 +22,13 @@ const userRoutes = (db) => {
       }
 
       if(results.length > 0) {
-        res.json({ message: 'Inicio de sesión exitoso', user: results[0] });
+        const token = jwt.sign(
+          { usuario: results[0].usuario, rol: results[0].rol }, 
+          SECRET_KEY, 
+          { expiresIn: '10s' }
+        );
+
+        res.json({ token, message: 'Inicio de sesión exitoso', user: results[0] });
       } else {
         res.status(401).json({ message: 'Usuario o clave incorrectos' });
       }

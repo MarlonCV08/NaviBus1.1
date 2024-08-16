@@ -28,58 +28,58 @@ const router = createBrowserRouter ([
             {
                 path: "/Ruta",
                 element: <Ruta />
+            },
+            {
+                path: "/Ruta/Conductores",
+                element: <Conductores />
+            },
+            {
+                path: "/Ruta/Conductores/Control",
+                element: <Control />
+            },
+            {
+                path: "/Registro",
+                element: <Registro />
+            },
+            {
+                path: "/Registro/Usuario",
+                element: <Usuario />
+            },
+            {
+                path: "/Registro/Usuario/Admin",
+                element: <Admin />
+            },
+            {
+                path: "/Registro/Usuario/Despachador",
+                element: <Despachador />
+            },
+            {
+                path: "/Registro/Usuario/Conductor",
+                element: <Conductor/>
+            },
+            {
+                path: "/Registro/Vehiculo",
+                element: <Vehiculo />
+            },
+            {
+                path:"/Actualizar",
+                element: <Actualizar/>
+            },
+            {
+                path:"/Asignar",
+                element: <Asignar/>
+            },
+            {
+                path: "/Asignar/Despachador",
+                element: <AsignarDespa/>
+            },
+            {
+                path: "/Asignar/Conductor",
+                element: <AsignarCondu/>
             }
         ]
-    },
-    {
-        path: "/Ruta/Conductores",
-        element: <Conductores />
-    },
-    {
-        path: "/Ruta/Conductor/Control",
-        element: <Control />
-    },
-    {
-        path: "/Registro",
-        element: <Registro />
-    },
-    {
-        path: "/Registro/Usuario",
-        element: <Usuario />
-    },
-    {
-        path: "/Registro/Usuario/Admin",
-        element: <Admin />
-    },
-    {
-        path: "/Registro/Usuario/Despachador",
-        element: <Despachador />
-    },
-    {
-        path: "/Registro/Usuario/Conductor",
-        element: <Conductor/>
-    },
-    {
-        path: "/Registro/Vehiculo",
-        element: <Vehiculo />
-    },
-    {
-        path:"/Actualizar",
-        element: <Actualizar/>
-    },
-    {
-        path:"/Asignar",
-        element: <Asignar/>
-    },
-    {
-        path: "/Asignar/Despachador",
-        element: <AsignarDespa/>
-    },
-    {
-        path: "/Asignar/Conductor",
-        element: <AsignarCondu/>
     }
-])
+]);
 
 export const App = ()=>{
 

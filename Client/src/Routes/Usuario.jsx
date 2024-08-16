@@ -8,21 +8,21 @@ export const Usuario =()=>{
     return(
         <>
             <Header />
-            <div class="contenedorRol">
+            <div className="contenedorRol">
                 <Link to="/Registro/Usuario/Admin" className="Link">
-                    <div class="rol">
+                    <div className="rol">
                         <img src={Admin}/>
                         <p>Administrador</p>
                     </div>
                 </Link>
                 <Link to="/Registro/Usuario/Despachador" className="Link">
-                    <div class="rol">
+                    <div className="rol">
                         <img src={Despachador}/>
                         <p>Despachador</p>
                     </div>
                 </Link>
                 <Link to="/Registro/Usuario/Conductor" className="Link">
-                    <div class="rol">
+                    <div className="rol">
                         <img src={Conductor}/>
                         <p>Conductor</p>
                     </div>

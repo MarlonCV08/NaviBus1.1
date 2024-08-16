@@ -3,6 +3,7 @@ import OjoAbierto from '../Assets/Images/Ojo.svg';
 import OjoCerrado from '../Assets/Images/OjoCerrado.svg';
 import '../Styles/Login.css';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -13,6 +14,8 @@ export const Login = () => {
   const [mostrarOjo, setMostrarOjo] = useState(false);
   const [subirUser, setSubirUser] = useState(false);
   const [subirPass, setSubirPass] = useState(false);
+
+  const navigate = useNavigate();
   
   const notify = () => toast.error('Usuario o contraseña incorrectos', {
     position: "top-center",
@@ -37,18 +40,19 @@ export const Login = () => {
       });
 
       const data = await response.json();
-
+      const token = data.token;
+      
       if (response.ok) {
         console.log('Inicio de sesión exitoso', data);
-        window.location.href = '/Ruta';
+        console.log('token recibido', token);
+        localStorage.setItem('token', token);
+        navigate('/Ruta');
       } else {
-        setError(notify);
-        setMostrarError(true);
+        notify();
       }
     } catch (error) {
       console.error('Error al iniciar sesión: ', error);
-      setError('Hubo un problema con el servidor, por favor intente nuevamente más tarde');
-      setMostrarError(true);
+      notify();
     }
   };
   const toggleMostrarClave = () => {
