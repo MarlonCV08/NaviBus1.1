@@ -7,7 +7,7 @@ import { Notificacion } from '../Components/Notificacion'
 export const Conductores =()=>{
     return(
         <>
-        <Header />
+            <Header />
             <div className="contInfo">
                 <div className="infoConductor">
                     <div className='div'>

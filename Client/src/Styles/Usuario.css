@@ -5,8 +5,8 @@
     justify-content: center;
     align-items: center;
     align-items: center;
-    gap: 20px;
-    overflow-x: none;
+    gap: 5%;
+    position: relative;
 }
 .Link{
     text-decoration: none;
@@ -15,11 +15,17 @@
     text-align: center;
     background: #D9D9D9;
     border-radius: 10px;
-    padding: 5%;
+    padding: 2%;
     cursor: pointer;
 }
 .rol p{
     color: #7579E7;
     font-size: 1.5rem;
     margin-top: 10px;
+}
+@media (max-width: 1000px) {
+    .contenedorRol{
+        flex-direction: column;
+        top: 40vh;
+    }
 }
