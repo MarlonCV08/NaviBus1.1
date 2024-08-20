@@ -7,14 +7,14 @@ const SECRET_KEY = 'Steven';
  
 const userRoutes = (db) => {
   router.post('/', (req, res) => {
-    const { usuario, clave } = req.body;
+    const { usuario, clave, rol } = req.body;
 
     if(!usuario || !clave) {
       return res.status(400).json({ message: 'Usuario y clave son requeridos' });
     }
 
-    const sql = 'SELECT * FROM login WHERE usuario = ? AND clave = ?';
-    db.query(sql, [usuario, clave], (err, results) => {
+    const sql = 'SELECT * FROM login WHERE usuario = ? AND clave = ? AND rol = ?';
+    db.query(sql, [usuario, clave, rol], (err, results) => {
       if(err) {
         console.error('Error al ejecutar la consulta: ', err);
         res.status(500).send('Error al ejecutar la consulta');

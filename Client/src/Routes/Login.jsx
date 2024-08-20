@@ -15,7 +15,10 @@ export const Login = () => {
 
   const navigate = useNavigate();
   
-  const notify = (message) => toast.error(message, {
+  const notify = (message) => {
+    toast.dismiss();
+    
+    toast.error(message, {
     position: "top-center",
     autoClose: 2000,
     hideProgressBar: false,
@@ -25,6 +28,7 @@ export const Login = () => {
     progress: undefined,
     theme: "colored"
     });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +38,7 @@ export const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ usuario, clave }),
+        body: JSON.stringify({ usuario, clave, rol:1 }),
       });
 
       const data = await response.json();
