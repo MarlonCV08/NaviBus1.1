@@ -38,17 +38,31 @@ export const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ usuario, clave, rol:1 }),
+        body: JSON.stringify({ usuario, clave, rol:'administrador' }),
       });
 
       const data = await response.json();
-      const token = data.token;
+      console.log('Respuesta del servidor', data);
       
       if (response.ok) {
+        const token = data.token;
+        const userRole = data.user?.rol;
+
         console.log('Inicio de sesión exitoso', data);
         console.log('token recibido', token);
+
         localStorage.setItem('token', token);
-        navigate('/Ruta');
+        switch (userRole) {
+          case 'administrador':
+            navigate('/Ruta');
+            break;
+          case 'conductor':
+            navigate('/Validar');
+            break;
+          default:
+            navigate('/');
+            break;
+        }
       } else {
         notify(data.message || "Error desconocido.");
       }

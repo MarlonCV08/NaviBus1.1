@@ -7,27 +7,34 @@ const SECRET_KEY = 'Steven';
  
 const userRoutes = (db) => {
   router.post('/', (req, res) => {
-    const { usuario, clave, rol } = req.body;
+    const { usuario, clave } = req.body;
 
     if(!usuario || !clave) {
       return res.status(400).json({ message: 'Usuario y clave son requeridos' });
     }
 
-    const sql = 'SELECT * FROM login WHERE usuario = ? AND clave = ? AND rol = ?';
-    db.query(sql, [usuario, clave, rol], (err, results) => {
+    const sql = 'SELECT * FROM login WHERE usuario = ? AND clave = ?';
+    db.query(sql, [usuario, clave], (err, results) => {
       if(err) {
         console.error('Error al ejecutar la consulta: ', err);
-        res.status(500).send('Error al ejecutar la consulta');
-        return;
+        return res.status(500).send('Error al ejecutar la consulta');
       }
 
       if(results.length > 0) {
+        const user = results[0];
+        const roleMap = { 1:'administrador', 2:'conductor' };
+        const userRole = roleMap[user.rol];
+
+        if (!userRole) {
+          return res.status(403).json({ message: `Rol '${user.rol}' no valido.` });
+        }
+
         const token = jwt.sign(
-          { usuario: results[0].usuario, rol: results[0].rol }, 
+          { usuario: user.usuario, rol: userRole }, 
           SECRET_KEY
         );
 
-        res.json({ token, message: 'Inicio de sesión exitoso', user: results[0] });
+        res.json({ token, message: 'Inicio de sesión exitoso', user: { ...user, rol: userRole } });
       } else {
         res.status(401).json({ message: 'Usuario o clave incorrectos' });
       }

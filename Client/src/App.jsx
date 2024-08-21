@@ -15,12 +15,14 @@ import { Actualizar } from "./Routes/Actualizar"
 import { Asignar } from "./Routes/Asignar"
 import { AsignarDespa } from "./Routes/AsignarDespa"
 import { AsignarCondu } from "./Routes/AsignarCondu"
+import { Validar } from "./Routes/Validar"
 
 const router = createBrowserRouter ([
     {
         path: "/",
         element: <Login />
     },
+    
     {
         path: "/",
         element: <RutaProtegida />,
@@ -76,6 +78,11 @@ const router = createBrowserRouter ([
             {
                 path: "/Asignar/Conductor",
                 element: <AsignarCondu/>
+            },
+            {
+                path: "Validar",
+                element: <Validar />,
+                allowedRole: "conductor"
             }
         ]
     }
