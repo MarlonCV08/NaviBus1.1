@@ -38,7 +38,7 @@ export const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ usuario, clave, rol:'administrador' }),
+        body: JSON.stringify({ usuario, clave }),
       });
 
       const data = await response.json();
