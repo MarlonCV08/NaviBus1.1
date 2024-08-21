@@ -4,7 +4,6 @@
 @media (max-width: 600px) {
     .selected{
         display: none;
-        opacity: 0;
     }
     .dropdownRuta{
         width: 25px;

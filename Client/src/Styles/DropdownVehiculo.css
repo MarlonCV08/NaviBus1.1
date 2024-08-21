@@ -1,0 +1,47 @@
+.validar{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sectionValidar{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.dropdownValidar{
+    width: 55vw;
+}
+.menuList{
+    width: 100%;
+}
+.selected{
+    display: block;
+}
+.inputValidar{
+    border: solid 1px #7579E7;
+    border-radius: 5px;
+    width: 55vw;
+    height: 5vh;
+    outline: none;
+    padding-left: 5px;
+    background: #fefefe;
+}
+.sectionBtnValidar{
+    width: 55vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnValidar{
+    background: #7579E7;
+    text-align: center;
+    width: 40vw;
+    color: #fefefe;
+    border-radius: 5px;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

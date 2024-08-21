@@ -1,8 +1,19 @@
+import { DropdownVehiculo } from "../Components/DropdownVehiculo"
+import { Loader } from "../Components/Loader"
 export const Validar = () => {
   return(
-    <div>
-      <h1>Conductor</h1>
-      <p>Este es el rol del conductor.</p>
-    </div>
+    <>
+      <div className="validar">
+        <section className="sectionValidar">
+          <DropdownVehiculo/>
+          <input type="text" className="inputValidar" placeholder="Placa"/>
+          <input type="text" className="inputValidar" placeholder="ID despachador" />
+          <section className="sectionBtnValidar">
+            <button className="btnValidar">Validar</button>
+          </section>
+          <Loader/>
+        </section>
+      </div>
+    </>
   )
 }
