@@ -1,0 +1,6 @@
+@media (max-width: 700px) {
+    .contenedor{
+        position: relative;
+        top: 13vh;
+    }
+}

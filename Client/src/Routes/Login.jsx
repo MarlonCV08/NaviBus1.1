@@ -106,7 +106,7 @@ export const Login = () => {
         </div>
         <input type="submit" className='button' value="Ingresar" />
       </form>
-      <ToastContainer closeButton={false}/>
+      <ToastContainer closeButton={false} limit={1}/>
     </div>
   );
 };

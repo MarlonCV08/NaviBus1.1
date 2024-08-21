@@ -3,6 +3,7 @@ import { Dropdown } from "../Components/Dropdown"
 import Camara from "../Assets/Images/Camara.svg"
 import { Link } from "react-router-dom"
 import { Categoria } from "../Components/Categoria"
+import "../Styles/Conductor.css"
 export const Conductor =()=>{
     return (
         <>

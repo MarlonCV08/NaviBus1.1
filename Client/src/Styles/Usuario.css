@@ -26,6 +26,6 @@
 @media (max-width: 1000px) {
     .contenedorRol{
         flex-direction: column;
-        top: 40vh;
+        top: 23vh;
     }
 }

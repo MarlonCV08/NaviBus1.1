@@ -1,5 +1,5 @@
 .dropdownRuta{
-    min-width: 30vh;
+    width: 30vh;
     position: relative;
     margin-right: 2.6%;
 }
@@ -43,7 +43,7 @@
     position: absolute;
     top: 7vh;
     left: 50%;
-    width: 100%;
+    width: 30vh;
     transform: translateX(-50%);
     opacity: 0;
     display: none;
