@@ -16,6 +16,7 @@ import { Asignar } from "./Routes/Asignar"
 import { AsignarDespa } from "./Routes/AsignarDespa"
 import { AsignarCondu } from "./Routes/AsignarCondu"
 import { Validar } from "./Routes/Validar"
+import { InfoDia } from "./Routes/InfoDia"
 
 const router = createBrowserRouter ([
     {
@@ -80,10 +81,16 @@ const router = createBrowserRouter ([
                 element: <AsignarCondu/>
             },
             {
-                path: "Validar",
+                path: "/Validar",
                 element: <Validar />,
                 allowedRole: "conductor"
+            },
+            {
+                path: "/Validar/InfoDia",
+                element: <InfoDia/>,
+                allowedRole: "conductor"
             }
+
         ]
     }
 ]);
