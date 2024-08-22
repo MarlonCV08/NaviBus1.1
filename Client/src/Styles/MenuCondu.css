@@ -1,0 +1,45 @@
+.menuCondu {
+    position: fixed;
+    background: #fefefe;
+    min-width: 220px;
+    text-align: center;
+    outline: none;
+    border: solid 1px #7579E7;
+    border-radius: 5px;
+    margin: 15px;
+    top: 10vh;
+    color: #7579E7;
+    transition: all .5s;
+    list-style: none;
+    display: none;
+    z-index: -1;
+}
+.menuCondu a, .btnLogout{
+    text-decoration: none;
+    color: #7579E7;
+    font-size: medium;
+}
+.btnLogout {
+    width: auto;
+    margin-bottom: 0;
+    height: auto;
+}
+.menuCondu li{
+    padding: 5px 2px 5px 2px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menuCondu li:hover{
+    background: rgba(117, 121, 231, 0.25);
+}
+.visible{
+    display: block;
+}
+.encima{
+    z-index: 2;
+}
+.abajo{
+    z-index: -1;
+}

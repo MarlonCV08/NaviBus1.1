@@ -1,12 +1,9 @@
-import { Link } from "react-router-dom"
-import Usuario from '../Assets/Images/UserCondu.svg'
+import { MenuCondu } from "./MenuCondu"
 export const HeaderCondu = ()=>{
     return (
         <>
             <section className="curvedCondu">
-            <Link to='/Validar/Actualizar' className="linkRegistro">
-                    <img src={Usuario}/>
-            </Link>
+            <MenuCondu/>
             </section>
         </>
     )

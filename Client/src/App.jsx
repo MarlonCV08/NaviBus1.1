@@ -18,13 +18,17 @@ import { AsignarCondu } from "./Routes/AsignarCondu"
 import { Validar } from "./Routes/Validar"
 import { InfoDia } from "./Routes/InfoDia"
 import { ActualizarCondu } from "./Routes/ActualizarCondu"
+import { Permisos } from "./Routes/Permisos"
 
 const router = createBrowserRouter ([
     {
         path: "/",
         element: <Login />
     },
-    
+    {
+        path: "/Permisos",
+        element: <Permisos />
+    },
     {
         path: "/",
         element: <RutaProtegida />,
