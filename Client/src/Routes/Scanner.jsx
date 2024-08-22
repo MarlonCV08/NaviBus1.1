@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { HeaderDespa } from "../Components/HeaderDespa";
 
-export const Permisos = () => {
+export const Scanner = () => {
     const [scanResult, setScanResult] = useState(null);
 
     useEffect(() => {

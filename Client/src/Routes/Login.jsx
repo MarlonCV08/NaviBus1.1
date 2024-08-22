@@ -59,6 +59,9 @@ export const Login = () => {
           case 'conductor':
             navigate('/Validar');
             break;
+            case 'despachador':
+              navigate('/Scanner');
+              break;
           default:
             navigate('/');
             break;
