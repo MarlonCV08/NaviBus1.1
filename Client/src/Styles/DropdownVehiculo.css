@@ -13,11 +13,39 @@
 .dropdownValidar{
     width: 55vw;
 }
-.menuList{
-    width: 100%;
+.menuListValidar{
+    list-style: none;
+    padding: 0.2em 0.5em;
+    background: #fefefe;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    color: #7579E7;
+    position: absolute;
+    margin-top: 1%;
+    left: 50%;
+    width: 55vw;
+    transform: translateX(-50%);
+    transition: 0.2s;
+    z-index: 1;
+    border-radius: 0.5em;
+    border: 1px #7579E7 solid;
+    opacity: 0;
+    display: none;
+}
+.menuListValidar li{
+    padding: 0.7em 0.5em;
+    margin: 0.3em 0;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+.menuListValidar li:hover{
+    background: rgba(117, 121, 231, 0.25);
 }
 .selected{
     display: block;
+}
+.menu-open{
+    display: block;
+    opacity: 1;
 }
 .inputValidar{
     border: solid 1px #7579E7;

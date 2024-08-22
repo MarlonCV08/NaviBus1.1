@@ -17,6 +17,7 @@ import { AsignarDespa } from "./Routes/AsignarDespa"
 import { AsignarCondu } from "./Routes/AsignarCondu"
 import { Validar } from "./Routes/Validar"
 import { InfoDia } from "./Routes/InfoDia"
+import { ActualizarCondu } from "./Routes/ActualizarCondu"
 
 const router = createBrowserRouter ([
     {
@@ -88,6 +89,11 @@ const router = createBrowserRouter ([
             {
                 path: "/Validar/InfoDia",
                 element: <InfoDia/>,
+                allowedRole: "conductor"
+            },
+            {
+                path: "/Validar/Actualizar",
+                element: <ActualizarCondu/>,
                 allowedRole: "conductor"
             }
 

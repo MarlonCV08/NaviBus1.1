@@ -4,7 +4,7 @@ export const HeaderCondu = ()=>{
     return (
         <>
             <section className="curvedCondu">
-            <Link to='/Registro/Usuario' className="linkRegistro">
+            <Link to='/Validar/Actualizar' className="linkRegistro">
                     <img src={Usuario}/>
             </Link>
             </section>
