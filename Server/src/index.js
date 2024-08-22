@@ -16,11 +16,24 @@ app.get('/', (req, res)=> {
   res.send('Hola soy la raiz');
 });
 
-//Consulta a la base de datos
+//Consulta de usuarios a la base de datos
 app.get('/usuarios', (req, res)=> {
   const sql = 'SELECT * FROM login';
 
   db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+app.get('/api/rutas', (req, res)=> {
+  const sql = 'SELECT * FROM ruta';
+
+  db.query(sql, (err, results)=> {
     if (err) {
       console.error('Error al ejecutar la consulta:', err);
       res.status(500).send('Error al ejecutar la consulta');
