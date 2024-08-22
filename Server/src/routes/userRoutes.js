@@ -22,7 +22,7 @@ const userRoutes = (db) => {
 
       if(results.length > 0) {
         const user = results[0];
-        const roleMap = { 1:'administrador', 2:'conductor' };
+        const roleMap = { 1:'administrador', 2:'conductor', 3:'despachador' };
         const userRole = roleMap[user.rol];
 
         if (!userRole) {

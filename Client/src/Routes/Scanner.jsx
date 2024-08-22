@@ -1,9 +1,9 @@
 import { HeaderCondu } from "../Components/HeaderCondu"
 
-export const Permisos = ()=>{
+export const Scanner = ()=>{
     return (
         <>
-        <HeaderCondu/>
+            <HeaderCondu/>
         </>
     )
 }
