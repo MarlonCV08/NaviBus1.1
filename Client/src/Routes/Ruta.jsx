@@ -8,7 +8,7 @@ export const Ruta = ()=>{
     const [rutas, setRutas ] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/rutas')
+        fetch('http://localhost:3000/api/rutas?conductor=1')
         .then(response => response.json())
         .then(data => setRutas(data))
         .catch(error => console.error('Error al obtener las rutas:', error))

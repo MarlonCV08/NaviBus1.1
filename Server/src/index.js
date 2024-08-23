@@ -12,12 +12,14 @@ app.use(express.json());
 //configurar CORS
 app.use(cors);
 
-app.get('/', (req, res)=> {
+app.use('/', userRoutes(db));
+
+app.get('/', (req, res) => {
   res.send('Hola soy la raiz');
 });
 
 //Consulta de usuarios a la base de datos
-app.get('/usuarios', (req, res)=> {
+app.get('/usuarios', (req, res) => {
   const sql = 'SELECT * FROM login';
 
   db.query(sql, (err, results) => {
@@ -30,10 +32,11 @@ app.get('/usuarios', (req, res)=> {
   });
 });
 
-app.get('/api/rutas', (req, res)=> {
+//Consulta de rutas a la base de datos
+app.get('/api/rutas', (req, res) => {
   const sql = 'SELECT * FROM ruta';
 
-  db.query(sql, (err, results)=> {
+  db.query(sql, (err, results) => {
     if (err) {
       console.error('Error al ejecutar la consulta:', err);
       res.status(500).send('Error al ejecutar la consulta');
@@ -43,7 +46,19 @@ app.get('/api/rutas', (req, res)=> {
   });
 });
 
-app.use('/', userRoutes(db));
+//Consulta de conductores a la base de datos
+app.get('/api/conductores', (req, res) => {
+  const sql = 'SELECT * from conductor';
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
+  });
+});
 
 
 app.listen(PORT, () => {
