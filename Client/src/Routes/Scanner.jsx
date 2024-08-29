@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
-import { HeaderDespa } from "../Components/HeaderDespa";
+import '../Styles/Scanner.css';
+import { HeaderCondu } from "../Components/HeaderCondu";
+import ScanQR from '../Assets/Images/ScanQR.svg'
 
 export const Scanner = () => {
     const [scanResult, setScanResult] = useState(null);
@@ -11,8 +13,8 @@ export const Scanner = () => {
         if (!scanner) {
             const newScanner = new Html5QrcodeScanner("reader", {
                 qrbox: {
-                    width: 300,
-                    height: 300,
+                    width: 600,
+                    height: 400,
                 },
                 fps: 10,
             });
@@ -52,7 +54,7 @@ export const Scanner = () => {
             const timer = setTimeout(() => {
                 const stopButton = document.querySelector("#reader .html5-qrcode-btn-container");
                 if (stopButton) {
-                    stopButton.style.display = "none";
+                    stopButton.classList.add('hidden');
                 }
             }, 1000); // Esperar un segundo para asegurar que el escáner haya renderizado
 
@@ -61,27 +63,29 @@ export const Scanner = () => {
         }
     }, [scanner]);
 
-    useEffect(() => {
-        // Observa cambios en el estado del escáner y muestra el botón de inicio
-        if (scanning) {
-            // El escáner está funcionando, no hay necesidad de hacer nada
-        } else {
-            // El escáner está detenido, mostrar el botón de inicio
-            const startButton = document.querySelector("#reader .html5-qrcode-btn-container");
-            if (startButton) {
-                startButton.style.display = "block";
-            }
-        }
-    }, [scanning]);
-
     return (
-        <div>
-            {/* <HeaderDespa /> */}
-            <h1>Escáner QR</h1>
-            <div id="reader" style={{ width: "300px", display: scanning ? 'block' : 'none' }}></div>
-            {!scanning && <button onClick={startScanning}>Iniciar Escaneo</button>}
-            {scanning && <button onClick={stopScanning}>Detener Escaneo</button>}
-            {scanResult && <p>Redirigiendo a: {scanResult}</p>}
-        </div>
+        <>
+            <HeaderCondu/>
+            <div className="contenedorQR">
+                <div className="Hijo">
+                    <div id="reader" className={`reader ${scanning ? 'active' : ''}`} style={{ width: "300px", height:"220px"}}>
+                        {/* El contenido generado por html5-qrcode será inyectado aquí */}
+                    </div>
+                    <img
+                        src={ScanQR}
+                        className={`ScanQR ${scanning ? 'hidden' : ''}`} 
+                        onClick={startScanning}
+                    >
+                    </img>
+                    <button 
+                        className={`btn detener ${scanning ? '' : 'hidden'}`} 
+                        onClick={stopScanning}
+                    >
+                        Detener Escaneo
+                    </button>
+                    {scanResult && <p>Redirigiendo a: {scanResult}</p>}
+                </div>
+            </div>
+        </>
     );
 };
