@@ -35,7 +35,7 @@ export const Conductores =()=>{
                     ))
                 ): (
                     <p>No se encontraron conductores</p>
-                )}
+                )}           
             </div>
         </>
     )
