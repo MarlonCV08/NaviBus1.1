@@ -7,7 +7,7 @@ import { RutaProtegida } from "./Routes/RutaProtegida"
 import { Control } from "./Routes/Control"
 import { Usuario } from "./Routes/Usuario"
 import { Vehiculo } from "./Routes/Vehiculo"
-import { Admin } from "./Routes/Admin"
+import { Administrador } from "./Routes/Administrador"
 import { Despachador } from "./Routes/Despachador"
 import { Conductores } from "./Routes/Conductores"
 import { Conductor } from "./Routes/Conductor"
@@ -50,8 +50,8 @@ const router = createBrowserRouter ([
                 element: <Usuario />
             },
             {
-                path: "/Registro/Usuario/Admin",
-                element: <Admin />
+                path: "/Registro/Usuario/Administrador",
+                element: <Administrador />
             },
             {
                 path: "/Registro/Usuario/Despachador",

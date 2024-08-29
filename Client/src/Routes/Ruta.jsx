@@ -8,7 +8,7 @@ export const Ruta = ()=>{
     const [rutas, setRutas ] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/rutas?conductor=1')
+        fetch('http://localhost:3000/api/rutas')
         .then(response => response.json())
         .then(data => setRutas(data))
         .catch(error => console.error('Error al obtener las rutas:', error))
@@ -18,11 +18,11 @@ export const Ruta = ()=>{
         <>
             <Header />
             <div className="contRutas">
-                {rutas.map((ruta, index) => (
-                    <Link to={`/Ruta/${ruta.codigo}`} className="linkRuta" key={index}>
+                {rutas.map((ruta) => (
+                    <Link to={`/Ruta/${ruta.codigo}`} className="linkRuta" key={ruta.codigo}>
                         <div className="rutas">
                             <img src={RutaImg} />
-                            <p>{ruta.codigo}</p>
+                            <p>{ruta.nombre}</p>
                         </div>
                     </Link>
                 ))}
