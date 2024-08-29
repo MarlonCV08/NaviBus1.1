@@ -1,3 +1,49 @@
-div #reader_dashboard{
+.contenedorQR{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.hijo{
+    display: block;
+}
+button.html5-qrcode-element{
+    opacity: 0;
+    height: 0;
+    cursor: default;
+}
+div#reader_dashboard_section{
+    opacity: 0;
+    padding: 0;
+    height: 0;
+    background: #333;
+}
+div#reader_dashboard{
+    height: 0;
+    padding: 0;
+}
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #dc3545;
+    color: #fff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    z-index: 2;
+}
+.ScanQR{
+    width: 65%;
+    height: 65%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.hidden {
     display: none;
 }
