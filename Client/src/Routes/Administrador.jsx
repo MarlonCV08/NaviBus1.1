@@ -3,7 +3,7 @@ import { Dropdown } from "../Components/Dropdown";
 import { Header } from "../Header";
 import "../Styles/Admin.css"
 import React, { useState } from 'react';
-export const Admin =()=>{
+export const Administrador =()=>{
     return(
         <>
         <Header/>
