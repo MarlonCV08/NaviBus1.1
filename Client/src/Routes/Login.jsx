@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
-  const [usuario, setUsuario] = useState('');
+  const [codigo, setCodigo] = useState('');
   const [clave, setClave] = useState('');
   const [mostrarClave, setMostrarClave] = useState(false);
   const [mostrarOjo, setMostrarOjo] = useState(false);
@@ -38,7 +38,7 @@ export const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ usuario, clave }),
+        body: JSON.stringify({ codigo, clave }),
       });
 
       const data = await response.json();
@@ -87,7 +87,7 @@ export const Login = () => {
 
   const handleUsuarioChange = (e) => {
     const value = e.target.value;
-    setUsuario(value);
+    setCodigo(value);
     setSubirUser(value.length > 0); // Mueve la etiqueta si hay texto
   };
   return (
@@ -101,7 +101,7 @@ export const Login = () => {
             type="text" 
             id="usuario" 
             className="inputusuario"
-            value={usuario} 
+            value={codigo} 
             onChange={handleUsuarioChange}
           />
           <label className={`usuariotxt ${subirUser ? 'subir' : ''}`}>Usuario</label>
