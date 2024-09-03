@@ -32,6 +32,7 @@
     border: 1px solid #7579E7;
     border-radius: 5px;
     padding: 5px;
+    width: 300px;
 }
 .botones{
     display: flex;
