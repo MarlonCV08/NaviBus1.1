@@ -48,12 +48,12 @@ app.get('/api/rutas', (req, res) => {
 });
 
 //Consulta para obtener los conductores de las rutas asignadas
-app.get('/api/conductores/:rutaCodigo', (req, res) => {
+app.get('/api/usuarios/:rutaCodigo', (req, res) => {
 
   const { rutaCodigo } = req.params;
 
-  const sql = `SELECT c.nombres, c.apellidos FROM conductor c
-              INNER JOIN ruta r ON r.conductor = c.codigo
+  const sql = `SELECT u.nombres, u.apellidos FROM usuarios u
+              INNER JOIN ruta r ON r.usuarios = u.cedula
               WHERE r.codigo = ${rutaCodigo}`;
 
   db.query(sql, [rutaCodigo], (err, results) => {
@@ -61,14 +61,15 @@ app.get('/api/conductores/:rutaCodigo', (req, res) => {
               return res.status(500).json({ error: 'Error al obtener los datos', err });
             }
             res.json(results);
+            console.log(results);
           }
           )
 
 });
 
 //Consulta de conductores a la base de datos
-app.get('/api/conductores', (req, res) => {
-  const sql = 'SELECT * from conductor';
+app.get('/api/usuarios', (req, res) => {
+  const sql = 'SELECT nombres, apellidos from usuarios';
 
   db.query(sql, (err, results) => {
     if (err) {
@@ -79,6 +80,21 @@ app.get('/api/conductores', (req, res) => {
     res.json(results);
   });
 });
+
+//Traer el id del usuario
+app.post('/api/usuarios', (req, res) => {
+  const { rolId} = req.body;
+  console.log('Rol ID recibido:', rolId);
+  res.json({ message: 'Rol ID recibido correctamente' });
+});
+
+//Traer datos del formulario de administrador
+app.post('api/administradores', (req, res) => {
+  const { nombres, apellidos, documento, correo, rolId, dropdown } = req.body;
+  console.log('Datos recibidos:', { nombres, apellidos, documento, correo, rolId, dropdown });
+
+  res.status(201).json({ message: 'Administrador creado con extito' });
+})
 
 //Consulta de roles a la base de datos
 app.get('/api/roles', (req, res) => {

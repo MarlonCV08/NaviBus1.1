@@ -8,12 +8,12 @@ import { useEffect, useState } from 'react'
 export const Conductores =()=>{
 
     const { codigo } = useParams();
-    const [conductores, setConductores] = useState([]);
+    const [usuarios, setUsuarios] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/conductores/${codigo}`)
+        fetch(`http://localhost:3000/api/usuarios/${codigo}`)
         .then(response => response.json())
-        .then(data => setConductores(data))
+        .then(data => setUsuarios(data))
         .catch(error => console.error('Error al obtener los conductores', error))
     }, []);
 
@@ -21,14 +21,14 @@ export const Conductores =()=>{
         <>
             <Header />
             <div className="contInfo">
-                {conductores.length > 0 ? (
-                    conductores.map((conductor) => (
-                        <div className="infoConductor" key={conductor.codigo}>
+                {usuarios.length > 0 ? (
+                    usuarios.map((usuario, index) => (
+                        <div className="infoConductor" key={index}>
                             <div className='div'>
                                 <img src={Usuario} className="imgUser"/>
-                                <p>{conductor.nombres} {conductor.apellidos}</p>
+                                <p>{usuario.nombres} {usuario.apellidos}</p>
                             </div>
-                            <Link to={`/Ruta/${conductor.nombres}`} className='link' >
+                            <Link to={`/Ruta/${usuario.nombres}`} className='link' >
                                 <img src={Ojo} className="imgEye"/>
                             </Link>
                         </div>

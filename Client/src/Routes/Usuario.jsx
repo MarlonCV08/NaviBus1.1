@@ -3,11 +3,13 @@ import "../Styles/Usuario.css"
 import Admin from "../Assets/Images/Admin.svg"
 import Despachador from "../Assets/Images/Despachador.svg"
 import  Conductor  from "../Assets/Images/Licencia.svg"
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 export const Usuario =()=>{
 
+    const navigate = useNavigate();
     const [roles, setRoles] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetch('http://localhost:3000/api/roles')
@@ -29,18 +31,58 @@ export const Usuario =()=>{
         }
     }
 
+    const handleRolClick = (rolId, route) => {
+        fetch('http://localhost:3000/api/usuarios', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ rolId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Respuesta del backend:', data);
+            navigate(route);
+        })
+        .catch(error => {
+            console.error('Error al enviar el rolId: ', error);
+            setError('Hubo un problema al envia el rol seleccionado');
+        });
+    }
+
     return(
         <>
             <Header />
             <div className="contenedorRol">
-                {roles.map(rol => (
-                    <Link key={rol.codigo} to={`${rol.descripcion}`} className="link" >
-                        <div className="rol">
-                            <img src={getImage(rol.imagen)} alt="" />
-                            <p>{rol.descripcion}</p>
+                {roles.map(rol => {
+
+                    let route = '';
+                    switch (rol.descripcion) {
+                        case 'Administrador':
+                            route = '/Registro/Usuario/Administrador';
+                            break;
+                        case 'Despachador':
+                            route = '/Registro/Usuario/Despachador';
+                            break;
+                        case 'Consuctor':
+                            route = '/Registro/Usuario/Conductor';
+                            break;
+                        default:
+                            route = '/Registro';
+                            break;
+                    }
+
+                    return (
+
+                        <div key={rol.codigo} onClick={() => handleRolClick(rol.codigo, route)} className="link" >
+                            <div className="rol">
+                                <img src={getImage(rol.imagen)} alt="" />
+                                <p>{rol.descripcion}</p>
+                            </div>
                         </div>
-                    </Link>
-                ))}
+                    )
+
+                })}
             </div>
         </>
     )

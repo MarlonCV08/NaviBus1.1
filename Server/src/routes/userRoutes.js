@@ -7,14 +7,14 @@ const SECRET_KEY = 'Steven';
  
 const userRoutes = (db) => {
   router.post('/', (req, res) => {
-    const { codigo, clave } = req.body;
+    const { cedula, clave } = req.body;
 
-    if(!codigo || !clave) {
+    if(!cedula || !clave) {
       return res.status(400).json({ message: 'Usuario y clave son requeridos' });
     }
 
-    const sql = 'SELECT codigo, clave, rol_id FROM conductor WHERE codigo = ? AND clave = ?';
-    db.query(sql, [codigo, clave], (err, results) => {
+    const sql = 'SELECT cedula, clave, rol_id FROM usuarios WHERE cedula = ? AND clave = ?';
+    db.query(sql, [cedula, clave], (err, results) => {
       if(err) {
         console.error('Error al ejecutar la consulta: ', err);
         return res.status(500).send('Error al ejecutar la consulta');
@@ -30,11 +30,11 @@ const userRoutes = (db) => {
         }
 
         const token = jwt.sign(
-          { codigo: user.codigo, rol: userRole }, 
+          { cedula: user.cedula, rol: userRole }, 
           SECRET_KEY
         );
 
-        res.json({ token, message: 'Inicio de sesión exitoso', user: { codigo:user.codigo, rol: userRole } });
+        res.json({ token, message: 'Inicio de sesión exitoso', user: { cedula:user.cedula, rol: userRole } });
       } else {
         res.status(401).json({ message: 'Usuario o clave incorrectos' });
       }
