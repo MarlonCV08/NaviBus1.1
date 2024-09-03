@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-09-2024 a las 04:41:38
+-- Tiempo de generación: 03-09-2024 a las 15:36:24
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -685,10 +685,12 @@ INSERT INTO `usuarios` (`cedula`, `nombres`, `apellidos`, `tipoDocumento`, `cate
 ('1', 'Hugo', 'Salazar Hernandez', 1, 5, 'hugo@gmail.com', 2, ''),
 ('1015070444', 'Marlon Estiven', 'Castaño Vanegas', 1, 4, 'marlone_castano@soy.sena.edu.co', 1, '1234'),
 ('1043637455', 'Leonel Steven', 'Sanchez Henao', 1, 3, 'stevensanchez1024@gmail.com', 1, '1234'),
+('1045698754', 'Andres', 'Gutierrez Ocampo', 1, 7, 'andres_gutierrez@gmail.com', 2, ''),
 ('2', 'Sebastian David', 'Agudelo Ospina', 1, 5, 'sebastiand@gmail.com', 2, ''),
 ('3', 'Alberto', 'Atehortua Bustamante', 1, 5, 'alberto@gmail.com', 2, ''),
 ('4', 'Manuel', 'Gomez Alvarez', 1, 5, 'manuelgomez@gmail.com', 2, ''),
-('5', 'Argemiro', 'Vanegas Lopez', 1, 5, 'agemiro@gmail.com', 2, '');
+('5', 'Argemiro', 'Vanegas Lopez', 1, 5, 'agemiro@gmail.com', 2, ''),
+('6', 'Carolina', 'Castaño Castaño', 1, 4, 'carolina@gmail.com', 3, '1234');
 
 -- --------------------------------------------------------
 
