@@ -1,5 +1,5 @@
 .dropdown{
-    min-width: 40vh;
+    width: 300px;
     position: relative;
 }
 .dropdown *{
@@ -33,7 +33,7 @@
 .caret-rotate{
     transform: rotate(180deg);
 }
-.menuList{
+.menuListDoc{
     list-style: none;
     padding: 0.2em 0.5em;
     background: #fefefe;
@@ -50,18 +50,14 @@
     z-index: 1;
     border-radius: 0.5em;
     border: 1px #7579E7 solid;
-    -webkit-border-radius: 0.5em;
-    -moz-border-radius: 0.5em;
-    -ms-border-radius: 0.5em;
-    -o-border-radius: 0.5em;
 }
-.menuList li{
+.menuListDoc li{
     padding: 0.7em 0.5em;
     margin: 0.3em 0;
     border-radius: 0.5em;
     cursor: pointer;
 }
-.menuList li:hover{
+.menuListDoc li:hover{
     background: rgba(117, 121, 231, 0.25);
 }
 /* .active{

@@ -53,7 +53,7 @@ export const Usuario =()=>{
     return(
         <>
             <Header />
-            <div className="contenedorRol">
+            <div className="contenedorUsuario">
                 {roles.map(rol => {
 
                     let route = '';
@@ -64,7 +64,7 @@ export const Usuario =()=>{
                         case 'Despachador':
                             route = '/Registro/Usuario/Despachador';
                             break;
-                        case 'Consuctor':
+                        case 'Conductor':
                             route = '/Registro/Usuario/Conductor';
                             break;
                         default:
@@ -74,7 +74,7 @@ export const Usuario =()=>{
 
                     return (
 
-                        <div key={rol.codigo} onClick={() => handleRolClick(rol.codigo, route)} className="link" >
+                        <div key={rol.codigo} onClick={() => handleRolClick(rol.codigo, route)} className="Link" >
                             <div className="rol">
                                 <img src={getImage(rol.imagen)} alt="" />
                                 <p>{rol.descripcion}</p>

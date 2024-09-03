@@ -19,7 +19,7 @@ export const Categoria = ()=>{
                 <span className="selected">{selected}</span>
                 <div className={`caret ${isOpen ? 'caret-rotate' : ''}`}></div>
             </div>
-            <ul className={`menuList ${isOpen ? 'menu-open' : ''}`}>
+            <ul className={`menuListDoc ${isOpen ? 'menu-open' : ''}`}>
                 {options.map((option, index) => (
                   <li
                     key={index}

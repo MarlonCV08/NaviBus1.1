@@ -1,9 +1,8 @@
-.contenedorRol{
+.contenedorUsuario{
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
     align-items: center;
     gap: 5%;
     position: relative;
@@ -24,8 +23,8 @@
     margin-top: 10px;
 }
 @media (max-width: 1000px) {
-    .contenedorRol{
+    .contenedorUsuario{
         flex-direction: column;
-        top: 23vh;
+        top: 35vh;
     }
 }
