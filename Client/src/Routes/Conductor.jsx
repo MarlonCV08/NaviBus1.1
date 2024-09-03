@@ -4,6 +4,7 @@ import Camara from "../Assets/Images/Camara.svg"
 import { Link } from "react-router-dom"
 import { Categoria } from "../Components/Categoria"
 import "../Styles/Conductor.css"
+import { useState } from "react"
 export const Conductor =()=>{
 
     const [nombres, setNombres] = useState('');
@@ -11,6 +12,7 @@ export const Conductor =()=>{
     const [documento, setDocumento] = useState('');
     const [correo, setCorreo] = useState('');
     const [selectedDropdown, setSelectedDropdown] = useState('');
+    const [categoria, setCategoria] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,6 +37,10 @@ export const Conductor =()=>{
     const handleDropdownChange = (e) => {
         setSelectedDropdown(e.target.value);
     };
+
+    const handleCategoria = (e) => {
+        setCategoria(e.target.value);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -98,7 +104,7 @@ export const Conductor =()=>{
                                         />
                                 </section>
                                 <section>
-                                    <Dropdown/>
+                                    <Dropdown value={selectedDropdown} onChange={handleDropdownChange} />
                                 </section>
                                 <section>
                                     <input 
@@ -111,7 +117,7 @@ export const Conductor =()=>{
                                         />
                                 </section>
                                 <section>
-                                    <Categoria/>
+                                    <Categoria value={categoria} onChange={handleCategoria} />
                                 </section>
                                 <section>
                                     <input 

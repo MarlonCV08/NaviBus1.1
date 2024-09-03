@@ -98,8 +98,8 @@ app.post('/api/administradores', (req, res) => {
 
 //Traer datos del formulario del conductor
 app.post('/api/conductores', (req, res) => {
-  const { nombres, apellidos, documento, correo, rolId, dropdown } = req.body;
-  console.log('Datos recibidos:', { nombres, apellidos, documento, correo, rolId, dropdown });
+  const { nombres, apellidos, documento, correo, rolId, dropdown, categoria } = req.body;
+  console.log('Datos recibidos:', { nombres, apellidos, documento, correo, rolId, dropdown, categoria });
 
   res.status(201).json({ message: 'Administrador creado con extito' });
 });
