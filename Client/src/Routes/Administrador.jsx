@@ -110,9 +110,6 @@ export const Administrador =()=>{
                             onChange={handleChange}
                             />
                     </section>
-                    <section>
-                        <input type="hidden" value={1}/>
-                    </section>
                     <section className="botones">
                     <Link to='/Registro/Usuario' className="linkRegistro">
                         <input type="button" value="Cancelar" className="boton"/>

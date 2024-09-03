@@ -89,12 +89,28 @@ app.post('/api/usuarios', (req, res) => {
 });
 
 //Traer datos del formulario de administrador
-app.post('api/administradores', (req, res) => {
+app.post('/api/administradores', (req, res) => {
   const { nombres, apellidos, documento, correo, rolId, dropdown } = req.body;
   console.log('Datos recibidos:', { nombres, apellidos, documento, correo, rolId, dropdown });
 
   res.status(201).json({ message: 'Administrador creado con extito' });
-})
+});
+
+//Traer datos del formulario del conductor
+app.post('/api/conductores', (req, res) => {
+  const { nombres, apellidos, documento, correo, rolId, dropdown } = req.body;
+  console.log('Datos recibidos:', { nombres, apellidos, documento, correo, rolId, dropdown });
+
+  res.status(201).json({ message: 'Administrador creado con extito' });
+});
+
+//Traer datos del formulario del despachador
+app.post('/api/despachadores', (req, res) => {
+  const { nombres, apellidos, documento, correo, rolId, dropdown } = req.body;
+  console.log('Datos recibidos:', { nombres, apellidos, documento, correo, rolId, dropdown });
+
+  res.status(201).json({ message: 'Administrador creado con extito' });
+});
 
 //Consulta de roles a la base de datos
 app.get('/api/roles', (req, res) => {
