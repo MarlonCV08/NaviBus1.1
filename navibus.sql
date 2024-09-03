@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-08-2024 a las 22:44:31
+-- Tiempo de generación: 03-09-2024 a las 04:41:38
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -506,32 +506,6 @@ INSERT INTO `color` (`codigo`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `conductor`
---
-
-CREATE TABLE `conductor` (
-  `codigo` varchar(10) NOT NULL,
-  `nombres` varchar(50) NOT NULL,
-  `apellidos` varchar(50) NOT NULL,
-  `tipoDocumento` int(1) NOT NULL,
-  `categoria` int(1) NOT NULL,
-  `correo` varchar(90) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `conductor`
---
-
-INSERT INTO `conductor` (`codigo`, `nombres`, `apellidos`, `tipoDocumento`, `categoria`, `correo`) VALUES
-('1', 'Hugo', 'Salazar Hernandez', 1, 5, 'hugo@gmail.com'),
-('2', 'Sebastian David', 'Agudelo Ospina', 1, 5, 'sebastiand@gmail.com'),
-('3', 'Alberto', 'Atehortua Bustamante', 1, 5, 'alberto@gmail.com'),
-('4', 'Manuel', 'Gomez Alvarez', 1, 5, 'manuelgomez@gmail.com'),
-('5', 'Argemiro', 'Vanegas Lopez', 1, 5, 'agemiro@gmail.com');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `destino`
 --
 
@@ -574,33 +548,6 @@ INSERT INTO `linea` (`codigo`, `marca`, `claseVehiculo`, `nombre`) VALUES
 (3, 2, 1, ''),
 (4, 5, 2, ''),
 (5, 4, 2, '');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `login`
---
-
-CREATE TABLE `login` (
-  `usuario` varchar(30) NOT NULL,
-  `clave` varchar(90) NOT NULL,
-  `rol` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `login`
---
-
-INSERT INTO `login` (`usuario`, `clave`, `rol`) VALUES
-('10150704', '1234', 3),
-('101507044', '1234', 2),
-('1015070444', '1234', 1),
-('10425780', '1234', 3),
-('104257807', '1234', 2),
-('1042578075', '1234', 1),
-('10436374', '1234', 3),
-('104363745', '1234', 2),
-('1043637455', '1234', 1);
 
 -- --------------------------------------------------------
 
@@ -681,14 +628,14 @@ CREATE TABLE `ruta` (
   `origen` int(2) NOT NULL,
   `destino` int(2) NOT NULL,
   `vehiculo` varchar(6) NOT NULL,
-  `conductor` varchar(10) NOT NULL
+  `usuarios` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `ruta`
 --
 
-INSERT INTO `ruta` (`codigo`, `nombre`, `horaSalida`, `horaLlegada`, `origen`, `destino`, `vehiculo`, `conductor`) VALUES
+INSERT INTO `ruta` (`codigo`, `nombre`, `horaSalida`, `horaLlegada`, `origen`, `destino`, `vehiculo`, `usuarios`) VALUES
 ('123', '05', '2023-07-30 06:00:00', '2023-07-30 21:00:00', 1, 2, 'AAA000', '1'),
 ('124', 'circular', '2023-07-30 06:00:00', '2023-07-30 21:00:00', 3, 4, 'BBB111', '2'),
 ('125', 'ruta b', '2023-07-30 06:00:00', '2023-07-30 21:00:00', 4, 1, 'CCC222', '3'),
@@ -712,6 +659,36 @@ CREATE TABLE `tipodocumento` (
 INSERT INTO `tipodocumento` (`codigo`, `nombre`) VALUES
 (1, 'cedula de ciudadania'),
 (2, 'cedula de extranjeria');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `cedula` varchar(10) NOT NULL,
+  `nombres` varchar(50) NOT NULL,
+  `apellidos` varchar(50) NOT NULL,
+  `tipoDocumento` int(1) NOT NULL,
+  `categoria` int(1) DEFAULT NULL,
+  `correo` varchar(90) NOT NULL,
+  `rol_id` int(1) NOT NULL,
+  `clave` varchar(90) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`cedula`, `nombres`, `apellidos`, `tipoDocumento`, `categoria`, `correo`, `rol_id`, `clave`) VALUES
+('1', 'Hugo', 'Salazar Hernandez', 1, 5, 'hugo@gmail.com', 2, ''),
+('1015070444', 'Marlon Estiven', 'Castaño Vanegas', 1, 4, 'marlone_castano@soy.sena.edu.co', 1, '1234'),
+('1043637455', 'Leonel Steven', 'Sanchez Henao', 1, 3, 'stevensanchez1024@gmail.com', 1, '1234'),
+('2', 'Sebastian David', 'Agudelo Ospina', 1, 5, 'sebastiand@gmail.com', 2, ''),
+('3', 'Alberto', 'Atehortua Bustamante', 1, 5, 'alberto@gmail.com', 2, ''),
+('4', 'Manuel', 'Gomez Alvarez', 1, 5, 'manuelgomez@gmail.com', 2, ''),
+('5', 'Argemiro', 'Vanegas Lopez', 1, 5, 'agemiro@gmail.com', 2, '');
 
 -- --------------------------------------------------------
 
@@ -785,14 +762,6 @@ ALTER TABLE `color`
   ADD PRIMARY KEY (`codigo`);
 
 --
--- Indices de la tabla `conductor`
---
-ALTER TABLE `conductor`
-  ADD PRIMARY KEY (`codigo`) USING BTREE,
-  ADD KEY `FK_categoria_conductor` (`categoria`),
-  ADD KEY `FK_tipodocumento_conductor` (`tipoDocumento`);
-
---
 -- Indices de la tabla `destino`
 --
 ALTER TABLE `destino`
@@ -805,13 +774,6 @@ ALTER TABLE `linea`
   ADD PRIMARY KEY (`codigo`),
   ADD KEY `FK_linea_marca` (`marca`),
   ADD KEY `FK_linea_clasevehiculo` (`claseVehiculo`);
-
---
--- Indices de la tabla `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`usuario`),
-  ADD KEY `FK_login_rol` (`rol`);
 
 --
 -- Indices de la tabla `marca`
@@ -838,14 +800,23 @@ ALTER TABLE `ruta`
   ADD PRIMARY KEY (`codigo`),
   ADD KEY `FK_ruta_origen` (`origen`),
   ADD KEY `FK_ruta_destino` (`destino`),
-  ADD KEY `FK_ruta_conductor` (`conductor`),
-  ADD KEY `FK_RUTA_VEHICULO` (`vehiculo`);
+  ADD KEY `FK_RUTA_VEHICULO` (`vehiculo`),
+  ADD KEY `FK_ruta_conductor` (`usuarios`);
 
 --
 -- Indices de la tabla `tipodocumento`
 --
 ALTER TABLE `tipodocumento`
   ADD PRIMARY KEY (`codigo`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`cedula`) USING BTREE,
+  ADD KEY `FK_categoria_conductor` (`categoria`),
+  ADD KEY `FK_tipodocumento_conductor` (`tipoDocumento`),
+  ADD KEY `FK_rolid_conductor` (`rol_id`);
 
 --
 -- Indices de la tabla `vehiculo`
@@ -918,13 +889,6 @@ ALTER TABLE `tipodocumento`
 --
 
 --
--- Filtros para la tabla `conductor`
---
-ALTER TABLE `conductor`
-  ADD CONSTRAINT `FK_categoria_conductor` FOREIGN KEY (`categoria`) REFERENCES `categoria` (`codigo`),
-  ADD CONSTRAINT `FK_tipodocumento_conductor` FOREIGN KEY (`tipoDocumento`) REFERENCES `tipodocumento` (`codigo`);
-
---
 -- Filtros para la tabla `linea`
 --
 ALTER TABLE `linea`
@@ -932,19 +896,21 @@ ALTER TABLE `linea`
   ADD CONSTRAINT `FK_linea_marca` FOREIGN KEY (`marca`) REFERENCES `marca` (`codigo`);
 
 --
--- Filtros para la tabla `login`
---
-ALTER TABLE `login`
-  ADD CONSTRAINT `FK_login_rol` FOREIGN KEY (`rol`) REFERENCES `rol` (`codigo`);
-
---
 -- Filtros para la tabla `ruta`
 --
 ALTER TABLE `ruta`
   ADD CONSTRAINT `FK_RUTA_VEHICULO` FOREIGN KEY (`vehiculo`) REFERENCES `vehiculo` (`placa`),
-  ADD CONSTRAINT `FK_ruta_conductor` FOREIGN KEY (`conductor`) REFERENCES `conductor` (`codigo`),
+  ADD CONSTRAINT `FK_ruta_conductor` FOREIGN KEY (`usuarios`) REFERENCES `usuarios` (`cedula`),
   ADD CONSTRAINT `FK_ruta_destino` FOREIGN KEY (`destino`) REFERENCES `destino` (`codigo`),
   ADD CONSTRAINT `FK_ruta_origen` FOREIGN KEY (`origen`) REFERENCES `origen` (`codigo`);
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `FK_categoria_conductor` FOREIGN KEY (`categoria`) REFERENCES `categoria` (`codigo`),
+  ADD CONSTRAINT `FK_rolid_conductor` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`codigo`),
+  ADD CONSTRAINT `FK_tipodocumento_conductor` FOREIGN KEY (`tipoDocumento`) REFERENCES `tipodocumento` (`codigo`);
 
 --
 -- Filtros para la tabla `vehiculo`
