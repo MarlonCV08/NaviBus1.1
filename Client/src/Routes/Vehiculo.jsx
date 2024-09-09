@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { Header } from "../Header"
 import "../Styles/Vehiculo.css"
 import { useState } from "react"
+import { DropdownLinea } from "../Components/DropdownLinea"
 export const Vehiculo = ()=>{
 
     const [placa, setPlaca] = useState('');
@@ -17,9 +18,6 @@ export const Vehiculo = ()=>{
         switch (name) {
             case 'placa':
                 setPlaca(value);
-                break;
-            case 'linea':
-                setLinea(value);
                 break;
             case 'modelo':
                 setModelo(value);
@@ -46,7 +44,6 @@ export const Vehiculo = ()=>{
 
         const formData = {
             placa,
-            linea,
             modelo,
             chasis,
             motor,
@@ -60,50 +57,46 @@ export const Vehiculo = ()=>{
     return(
         <>
         <Header />
-        <div class="contenedorPadre">
-            <form class="contenedor">
+        <div className="contenedorPadre">
+            <form className="contenedor">
                 <section className="inputs">
                     <input 
                         type="text" 
-                        class="input" 
+                        className="input" 
                         placeholder="Placa"
                     />
+                    <DropdownLinea/>
                     <input 
                         type="text" 
-                        class="input" 
-                        placeholder="Linea"
-                    />
-                    <input 
-                        type="text" 
-                        class="input" 
+                        className="input" 
                         placeholder="Modelo"
                     />
                     <input 
                         type="text" 
-                        class="input" 
+                        className="input" 
                         placeholder="N° Chasis"
                     />
                     <input 
                         type="text" 
-                        class="input" 
+                        className="input" 
                         placeholder="N° Motor"
                     />
                     <input 
                         type="text" 
-                        class="input" 
+                        className="input" 
                         placeholder="N° Pasajeros"
                     />
                     <input 
                         type="text" 
-                        class="input" 
+                        className="input" 
                         placeholder="Cilindrada"
                     />
                 </section>
-                <section class="botones">
+                <section className="botones">
                 <Link to='/Registro' className="linkRegistro">
-                    <input type="button" value="Cancelar" class="boton"/>
+                    <input type="button" value="Cancelar" className="boton"/>
                 </Link>
-                    <input type="submit" value="Enviar" class="boton"/>
+                    <input type="submit" value="Enviar" className="boton"/>
                 </section>
             </form>
         </div>
