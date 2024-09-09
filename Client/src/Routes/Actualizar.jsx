@@ -28,7 +28,7 @@ export const Actualizar = ()=>{
                         <input type="hidden" value={1}/>
                     </section>
                     <section className="botones">
-                    <Link to='/Registro/Usuario' className="linkRegistro">
+                    <Link to='/Ruta' className="linkRegistro">
                         <input type="button" value="Cancelar" className="boton"/>
                     </Link>
                         <input type="submit" value="Enviar" className="boton"/>
