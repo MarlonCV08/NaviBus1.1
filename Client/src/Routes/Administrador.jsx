@@ -7,7 +7,7 @@ export const Administrador =()=>{
 
     const [nombres, setNombres] = useState('');
     const [apellidos, setApellidos] = useState('');
-    const [documento, setDocumento] = useState('');
+    const [cedula, setCedula] = useState('');
     const [correo, setCorreo] = useState('');
     const [selectedDropdown, setSelectedDropdown] = useState('');
 
@@ -20,8 +20,8 @@ export const Administrador =()=>{
             case 'apellidos':
                 setApellidos(value);
                 break;
-            case 'documento':
-                setDocumento(value);
+            case 'cedula':
+                setCedula(value);
                 break;
             case 'correo':
                 setCorreo(value);
@@ -31,8 +31,8 @@ export const Administrador =()=>{
         };
     };
 
-    const handleDropdownChange = (e) => {
-        setSelectedDropdown(e.target.value);
+    const handleDropdownChange = (option) => {
+        setSelectedDropdown(option);
     };
 
     const handleSubmit = (e) => {
@@ -41,10 +41,10 @@ export const Administrador =()=>{
         const formData = {
             nombres,
             apellidos,
-            documento,
+            cedula,
             correo,
-            rolId: 1,
-            Dropdown: selectedDropdown
+            rol_id: 1,
+            tipodocumento: selectedDropdown
         };
         fetch('http://localhost:3000/api/administradores', {
             method: 'POST',
@@ -95,8 +95,8 @@ export const Administrador =()=>{
                             type="text" 
                             className="input" 
                             placeholder="Documento"
-                            name="documento"
-                            value={documento}
+                            name="cedula"
+                            value={cedula}
                             onChange={handleChange}
                             />
                     </section>

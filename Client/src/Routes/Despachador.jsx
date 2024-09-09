@@ -8,7 +8,7 @@ export const Despachador = ()=>{
 
     const [nombres, setNombres] = useState('');
     const [apellidos, setApellidos] = useState('');
-    const [documento, setDocumento] = useState('');
+    const [cedula, setCedula] = useState('');
     const [correo, setCorreo] = useState('');
     const [selectedDropdown, setSelectedDropdown] = useState('');
 
@@ -21,8 +21,8 @@ export const Despachador = ()=>{
             case "apellidos":
                 setApellidos(value);
                 break;
-            case 'documento':
-                setDocumento(value);
+            case 'cedula':
+                setCedula(value);
                 break;
             case 'correo':
                 setCorreo(value);
@@ -32,8 +32,8 @@ export const Despachador = ()=>{
         };
     };
 
-    const handleDropdownChange = (e) => {
-        setSelectedDropdown(e.target.value);
+    const handleDropdownChange = (option) => {
+        setSelectedDropdown(option);
     };
 
     const handleSubmit = (e) => {
@@ -42,10 +42,10 @@ export const Despachador = ()=>{
         const formData = {
             nombres,
             apellidos,
-            documento,
+            cedula,
             correo,
-            rolId: 3,
-            Dropdown: selectedDropdown
+            rol_id: 3,
+            tipodocumento: selectedDropdown
         };
         fetch('http://localhost:3000/api/despachadores', {
             method: 'POST',
@@ -99,15 +99,15 @@ export const Despachador = ()=>{
                                         />
                                 </section>
                                 <section>
-                                    <Dropdown/>
+                                    <Dropdown value={selectedDropdown} onChange={handleDropdownChange} />
                                 </section>
                                 <section>
                                     <input 
                                         type="text" 
                                         className="input" 
                                         placeholder="Documento"
-                                        name="documento"
-                                        value={documento}
+                                        name="cedula"
+                                        value={cedula}
                                         onChange={handleChange}
                                         />
                                 </section>

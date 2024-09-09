@@ -9,7 +9,7 @@ export const Conductor =()=>{
 
     const [nombres, setNombres] = useState('');
     const [apellidos, setApellidos] = useState('');
-    const [documento, setDocumento] = useState('');
+    const [cedula, setCedula] = useState('');
     const [correo, setCorreo] = useState('');
     const [selectedDropdown, setSelectedDropdown] = useState('');
     const [categoria, setCategoria] = useState('');
@@ -23,8 +23,8 @@ export const Conductor =()=>{
             case 'apellidos':
                 setApellidos(value);
                 break;
-            case 'documento':
-                setDocumento(value);
+            case 'cedula':
+                setCedula(value);
                 break;
             case 'correo':
                 setCorreo(value);
@@ -34,13 +34,13 @@ export const Conductor =()=>{
         };
     };
 
-    const handleDropdownChange = (e) => {
-        setSelectedDropdown(e.target.value);
+    const handleDropdownChange = (option) => {
+        setSelectedDropdown(option);
     };
 
-    const handleCategoria = (e) => {
-        setCategoria(e.target.value);
-    }
+    const handleCategoria = (option) => {
+        setCategoria(option);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -48,10 +48,11 @@ export const Conductor =()=>{
         const formData = {
             nombres,
             apellidos,
-            documento,
+            cedula,
+            categoria: categoria,
             correo,
-            rolId: 2,
-            Dropdown: selectedDropdown
+            rol_id: 2,
+            tipodocumento: selectedDropdown
         };
         fetch('http://localhost:3000/api/conductores', {
             method: 'POST',
@@ -111,8 +112,8 @@ export const Conductor =()=>{
                                         type="text" 
                                         className="input" 
                                         placeholder="Documento"
-                                        name="documento"
-                                        value={documento}
+                                        name="cedula"
+                                        value={cedula}
                                         onChange={handleChange}
                                         />
                                 </section>

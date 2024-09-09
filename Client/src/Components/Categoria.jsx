@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../Styles/Dropdown.css"
-export const Categoria = ()=>{
+export const Categoria = ({ onChange, value })=>{
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState('Categoría');
-    const options = ['C1', 'C2', 'C3'];
+    const [selected, setSelected] = useState(value || 'Categoría');
+    const [options, setOptions] = useState([]);
+
+    useEffect(() => {
+      fetch('http://localhost:3000/api/categoria')
+      .then(response => response.json())
+      .then(data => setOptions(data))
+      .catch(error => console.error('Error al obtener las opciones', error))
+    }, []);
   
     const handleSelectClick = () => {
       setIsOpen(!isOpen);
     };
   
     const handleOptionClick = (option) => {
-      setSelected(option);
+      setSelected(option.nombre);
+      onChange(option.codigo)
       setIsOpen(false);
     };
     return(
@@ -20,13 +28,13 @@ export const Categoria = ()=>{
                 <div className={`caret ${isOpen ? 'caret-rotate' : ''}`}></div>
             </div>
             <ul className={`menuListDoc ${isOpen ? 'menu-open' : ''}`}>
-                {options.map((option, index) => (
+                {options.map((option) => (
                   <li
-                    key={index}
-                    className={option === selected ? 'active' : ''}
+                    key={option.codigo}
+                    className={option.nombre === value ? 'active' : ''}
                     onClick={() => handleOptionClick(option)}
                   >
-                    {option}
+                    {option.nombre}
                   </li>
                 ))}
             </ul>

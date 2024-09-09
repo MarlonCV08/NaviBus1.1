@@ -53,8 +53,8 @@ app.get('/api/usuarios/:rutaCodigo', (req, res) => {
   const { rutaCodigo } = req.params;
 
   const sql = `SELECT u.nombres, u.apellidos FROM usuarios u
-              INNER JOIN ruta r ON r.usuarios = u.cedula
-              WHERE r.codigo = ${rutaCodigo}`;
+              INNER JOIN ruta_usuarios ru ON ru.cedula = u.cedula
+              WHERE ru.ruta_codigo = ${rutaCodigo}`;
 
   db.query(sql, [rutaCodigo], (err, results) => {
             if (err) {
@@ -90,24 +90,42 @@ app.post('/api/usuarios', (req, res) => {
 
 //Traer datos del formulario de administrador
 app.post('/api/administradores', (req, res) => {
-  const { nombres, apellidos, documento, correo, rolId, dropdown } = req.body;
-  console.log('Datos recibidos:', { nombres, apellidos, documento, correo, rolId, dropdown });
+  const { cedula, nombres, apellidos, tipodocumento, correo, rol_id } = req.body;
+  console.log('Datos recibidos:', { cedula, nombres, apellidos, tipodocumento, correo, rol_id });
 
-  res.status(201).json({ message: 'Administrador creado con extito' });
+  const sql = `INSERT INTO usuarios (cedula, nombres, apellidos, tipodocumento, correo, rol_id)
+  VALUES (?, ?, ?, ?, ?, ?)`
+
+  db.query(sql, [cedula, nombres, apellidos, tipodocumento, correo, rol_id], (err, results) => {
+    if (err) {
+      console.error('Error al insertar los datos:', err);
+      return res.status(500).json({ error: 'Error al insertar los datos en la base de datos' })
+    }
+    res.status(201).json({ message: 'Administrador creado con extito' });
+  });
+
 });
 
 //Traer datos del formulario del conductor
 app.post('/api/conductores', (req, res) => {
-  const { nombres, apellidos, documento, correo, rolId, dropdown, categoria } = req.body;
-  console.log('Datos recibidos:', { nombres, apellidos, documento, correo, rolId, dropdown, categoria });
+  const { cedula, nombres, apellidos, tipodocumento, correo, rol_id, categoria } = req.body;
+  console.log('Datos recibidos:', { cedula, nombres, apellidos, tipodocumento, correo, rol_id, categoria });
 
   res.status(201).json({ message: 'Administrador creado con extito' });
 });
 
 //Traer datos del formulario del despachador
 app.post('/api/despachadores', (req, res) => {
-  const { nombres, apellidos, documento, correo, rolId, dropdown } = req.body;
-  console.log('Datos recibidos:', { nombres, apellidos, documento, correo, rolId, dropdown });
+  const { cedula, nombres, apellidos, tipodocumento, correo, rol_id } = req.body;
+  console.log('Datos recibidos:', { cedula, nombres, apellidos, tipodocumento, correo, rol_id });
+
+  res.status(201).json({ message: 'Administrador creado con extito' });
+});
+
+//Traer datos del formulario del vehiculo
+app.post('/api/vehiculos', (req, res) => {
+  const { cedula, nombres, apellidos, tipodocumento, correo, rol_id } = req.body;
+  console.log('Datos recibidos:', { cedula, nombres, apellidos, tipodocumento, correo, rol_id });
 
   res.status(201).json({ message: 'Administrador creado con extito' });
 });
@@ -115,6 +133,34 @@ app.post('/api/despachadores', (req, res) => {
 //Consulta de roles a la base de datos
 app.get('/api/roles', (req, res) => {
   const sql = 'SELECT * FROM rol';
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+//consulta para obtener opciones de tipo de documento
+app.get('/api/tipodocumento', (req, res) => {
+  const sql = 'SELECT * FROM tipodocumento';
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+//consulta para obtener opciones de categoria
+app.get('/api/categoria', (req, res) => {
+  const sql = 'SELECT * FROM categoria';
 
   db.query(sql, (err, results) => {
     if (err) {
