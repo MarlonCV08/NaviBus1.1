@@ -44,7 +44,7 @@ export const Despachador = ()=>{
             apellidos,
             cedula,
             correo,
-            rol_id: 3,
+            rol: 3,
             tipodocumento: selectedDropdown
         };
         fetch('http://localhost:3000/api/despachadores', {
