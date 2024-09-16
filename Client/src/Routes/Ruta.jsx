@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import RutaImg from "../Assets/Images/Ruta.svg"
 import { Header } from "../Header";
 import { useEffect, useState } from "react";
+import { Modal } from "../Components/Modal";
 export const Ruta = ()=>{
 
     const [rutas, setRutas ] = useState([]);
@@ -27,6 +28,7 @@ export const Ruta = ()=>{
                     </Link>
                 ))}
             </div>
+                
         </>
     )
 }

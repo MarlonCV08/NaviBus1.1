@@ -4,6 +4,7 @@ import OjoCerrado from '../Assets/Images/OjoCerrado.svg';
 import '../Styles/Login.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // Importar SweetAlert2
 
 export const Login = () => {
   const [cedula, setCedula] = useState('');
@@ -16,19 +17,18 @@ export const Login = () => {
   const [showingError, setShowingError] = useState(false);
 
   const navigate = useNavigate();
-  
+
   const notify = (message) => {
     toast.dismiss();
-    
     toast.error(message, {
-    position: "top-center",
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored"
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
     });
   };
 
@@ -37,7 +37,7 @@ export const Login = () => {
       setShowingError(true);
       notify(errorQueue[0]);
     }
-  }, [errorQueue, showingError])
+  }, [errorQueue, showingError]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,24 +59,36 @@ export const Login = () => {
 
         console.log('Inicio de sesión exitoso', data);
         console.log('token recibido', token);
-
+        
         localStorage.setItem('token', token);
-        switch (userRole) {
-          case 'administrador':
-            navigate('/Ruta');
-            break;
-          case 'conductor':
-            navigate('/Validar');
-            break;
+
+        // Mostrar el modal de bienvenida
+        Swal.fire({
+          title: 'Bienvenido',
+          text: 'Inicio de sesión exitoso',
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          // Navegación basada en el rol del usuario después de que se cierre el modal
+          switch (userRole) {
+            case 'administrador':
+              navigate('/Ruta');
+              break;
+            case 'conductor':
+              navigate('/Validar');
+              break;
             case 'despachador':
               navigate('/Scanner');
               break;
-          default:
-            navigate('/');
-            break;
-        }
+            default:
+              navigate('/');
+              break;
+          }
+        });
+
       } else {
-        //Manejo de errores especificos del backend
         if (data.errors) {
           setErrorQueue(data.errors.map(error => error.msg));
           setShowingError(false);
@@ -89,6 +101,7 @@ export const Login = () => {
       notify('Error al conectar con el servidor');
     }
   };
+
   const toggleMostrarClave = () => {
     setMostrarClave(!mostrarClave);
   };
@@ -105,6 +118,7 @@ export const Login = () => {
     setCedula(value);
     setSubirUser(value.length > 0); // Mueve la etiqueta si hay texto
   };
+
   return (
     <div className="login">
       <form className="contenedorLog" onSubmit={handleSubmit}>
