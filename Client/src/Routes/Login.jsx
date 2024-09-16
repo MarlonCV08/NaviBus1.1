@@ -12,6 +12,8 @@ export const Login = () => {
   const [mostrarOjo, setMostrarOjo] = useState(false);
   const [subirUser, setSubirUser] = useState(false);
   const [subirPass, setSubirPass] = useState(false);
+  const [errorQueue, setErrorQueue] = useState([]);
+  const [showingError, setShowingError] = useState(false);
 
   const navigate = useNavigate();
   
@@ -29,6 +31,13 @@ export const Login = () => {
     theme: "colored"
     });
   };
+
+  useEffect(() => {
+    if (errorQueue.length > 0 && !showingError) {
+      setShowingError(true);
+      notify(errorQueue[0]);
+    }
+  }, [errorQueue, showingError])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +76,13 @@ export const Login = () => {
             break;
         }
       } else {
-        notify(data.message || "Error desconocido.");
+        //Manejo de errores especificos del backend
+        if (data.errors) {
+          setErrorQueue(data.errors.map(error => error.msg));
+          setShowingError(false);
+        } else {
+          notify(data.message || "Error desconocido.");
+        }
       }
     } catch (error) {
       console.error('Error al iniciar sesión: ', error);
