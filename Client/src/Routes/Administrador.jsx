@@ -43,7 +43,7 @@ export const Administrador =()=>{
             apellidos,
             cedula,
             correo,
-            rol_id: 1,
+            rol: 1,
             tipodocumento: selectedDropdown
         };
         fetch('http://localhost:3000/api/administradores', {
