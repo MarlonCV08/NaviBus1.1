@@ -3,6 +3,7 @@ import { Dropdown } from "../Components/Dropdown";
 import { Header } from "../Header";
 import "../Styles/Admin.css"
 import React, { useState } from 'react';
+import Swal from "sweetalert2";
 export const Administrador =()=>{
 
     const [nombres, setNombres] = useState('');
@@ -56,6 +57,29 @@ export const Administrador =()=>{
         .then(response => response.json())
         .then(data => {
             console.log('Respuesta del backend:', data);
+
+            if (data.success) {
+                Swal.fire({
+                    title: 'Administrador creado correctamente',
+                    text: `El administrador ${formData.nombres} ha sido registrado`,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar',
+                });
+
+                //Limpiar los campos del formulario
+                setNombres("");
+                setApellidos("");
+                setCedula("");
+                setCorreo("");
+                setSelectedDropdown("");
+            } else {
+                Swal.fire({
+                    title: 'Error al crear administrador',
+                    text: data.message || 'Ocurrio un error al registrar el administrador',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                });
+            }
         })
         .catch(error => {
             console.error('Error al enviar el formulario:', error);

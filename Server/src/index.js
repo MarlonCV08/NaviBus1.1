@@ -67,7 +67,7 @@ app.get('/api/usuarios/:rutaCodigo', (req, res) => {
 
 });
 
-//Consulta de conductores a la base de datos
+//Consulta de usuarios a la base de datos
 app.get('/api/usuarios', (req, res) => {
   const sql = 'SELECT nombres, apellidos from usuarios';
 
@@ -83,7 +83,7 @@ app.get('/api/usuarios', (req, res) => {
 
 //Traer el id del usuario
 app.post('/api/usuarios', (req, res) => {
-  const { rol} = req.body;
+  const { rol } = req.body;
   console.log('Rol ID recibido:', rol);
   res.json({ message: 'Rol ID recibido correctamente' });
 });
@@ -93,17 +93,18 @@ app.post('/api/administradores', (req, res) => {
   const { cedula, nombres, apellidos, tipodocumento, correo, rol } = req.body;
   console.log('Datos recibidos:', { cedula, nombres, apellidos, tipodocumento, correo, rol });
 
-  const sql = `INSERT INTO usuarios (cedula, nombres, apellidos, tipodocumento, correo, rol)
-  VALUES (?, ?, ?, ?, ?, ?)`
+  const clave = cedula;
 
-  db.query(sql, [cedula, nombres, apellidos, tipodocumento, correo, rol], (err, results) => {
+  const sql = `INSERT INTO usuarios (cedula, nombres, apellidos, tipodocumento, correo, rol, clave)
+  VALUES (?, ?, ?, ?, ?, ?, ?)`
+
+  db.query(sql, [cedula, nombres, apellidos, tipodocumento, correo, rol, clave], (err, results) => {
     if (err) {
       console.error('Error al insertar los datos:', err);
       return res.status(500).json({ error: 'Error al insertar los datos en la base de datos' })
     }
-    res.status(201).json({ message: 'Administrador creado con extito' });
+    res.status(201).json({ success: true, message: 'Administrador creado con exito' });
   });
-
 });
 
 //Traer datos del formulario del conductor
@@ -111,7 +112,7 @@ app.post('/api/conductores', (req, res) => {
   const { cedula, nombres, apellidos, tipodocumento, correo, rol, categoria } = req.body;
   console.log('Datos recibidos:', { cedula, nombres, apellidos, tipodocumento, correo, rol, categoria });
 
-  res.status(201).json({ message: 'Conductor creado con extito' });
+  res.status(201).json({ message: 'Conductor creado con exito' });
 });
 
 //Traer datos del formulario del despachador
@@ -119,14 +120,16 @@ app.post('/api/despachadores', (req, res) => {
   const { cedula, nombres, apellidos, tipodocumento, correo, rol } = req.body;
   console.log('Datos recibidos:', { cedula, nombres, apellidos, tipodocumento, correo, rol });
 
-  const sql = `INSERT INTO usuarios (cedula, nombres, apellidos, tipodocumento, correo, rol)
-  VALUES (?, ?, ?, ?, ?, ?)`
-  db.query(sql, [cedula, nombres, apellidos, tipodocumento, correo, rol], (err, results) => {
+  const clave = cedula;
+
+  const sql = `INSERT INTO usuarios (cedula, nombres, apellidos, tipodocumento, correo, rol, clave)
+  VALUES (?, ?, ?, ?, ?, ?, ?)`
+  db.query(sql, [cedula, nombres, apellidos, tipodocumento, correo, rol, clave], (err, results) => {
     if (err) {
       console.error('Error al insertar los datos:', err);
       return res.status(500).json({ error: 'Error al insertar los datos en la base de datos' });
     }
-    res.status(201).json({ message: 'Despachador creado con extito' });
+    res.status(201).json({ success: true, message: 'Despachador creado con exito' });
   })
 });
 
@@ -135,7 +138,7 @@ app.post('/api/vehiculos', (req, res) => {
   const { cedula, nombres, apellidos, tipodocumento, correo, rol } = req.body;
   console.log('Datos recibidos:', { cedula, nombres, apellidos, tipodocumento, correo, rol });
 
-  res.status(201).json({ message: 'Administrador creado con extito' });
+  res.status(201).json({ message: 'Vehiculo creado con exito' });
 });
 
 //Consulta de roles a la base de datos

@@ -11,6 +11,15 @@ export const Dropdown = ({ value, onChange })=>{
       .then(data => setOptions(data))
       .catch(error => console.error('Error al traer los datos:', error))
     }, []);
+
+    useEffect(() => {
+      if (value) {
+        const selectedOption = options.find(option => option.codigo === value);
+        if (selectedOption) {
+          setSelected(selectedOption.nombre);
+        }
+      }
+    }, [value, options]);
   
     const handleSelectClick = () => {
       setIsOpen(!isOpen);

@@ -31,13 +31,13 @@ export const Usuario =()=>{
         }
     }
 
-    const handleRolClick = (rolId, route) => {
+    const handleRolClick = (rol, route) => {
         fetch('http://localhost:3000/api/usuarios', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ rolId })
+            body: JSON.stringify({ rol })
         })
         .then(response => response.json())
         .then(data => {

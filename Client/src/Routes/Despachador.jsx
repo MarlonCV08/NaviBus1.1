@@ -4,6 +4,7 @@ import Camara from "../Assets/Images/Camara.svg"
 import "../Styles/Despachador.css"
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import Swal from "sweetalert2"
 export const Despachador = ()=>{
 
     const [nombres, setNombres] = useState('');
@@ -57,6 +58,29 @@ export const Despachador = ()=>{
         .then(response => response.json())
         .then(data => {
             console.log('Respuesta del backend', data);
+
+            if (data.success) {
+                Swal.fire({
+                    title: 'Despachador creado correctamente',
+                    text: `Despachador(a) ${formData.nombres} ha sido registrado`,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar',
+                });
+
+                //Limpiar los campos del formulario
+                setNombres("");
+                setApellidos("");
+                setCedula("");
+                setCorreo("");
+                setSelectedDropdown("");
+            } else {
+                Swal.fire({
+                    title: 'Error al crear despachador',
+                    text: data.message || 'Ocurrio un error al registrar el despachador',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                });
+            }
         })
         .catch(error => {
             console.error('Error al enviar el formulario:', error);

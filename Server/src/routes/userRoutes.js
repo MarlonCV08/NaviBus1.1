@@ -27,7 +27,7 @@ const userRoutes = (db) => {
 
       const { cedula, clave } = req.body;
 
-      const sql = 'SELECT cedula, clave, rol FROM usuarios WHERE cedula = ? AND clave = ?';
+      const sql = 'SELECT cedula, nombres, clave, rol FROM usuarios WHERE cedula = ? AND clave = ?';
       db.query(sql, [cedula, clave], (err, results) => {
         if(err) {
           console.error('Error al ejecutar la consulta: ', err);
@@ -48,10 +48,69 @@ const userRoutes = (db) => {
             SECRET_KEY
           );
 
-          res.json({ token, message: 'Inicio de sesión exitoso', user: { cedula:user.cedula, rol: userRole } });
+          res.json({ 
+            token, 
+            message: 'Inicio de sesión exitoso', 
+            user: { 
+              cedula: user.cedula, 
+              rol: userRole, 
+              nombre: user.nombres 
+            } 
+          });
         } else {
           res.status(401).json({ message: 'Usuario o clave incorrectos' });
         }
+      });
+    });
+
+    //Ruta para obtener los datos del usuario logueado
+    router.get('/usuario-logueado', (req, res) => {
+      const token = req.headers['authorization']?.split(' ')[1];
+      if (!token) {
+        return res.status(401).json({ error: 'No se proporcionó un token' });
+      }
+
+      jwt.verify(token, SECRET_KEY, (err, decoded) => {
+        if (err) {
+          return res.status(401).json({ error: 'Token invalido' });
+        }
+        const cedula = decoded.cedula;
+        const sql = 'SELECT cedula, nombres, apellidos, tipodocumento, correo FROM usuarios WHERE cedula = ?';
+        db.query(sql, [cedula], (err, results) => {
+          if (err) {
+            return res.status(500).send('Error al ejecutar la consulta');
+          }
+  
+          if (results.length > 0) {
+            res.json(results[0]);
+          } else {
+            res.status(404).json({ message: 'Usuario no encontrado' })
+          }
+        });
+      });
+    });
+
+    router.put('/actualizar-usuario', (req, res) => {
+      const token = req.headers['authorization']?.split(' ')[1];
+      if (!token) {
+        return res.status(401).json({ error: 'No se proporcionó un token' });
+      }
+      jwt.verify(token, SECRET_KEY, (err, decoded) => {
+        if (err) {
+          return res.status(401).json({ message: 'Token invalido' });
+        }
+
+        const { nombres, apellidos, tipodocumento, correo } = req.body;
+        const cedula = decoded.cedula;
+
+        const sql = 'UPDATE usuarios SET nombres = ?, apellidos = ?, tipodocumento = ?, correo = ? WHERE cedula = ?';
+        db.query(sql, [ nombres, apellidos, tipodocumento, correo, cedula ], (err, result) => {
+          if (err) {
+            return res.status(500).json({ message: 'Error al actualizar los datos' });
+          }
+
+          res.json({ success: true, message: 'Datos actualizados correctamente' });
+        });
       });
     });
     return router;

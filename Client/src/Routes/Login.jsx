@@ -56,15 +56,17 @@ export const Login = () => {
       if (response.ok) {
         const token = data.token;
         const userRole = data.user?.rol;
+        const userName = data.user?.nombre;
 
         console.log('Inicio de sesión exitoso', data);
         console.log('token recibido', token);
+        console.log('Nombre recibido', userName);
         
         localStorage.setItem('token', token);
 
         // Mostrar el modal de bienvenida
         Swal.fire({
-          title: 'Bienvenido',
+          title: `Bienvenido, ${userName}`,
           text: 'Inicio de sesión exitoso',
           icon: 'success',
           timer: 2000,
