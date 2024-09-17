@@ -5,6 +5,15 @@ import Swal from "sweetalert2"
 import { useEffect, useState } from "react"
 
 export const AsignarDespa = ()=>{
+    const [despachadores, setDespachadores] = useState([]);
+    
+    useEffect(() => {
+        fetch('http://localhost:3000/api/id-despachadores')
+        .then(response => response.json())
+        .then(data => setDespachadores(data))
+        .catch(error => console.error('Error al traer los datos:', error))
+    }, []);
+    
     const handleButton =()=>{
         Swal.fire({
             title: `Ruta asignada correctamente`,
@@ -14,15 +23,6 @@ export const AsignarDespa = ()=>{
             showConfirmButton: false,
           })
     }
-    const [despachadores, setDespachadores] = useState([]);
-
-    useEffect(() => {
-        fetch('http://localhost:3000/api/id-despachadores')
-        .then(response => response.json())
-        .then(data => setDespachadores(data))
-        .catch(error => console.error('Error al traer los datos:', error))
-    }, []);
-
     return (
         <>
             <Header/>
