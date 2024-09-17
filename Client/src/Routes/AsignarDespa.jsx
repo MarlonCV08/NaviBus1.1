@@ -2,6 +2,7 @@ import { Header } from "../Header"
 import { DropdownRuta } from "../Components/DropdownRuta"
 import "../Styles/AsignarDespa.css"
 import Swal from "sweetalert2"
+import { useEffect, useState } from "react"
 
 export const AsignarDespa = ()=>{
     const handleButton =()=>{
@@ -13,22 +14,27 @@ export const AsignarDespa = ()=>{
             showConfirmButton: false,
           })
     }
+    const [despachadores, setDespachadores] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/api/id-despachadores')
+        .then(response => response.json())
+        .then(data => setDespachadores(data))
+        .catch(error => console.error('Error al traer los datos:', error))
+    }, []);
+
     return (
         <>
             <Header/>
             <div className="contenedorConductores">
-                <div className="contInfo">
-                    <div className="infoConductor">
-                        <p>despachador 1</p>
-                        <DropdownRuta/>
+                {despachadores.map((despachador) => (
+                    <div className="contInfo" key={despachador.cedula}>
+                        <div className="infoConductor">
+                            <p>{despachador.nombres} {despachador.apellidos}</p>
+                            <DropdownRuta/>
+                        </div>
                     </div>
-                </div>
-                <div className="contInfo">
-                    <div className="infoConductor">
-                        <p>despachador 2</p>
-                        <DropdownRuta/>
-                    </div>
-                </div>
+                    ))}
             </div>
             <button onClick={handleButton} className="botonAsignar">Asignar ruta</button>
         </>

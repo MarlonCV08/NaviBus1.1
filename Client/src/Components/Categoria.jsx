@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../Styles/Dropdown.css"
 export const Categoria = ({ onChange, value })=>{
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(value || 'Categoría');
+    const [selected, setSelected] = useState('Categoría');
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
@@ -11,6 +11,17 @@ export const Categoria = ({ onChange, value })=>{
       .then(data => setOptions(data))
       .catch(error => console.error('Error al obtener las opciones', error))
     }, []);
+
+    useEffect(() => {
+      if (value === "") {
+        setSelected('Categoría');
+    } else {
+      const selectedOption = options.find(option => option.codigo === value);
+      if (selectedOption) {
+        setSelected(selectedOption.nombre);
+      }
+    }
+    }, [value, options]);
   
     const handleSelectClick = () => {
       setIsOpen(!isOpen);

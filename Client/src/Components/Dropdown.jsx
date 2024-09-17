@@ -3,7 +3,7 @@ import "../Styles/Dropdown.css"
 export const Dropdown = ({ value, onChange })=>{
     const [isOpen, setIsOpen] = useState(false);
     const [options, setOptions] = useState([]);
-    const [selected, setSelected] = useState(value || 'Tipo de Documento');
+    const [selected, setSelected] = useState('Tipo de Documento');
 
     useEffect(() => {
       fetch('http://localhost:3000/api/tipodocumento')
@@ -13,7 +13,9 @@ export const Dropdown = ({ value, onChange })=>{
     }, []);
 
     useEffect(() => {
-      if (value) {
+      if (value === "") {
+          setSelected('Tipo de Documento');
+      } else {
         const selectedOption = options.find(option => option.codigo === value);
         if (selectedOption) {
           setSelected(selectedOption.nombre);
