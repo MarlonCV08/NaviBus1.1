@@ -19,19 +19,6 @@ app.get('/', (req, res) => {
   res.send('Hola soy la raiz');
 });
 
-//Consulta de usuarios a la base de datos
-app.get('/usuarios', (req, res) => {
-  const sql = 'SELECT * FROM login';
-
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error('Error al ejecutar la consulta:', err);
-      res.status(500).send('Error al ejecutar la consulta');
-      return;
-    }
-    res.json(results);
-  });
-});
 
 //Consulta de rutas a la base de datos
 app.get('/api/rutas', (req, res) => {
@@ -88,6 +75,32 @@ app.post('/api/usuarios', (req, res) => {
   res.json({ message: 'Rol ID recibido correctamente' });
 });
 
+//Consulta de despachadores por ID a la base de datos
+app.get('/api/id-despachadores', (req, res) => {
+  const sql = 'SELECT cedula, nombres, apellidos FROM usuarios WHERE rol = 3';
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+//Consulta de conductores por ID a la base de datos
+app.get('/api/id-conductores', (req, res) => {
+  const sql = 'SELECT cedula, nombres, apellidos FROM usuarios WHERE rol = 2';
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
+  });
+});
+
 //Traer e insertar datos del formulario de administrador
 app.post('/api/administradores', (req, res) => {
   const { cedula, nombres, apellidos, tipodocumento, correo, rol } = req.body;
@@ -112,7 +125,15 @@ app.post('/api/conductores', (req, res) => {
   const { cedula, nombres, apellidos, tipodocumento, correo, rol, categoria } = req.body;
   console.log('Datos recibidos:', { cedula, nombres, apellidos, tipodocumento, correo, rol, categoria });
 
-  res.status(201).json({ message: 'Conductor creado con exito' });
+  const clave = cedula;
+  const sql = `INSERT INTO usuarios (cedula, nombres, apellidos, tipodocumento, categoria, correo, rol, clave) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+  db.query(sql, [cedula, nombres, apellidos, tipodocumento, categoria, correo, rol, clave], (err, results) => {
+    if (err) {
+      console.error('Error al insertar los datos:', err);
+      return res.status(500).json({ error: 'Error al insertar los datos en la base de datos' });
+    }
+    res.status(201).json({ success: true, message: 'Conductor creado con exito' })
+  });
 });
 
 //Traer datos del formulario del despachador
@@ -123,14 +144,14 @@ app.post('/api/despachadores', (req, res) => {
   const clave = cedula;
 
   const sql = `INSERT INTO usuarios (cedula, nombres, apellidos, tipodocumento, correo, rol, clave)
-  VALUES (?, ?, ?, ?, ?, ?, ?)`
+  VALUES (?, ?, ?, ?, ?, ?, ?)`;
   db.query(sql, [cedula, nombres, apellidos, tipodocumento, correo, rol, clave], (err, results) => {
     if (err) {
       console.error('Error al insertar los datos:', err);
       return res.status(500).json({ error: 'Error al insertar los datos en la base de datos' });
     }
     res.status(201).json({ success: true, message: 'Despachador creado con exito' });
-  })
+  });
 });
 
 //Traer datos del formulario del vehiculo

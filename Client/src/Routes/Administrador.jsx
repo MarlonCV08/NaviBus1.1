@@ -9,6 +9,7 @@ export const Administrador =()=>{
     const [nombres, setNombres] = useState('');
     const [apellidos, setApellidos] = useState('');
     const [cedula, setCedula] = useState('');
+    const [confirmCedula, setConfirmCedula] = useState('')
     const [correo, setCorreo] = useState('');
     const [selectedDropdown, setSelectedDropdown] = useState('');
 
@@ -24,6 +25,9 @@ export const Administrador =()=>{
             case 'cedula':
                 setCedula(value);
                 break;
+            case 'confirmCedula':
+                setConfirmCedula(value);
+                break;
             case 'correo':
                 setCorreo(value);
                 break;
@@ -38,6 +42,16 @@ export const Administrador =()=>{
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (cedula !== confirmCedula) {
+            Swal.fire({
+                title: 'Error',
+                text: 'El documento y la confirmación de documento no coinciden',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
 
         const formData = {
             nombres,
@@ -70,6 +84,7 @@ export const Administrador =()=>{
                 setNombres("");
                 setApellidos("");
                 setCedula("");
+                setConfirmCedula("");
                 setCorreo("");
                 setSelectedDropdown("");
             } else {
@@ -122,6 +137,18 @@ export const Administrador =()=>{
                             name="cedula"
                             value={cedula}
                             onChange={handleChange}
+                            />
+                    </section>
+                    <section>
+                        <input 
+                            type="text" 
+                            className="input" 
+                            placeholder="Confirmar Documento"
+                            name="confirmCedula"
+                            value={confirmCedula}
+                            onChange={handleChange}
+                            onPaste={(e) => e.preventDefault()}  // Deshabilitar pegar
+                            onCopy={(e) => e.preventDefault()}   // Deshabilitar copiar
                             />
                     </section>
                     <section>
