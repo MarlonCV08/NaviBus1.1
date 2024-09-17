@@ -1,9 +1,18 @@
 import { Header } from "../Header"
 import { DropdownRuta } from "../Components/DropdownRuta"
 import "../Styles/AsignarDespa.css"
-import { BotonAsignar } from "../Components/BotonAsignar"
+import Swal from "sweetalert2"
 
 export const AsignarDespa = ()=>{
+    const handleButton =()=>{
+        Swal.fire({
+            title: `Ruta asignada correctamente`,
+            icon: 'success',
+            timer: 2000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+          })
+    }
     return (
         <>
             <Header/>
@@ -20,8 +29,8 @@ export const AsignarDespa = ()=>{
                         <DropdownRuta/>
                     </div>
                 </div>
-                <BotonAsignar/>
             </div>
+            <button onClick={handleButton} className="botonAsignar">Asignar ruta</button>
         </>
     )
 }

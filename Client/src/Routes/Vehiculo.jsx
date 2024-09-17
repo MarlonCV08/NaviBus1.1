@@ -3,6 +3,8 @@ import { Header } from "../Header"
 import "../Styles/Vehiculo.css"
 import { useState } from "react"
 import { DropdownLinea } from "../Components/DropdownLinea"
+import { DropdownClaseVehiculo } from "../Components/DropdownClaseVehiculo"
+import { DropdownMarca } from "../Components/DropdownMarca"
 export const Vehiculo = ()=>{
 
     const [placa, setPlaca] = useState('');
@@ -65,12 +67,11 @@ export const Vehiculo = ()=>{
                         className="input" 
                         placeholder="Placa"
                     />
-                    <DropdownLinea/>
                     <input 
                         type="text" 
                         className="input" 
                         placeholder="Modelo"
-                    />
+                        />
                     <input 
                         type="text" 
                         className="input" 
@@ -91,6 +92,9 @@ export const Vehiculo = ()=>{
                         className="input" 
                         placeholder="Cilindrada"
                     />
+                        <DropdownMarca/>
+                        <DropdownLinea/>
+                        <DropdownClaseVehiculo/>
                 </section>
                 <section className="botones">
                 <Link to='/Registro' className="linkRegistro">

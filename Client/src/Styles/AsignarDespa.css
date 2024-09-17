@@ -15,3 +15,17 @@
         width: 12vh;
     }
 }
+.botonAsignar {
+    width: 7vw;
+    color: #fefefe;
+    background: #7579E7;
+    border-radius: 5px;
+    border: none;
+    position: fixed;
+    right: 2%;
+    bottom: 2%;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    z-index: 1;
+}

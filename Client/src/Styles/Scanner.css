@@ -1,3 +1,9 @@
+.reader{
+    width: 400px;
+}
+video{
+    width: 100%;
+}
 .contenedorQR{
     display: flex;
     justify-content: center;
@@ -43,6 +49,7 @@ div#reader_dashboard{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    cursor: pointer;
 }
 .hidden {
     display: none;

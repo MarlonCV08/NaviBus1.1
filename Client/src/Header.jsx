@@ -2,6 +2,7 @@ import "./Styles/Header.css";
 import { useLocation } from "react-router-dom";
 import { Lupa } from "./Components/Lupa";
 import { Menu } from "./Components/Menu";
+import { TituloBienvenida } from "./Components/TituloBienvenida";
 
 export const Header = () => {
   const location = useLocation();
@@ -10,6 +11,7 @@ export const Header = () => {
   return (
     <section className="curved">
       <Menu />
+      <TituloBienvenida/>
       {!noLupa.includes(location.pathname) && <Lupa />}
     </section>
   );
