@@ -8,27 +8,29 @@ import { DropdownMarca } from "../Components/DropdownMarca"
 export const Vehiculo = ()=>{
 
     const [placa, setPlaca] = useState('');
-    const [linea, setLinea] = useState('');
     const [modelo, setModelo] = useState('');
     const [chasis, setChasis] = useState('');
     const [motor, setMotor] = useState('');
     const [pasajeros, setPasajeros] = useState('');
     const [cilindrada, setCilindrada] = useState('');
+    const [marca, setMarca] = useState('');
+    const [linea, setLinea] = useState('');
+    const [clasevehiculo, setClasevehiculo] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         switch (name) {
             case 'placa':
-                setPlaca(value);
+                setPlaca(value.toUpperCase());
                 break;
             case 'modelo':
                 setModelo(value);
                 break;
             case 'chasis':
-                setChasis(value);
+                setChasis(value.toUpperCase());
                 break;
             case 'motor':
-                setMotor(value);
+                setMotor(value.toUpperCase());
                 break;
             case 'pasajeros':
                 setPasajeros(value);
@@ -41,7 +43,7 @@ export const Vehiculo = ()=>{
         };
     };
 
-    const handleSUbmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         const formData = {
@@ -50,7 +52,10 @@ export const Vehiculo = ()=>{
             chasis,
             motor,
             pasajeros,
-            cilindrada
+            cilindrada,
+            marca,
+            linea,
+            clasevehiculo
         };
         fetch('http://localhost:3000/api/vehiculos')
     }
@@ -60,41 +65,59 @@ export const Vehiculo = ()=>{
         <>
         <Header />
         <div className="contenedorPadre">
-            <form className="contenedor">
+            <form className="contenedor" onSubmit={handleSubmit}>
                 <section className="inputs">
                     <input 
                         type="text" 
                         className="input" 
                         placeholder="Placa"
+                        name="placa"
+                        value={placa}
+                        onChange={handleChange}
                     />
                     <input 
                         type="text" 
                         className="input" 
                         placeholder="Modelo"
+                        name="modelo"
+                        value={modelo}
+                        onChange={handleChange}
                         />
                     <input 
                         type="text" 
                         className="input" 
                         placeholder="N° Chasis"
+                        name="chasis"
+                        value={chasis}
+                        onChange={handleChange}
                     />
                     <input 
                         type="text" 
                         className="input" 
                         placeholder="N° Motor"
+                        name="motor"
+                        value={motor}
+                        onChange={handleChange}
                     />
                     <input 
                         type="text" 
                         className="input" 
                         placeholder="N° Pasajeros"
+                        name="pasajeros"
+                        value={pasajeros}
+                        onChange={handleChange}
                     />
                     <input 
                         type="text" 
                         className="input" 
                         placeholder="Cilindrada"
+                        name="cilindrada"
+                        value={cilindrada}
+                        onChange={handleChange}
                     />
-                        <DropdownMarca/>
-                        <DropdownLinea/>
-                        <DropdownClaseVehiculo/>
+                        <DropdownMarca value={marca} onChange={setMarca} />
+                        <DropdownLinea marcaCod={marca} value={linea} onChange={setLinea} />
+                        <DropdownClaseVehiculo onChange={setClasevehiculo} />
                 </section>
                 <section className="botones">
                 <Link to='/Registro' className="linkRegistro">

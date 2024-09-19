@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../Styles/Dropdown.css"
 export const Categoria = ({ onChange, value })=>{
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState('Categoría');
     const [options, setOptions] = useState([]);
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
       fetch('http://localhost:3000/api/categoria')
@@ -32,8 +33,22 @@ export const Categoria = ({ onChange, value })=>{
       onChange(option.codigo)
       setIsOpen(false);
     };
+
+    // Cerrar el dropdown al hacer clic fuera
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setIsOpen(false);
+        }
+      };
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
+
     return(
-        <div className="dropdown">
+        <div className="dropdown" ref={dropdownRef}>
             <div className={`select ${isOpen ? 'select-clicked' : ''}`} onClick={handleSelectClick}>
                 <span className="selected">{selected}</span>
                 <div className={`caret ${isOpen ? 'caret-rotate' : ''}`}></div>

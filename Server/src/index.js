@@ -190,6 +190,49 @@ app.get('/api/tipodocumento', (req, res) => {
   });
 });
 
+//Consulta para obtener opciones de marca
+app.get('/api/marca', (req, res) => {
+  const sql = 'SELECT * FROM marca';
+
+  db.query(sql, (err, results) => {
+    if(err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+//Consulta para obtener opciones de linea dependiendo la marca
+app.get('/api/linea/:marcaCod', (req, res) => {
+  const marcaCod = req.params.marcaCod;
+  const sql = 'SELECT * FROM linea WHERE marca = ?';
+
+  db.query(sql, [marcaCod], (err, results) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+//Consulta para obtener opciones de clasevehiculo
+app.get('/api/clasevehiculo', (req, res) => {
+  const sql = 'SELECT * FROM clasevehiculo';
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
+  });
+});
+
 //consulta para obtener opciones de categoria
 app.get('/api/categoria', (req, res) => {
   const sql = 'SELECT * FROM categoria';
