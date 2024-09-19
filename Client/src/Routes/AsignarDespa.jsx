@@ -29,7 +29,7 @@ export const AsignarDespa = ()=>{
             <div className="contenedorConductores">
                 {despachadores.map((despachador) => (
                     <div className="contInfo" key={despachador.cedula}>
-                        <div className="infoConductor">
+                        <div className="infoConductorAsi">
                             <p>{despachador.nombres} {despachador.apellidos}</p>
                             <DropdownRuta/>
                         </div>

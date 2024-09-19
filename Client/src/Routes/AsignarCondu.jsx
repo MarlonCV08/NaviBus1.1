@@ -30,7 +30,7 @@ export const AsignarCondu = ()=>{
             <div className="contenedorConductores">
                 {conductores.map((conductor) => (
                         <div className="contInfo" key={conductor.cedula}>
-                            <div className="infoConductor">
+                            <div className="infoConductorAsi">
                                 <p>{conductor.nombres} {conductor.apellidos}</p>
                                 <DropdownRuta/>
                             </div>
