@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 
 export const AsignarDespa = ()=>{
     const [despachadores, setDespachadores] = useState([]);
+    const [selectedRutas, setSelectedRutas] = useState({});
     
     useEffect(() => {
         fetch('http://localhost:3000/api/id-despachadores')
@@ -13,6 +14,13 @@ export const AsignarDespa = ()=>{
         .then(data => setDespachadores(data))
         .catch(error => console.error('Error al traer los datos:', error))
     }, []);
+
+    const handleDropdownChange = (cedula, ruta) => {
+        setSelectedRutas((prevState) => ({
+            ...prevState,
+            [cedula]: ruta
+        }));
+    };
     
     const handleButton =()=>{
         Swal.fire({
@@ -31,7 +39,7 @@ export const AsignarDespa = ()=>{
                     <div className="contInfo" key={despachador.cedula}>
                         <div className="infoConductorAsi">
                             <p>{despachador.nombres} {despachador.apellidos}</p>
-                            <DropdownRuta/>
+                            <DropdownRuta value={selectedRutas[despachador.cedula]} onChange={(ruta) => handleDropdownChange(despachador.cedula, ruta)} />
                         </div>
                     </div>
                     ))}

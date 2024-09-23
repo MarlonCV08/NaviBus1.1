@@ -5,6 +5,7 @@ const PORT = 3000;
 const db = require('./db');
 const cors = require('./cors');
 const userRoutes = require('./routes/userRoutes');
+const vehicleRoutes = require('./routes/vehicleRoutes');
 
 //Configurar Express para manejar JSON
 app.use(express.json());
@@ -12,13 +13,11 @@ app.use(express.json());
 //configurar CORS
 app.use(cors);
 
-
+//Traer datos del formulario del usuario
 app.use('/', userRoutes(db));
 
-app.get('/', (req, res) => {
-  res.send('Hola soy la raiz');
-});
-
+//Traer datos del formulario del vehiculo
+app.use('/api/vehiculos', vehicleRoutes(db));
 
 //Consulta de rutas a la base de datos
 app.get('/api/rutas', (req, res) => {
@@ -152,14 +151,6 @@ app.post('/api/despachadores', (req, res) => {
     }
     res.status(201).json({ success: true, message: 'Despachador creado con exito' });
   });
-});
-
-//Traer datos del formulario del vehiculo
-app.post('/api/vehiculos', (req, res) => {
-  const { cedula, nombres, apellidos, tipodocumento, correo, rol } = req.body;
-  console.log('Datos recibidos:', { cedula, nombres, apellidos, tipodocumento, correo, rol });
-
-  res.status(201).json({ message: 'Vehiculo creado con exito' });
 });
 
 //Consulta de roles a la base de datos
