@@ -114,7 +114,7 @@ export const Conductor =()=>{
         <>
             <Header/>
             <div className="contenedorPadre">
-                    <form className="contenedor" onSubmit={handleSubmit}>
+                    <form className="contenedorCondu" onSubmit={handleSubmit}>
                         <div className="contenedorHijo">
                             <div className="contenedorCamara">
                                 <img src={Camara} alt=""/>
