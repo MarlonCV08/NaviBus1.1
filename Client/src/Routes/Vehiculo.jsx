@@ -100,7 +100,9 @@ export const Vehiculo = ()=>{
                     title: 'Vehiculo creado correctamente',
                     text: `El vehiculo con placas ${formData.placa} ha sido registrado`,
                     icon: 'success',
-                    confirmButtonText: 'Aceptar',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
                 });
 
                 //Limpiar los campos del formulario

@@ -4,8 +4,9 @@ import Camara from "../Assets/Images/Camara.svg"
 import { Link } from "react-router-dom"
 import { Categoria } from "../Components/Categoria"
 import "../Styles/Conductor.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Swal from "sweetalert2"
+import { toast, ToastContainer } from "react-toastify"
 export const Conductor =()=>{
 
     const [nombres, setNombres] = useState('');
@@ -15,6 +16,22 @@ export const Conductor =()=>{
     const [correo, setCorreo] = useState('');
     const [selectedDropdown, setSelectedDropdown] = useState('');
     const [categoria, setCategoria] = useState('');
+    const [errorQueue, setErrorQueue] = useState([]);
+    const [showingError, setShowingError] = useState(false);
+
+    const notify = (message) => {
+        toast.dismiss();
+        toast.error(message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored"
+        })
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,6 +56,13 @@ export const Conductor =()=>{
         };
     };
 
+    useEffect(() => {
+        if (errorQueue.length > 0 && !showingError) {
+            setShowingError(true);
+            notify(errorQueue[0]);
+        }
+    }, [errorQueue, showingError]);
+
     const handleDropdownChange = (option) => {
         setSelectedDropdown(option);
     };
@@ -51,12 +75,7 @@ export const Conductor =()=>{
         e.preventDefault();
 
         if (cedula !== confirmCedula) {
-            Swal.fire({
-                title: 'Error',
-                text: 'El documento y la confirmación de documento no coinciden',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            });
+            notify('El documento y la confirmación de documento no coinciden');
             return;
         }
 
@@ -85,28 +104,30 @@ export const Conductor =()=>{
                     title: 'Conductor creado correctamente',
                     text: `El conductor ${formData.nombres} ha sido registrado`,
                     icon: 'success',
-                    confirmButtonText: 'Aceptar',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
                 });
 
                 //Limpiar los campos del formulario
-                setNombres("");
-                setApellidos("");
-                setCedula("");
-                setConfirmCedula("");
-                setCorreo("");
-                setSelectedDropdown("");
-                setCategoria("");
+                setNombres('');
+                setApellidos('');
+                setCedula('');
+                setConfirmCedula('');
+                setCorreo('');
+                setSelectedDropdown('');
+                setCategoria('');
             } else {
-                Swal.fire({
-                    title: 'Error al crear administrador',
-                    text: data.message || 'Ocurrio un error al registrar el administrador',
-                    icon: 'error',
-                    confirmButtonText: 'Aceptar',
-                });
+                if (data.errors) {
+                    setErrorQueue(data.errors.map(error => error.msg));
+                    setShowingError(false);
+                } else {
+                    notify(data.message || 'Error desconocido');
+                }
             }
         })
         .catch(error => {
-            console.error('Error al enviar el formulario:', error);
+            console.error('Error al registrar el conductor', error);
         })
     }
 
@@ -191,6 +212,7 @@ export const Conductor =()=>{
                                 <input type="submit" value="Enviar" className="boton"/>
                             </section>
                     </form>
+                    <ToastContainer closeButton={false} limit={1}/>
             </div>
         </>
     )

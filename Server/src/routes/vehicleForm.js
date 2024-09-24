@@ -3,17 +3,17 @@ const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
 
-const vehicleRoutes = (db) => {
+const vehicleForm = (db) => {
   router.post('/', [
     body('placa').notEmpty().withMessage('La placa es obligatoria'),
-    body('marca').notEmpty().withMessage('La marca es obligatoria'),
-    body('linea').notEmpty().withMessage('La línea es obligatoria'),
-    body('clasevehiculo').notEmpty().withMessage('La clase de vehículo es obligatoria'),
     body('modelo').notEmpty().withMessage('El modelo es obligatorio'),
     body('numchasis').notEmpty().withMessage('El número de chasis es obligatorio'),
     body('nummotor').notEmpty().withMessage('El número de motor es obligatorio'),
     body('numpasajeros').isInt({ gt: 0 }).withMessage('El número de pasajeros debe ser un número positivo'),
     body('cilindrada').isFloat({ gt: 0 }).withMessage('La cilindrada debe ser un número positivo'),
+    body('marca').notEmpty().withMessage('La marca es obligatoria'),
+    body('linea').notEmpty().withMessage('La línea es obligatoria'),
+    body('clasevehiculo').notEmpty().withMessage('La clase de vehículo es obligatoria'),
   ], (req, res) => {
 
     const errors = validationResult(req);
@@ -65,4 +65,4 @@ const vehicleRoutes = (db) => {
   });
   return router;
 };
-module.exports = vehicleRoutes;
+module.exports = vehicleForm;

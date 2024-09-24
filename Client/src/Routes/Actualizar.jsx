@@ -66,7 +66,9 @@ export const Actualizar = ()=>{
                     title: '¡Bien hecho!',
                     text: 'Los datos han sido actualizados con éxito',
                     icon: 'success',
-                    confirmButtonText: 'Aceptar'
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
                 });
             } else {
                 Swal.fire({
