@@ -1,20 +1,28 @@
 const express = require('express');
 const app = express();
+const http = require('http');  // Asegúrate de importar http
 const PORT = 3000;
 
 const db = require('./db');
 const cors = require('./cors');
+const server = http.createServer(app);  // Crear servidor HTTP
+
 const userRoutes = require('./routes/userRoutes');
 const vehicleForm = require('./routes/vehicleForm');
 const adminForm = require('./routes/adminForm');
 const conduForm = require('./routes/conduForm');
 const despaForm = require('./routes/despaForm');
+const initializeSocket = require('./io');
+
 
 //Configurar Express para manejar JSON
 app.use(express.json());
 
 //configurar CORS
 app.use(cors);
+
+// Inicializar Socket.IO
+initializeSocket(server);  // Pasamos el servidor HTTP a la función de Socket.IO
 
 //Traer datos del formulario del usuario
 app.use('/', userRoutes(db));
@@ -199,7 +207,7 @@ app.get('/api/categoria', (req, res) => {
 });
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
 
