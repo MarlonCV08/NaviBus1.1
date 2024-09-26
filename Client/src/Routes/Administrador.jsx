@@ -111,7 +111,7 @@ export const Administrador =()=>{
                 setConfirmCedula('');
                 setCorreo('');
                 setSelectedDropdown('');
-                navigate('/Ruta');
+                /* navigate('/Ruta'); */
             } else {
                 if (data.errors) {
                     setErrorQueue(data.errors.map(error => error.msg));
