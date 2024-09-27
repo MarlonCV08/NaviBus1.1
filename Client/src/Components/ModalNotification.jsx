@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-
+import '../Styles/ModalNotification.css'
 export const ModalNotification = (message) => {
   return Swal.fire({
     title: "Nueva Notificación",

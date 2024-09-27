@@ -1,22 +1,18 @@
-import React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Swal from "sweetalert2";
 import "../Styles/BotonAsignar.css"
 export const BotonAsignar=()=>{
-  const notify = () => toast.success('La ruta ha sido asignada correctamente', {
-    position: "bottom-left",
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
-    });
+  const handleButton =()=>{
+    Swal.fire({
+        title: `Ruta asignada correctamente`,
+        icon: 'success',
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      })
+}
   return (
     <div>
-      <button className='botonAsignar' onClick={notify}>Asignar</button>
-      <ToastContainer closeButton={false}/>
+      <button onClick={handleButton} className="botonAsignar">Asignar ruta</button>
     </div>
   );
 }
