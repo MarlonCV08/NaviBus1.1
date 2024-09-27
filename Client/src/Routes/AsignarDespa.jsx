@@ -3,6 +3,7 @@ import { DropdownRuta } from "../Components/DropdownRuta"
 import "../Styles/AsignarDespa.css"
 import Swal from "sweetalert2"
 import { useEffect, useState } from "react"
+import { ModalAsignar } from "../Components/ModalAsignar"
 
 export const AsignarDespa = ()=>{
     const [despachadores, setDespachadores] = useState([]);
@@ -39,12 +40,12 @@ export const AsignarDespa = ()=>{
                     <div className="contInfo" key={despachador.cedula}>
                         <div className="infoConductorAsi">
                             <p>{despachador.nombres} {despachador.apellidos}</p>
-                            <DropdownRuta value={selectedRutas[despachador.cedula]} onChange={(ruta) => handleDropdownChange(despachador.cedula, ruta)} />
+                            <ModalAsignar/>
+                            {/* <DropdownRuta value={selectedRutas[despachador.cedula]} onChange={(ruta) => handleDropdownChange(despachador.cedula, ruta)} /> */}
                         </div>
                     </div>
                     ))}
             </div>
-            <button onClick={handleButton} className="botonAsignar">Asignar ruta</button>
         </>
     )
 }
