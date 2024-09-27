@@ -1,5 +1,5 @@
 import "../Styles/Ruta.css"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import RutaImg from "../Assets/Images/Ruta.svg"
 import { Header } from "../Header";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ export const Ruta = ()=>{
             <Header />
             <div className="contRutas">
                 {rutas.map((ruta) => (
-                    <Link to={`/Ruta/${ruta.codigo}`} className="linkRuta" key={ruta.codigo}>
+                    <Link to={`/Ruta/${ruta.nombre}`} className="linkRuta" key={ruta.codigo}>
                         <div className="rutas">
                             <img src={RutaImg} />
                             <p>{ruta.nombre}</p>

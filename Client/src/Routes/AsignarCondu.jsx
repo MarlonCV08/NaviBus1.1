@@ -20,6 +20,10 @@ export const AsignarCondu = ()=>{
         })
         .then(response => {
             if (response.ok) {
+                // Eliminar conductores asignados
+                setConductores(prevConductores => 
+                    prevConductores.filter(conductor => !selectedRutas[conductor.cedula])
+                );
                 Swal.fire({
                     title: `Ruta asignada correctamente`,
                     icon: 'success',
@@ -30,7 +34,7 @@ export const AsignarCondu = ()=>{
             } else {
                 Swal.fire({
                     title: 'Error al asignar las rutas',
-                    icon: 'Error',
+                    icon: 'error',
                     timer: 2000,
                     timerProgressBar: true,
                     showConfirmButton: false,

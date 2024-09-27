@@ -34,7 +34,7 @@ const router = createBrowserRouter ([
                 element: <Ruta />
             },
             {
-                path: "/Ruta/:codigo",
+                path: "/Ruta/:rutaNombre",
                 element: <Conductores />
             },
             {

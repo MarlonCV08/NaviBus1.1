@@ -13,6 +13,7 @@ const adminForm = require('./routes/adminForm');
 const conduForm = require('./routes/conduForm');
 const despaForm = require('./routes/despaForm');
 const initializeSocket = require('./io');
+const asignarCondu = require('./routes/asignarCondu');
 
 
 //Configurar Express para manejar JSON
@@ -39,6 +40,9 @@ app.use('/api/despachadores', despaForm(db));
 //Traer datos del formulario del vehiculo
 app.use('/api/vehiculos', vehicleForm(db));
 
+//Traer y asignar conductor a una ruta
+app.use('/api/asignar-rutas', asignarCondu(db));
+
 //Consulta de rutas a la base de datos
 app.get('/api/rutas', (req, res) => {
   const sql = 'SELECT * FROM ruta';
@@ -54,15 +58,17 @@ app.get('/api/rutas', (req, res) => {
 });
 
 //Consulta para obtener los conductores de las rutas asignadas
-app.get('/api/usuarios/:rutaCodigo', (req, res) => {
+app.get('/api/usuarios/:rutaNombre', (req, res) => {
 
-  const { rutaCodigo } = req.params;
+  const { rutaNombre } = req.params;
+  console.log('Ruta solicitada:', rutaNombre); 
 
-  const sql = `SELECT u.nombres, u.apellidos FROM usuarios u
+  const sql = `SELECT u.cedula ,u.nombres, u.apellidos FROM usuarios u
               INNER JOIN ruta_usuarios ru ON ru.cedula = u.cedula
-              WHERE ru.ruta_codigo = ${rutaCodigo}`;
+              INNER JOIN ruta r ON r.codigo = ru.ruta_codigo
+              WHERE r.nombre = ?`;
 
-  db.query(sql, [rutaCodigo], (err, results) => {
+  db.query(sql, [rutaNombre], (err, results) => {
             if (err) {
               return res.status(500).json({ error: 'Error al obtener los datos', err });
             }
