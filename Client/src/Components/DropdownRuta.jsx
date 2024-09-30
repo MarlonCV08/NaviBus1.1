@@ -57,7 +57,7 @@ export const DropdownRuta = ({ value, onChange })=>{
                 {options.map((option) => (
                   <li
                     key={option.codigo}
-                    className={option.nombre === value ? 'active' : ''}
+                    className={option.codigo === value ? 'active' : ''}
                     onClick={() => handleOptionClick(option)}
                   >
                     {option.nombre}

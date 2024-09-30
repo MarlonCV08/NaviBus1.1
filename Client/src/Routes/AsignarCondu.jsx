@@ -8,6 +8,13 @@ export const AsignarCondu = ()=>{
 
     const [conductores, setConductores] = useState([]);
     const [selectedRutas, setSelectedRutas] = useState({});
+    
+    useEffect(() => {
+        fetch('http://localhost:3000/api/id-conductores')
+        .then(response => response.json())
+        .then(data => setConductores(data))
+        .catch(error => console.error('Error al traer los datos:', error))
+    }, []);
 
     const handleButton =()=>{
 
@@ -21,16 +28,32 @@ export const AsignarCondu = ()=>{
         .then(response => {
             if (response.ok) {
                 // Eliminar conductores asignados
-                setConductores(prevConductores => 
-                    prevConductores.filter(conductor => !selectedRutas[conductor.cedula])
-                );
-                Swal.fire({
-                    title: `Ruta asignada correctamente`,
-                    icon: 'success',
-                    timer: 2000,
-                    timerProgressBar: true,
-                    showConfirmButton: false,
-                })
+                const conductoresAsignados = Object.keys(selectedRutas);
+
+                fetch('http://localhost:3000/api/id-conductores')
+                .then(response => response.json())
+                .then(data => {
+                    setConductores(data);
+                    setSelectedRutas({});
+                    // Mostrar mensaje para cada conductor asignado
+                    const messages = conductoresAsignados.map(cedula => {
+                        const ruta = selectedRutas[cedula];
+                        const conductor = conductores.find(conductor => conductor.cedula === cedula);
+                        if (conductor) {
+                            return `El conductor ${conductor.nombres} ${conductor.apellidos} se asignó correctamente a la ruta ${ruta}.`;
+                        } else {
+                            return `El conductor con cédula ${cedula} no se encontró.`;
+                        }
+                    });
+                    Swal.fire({
+                        title: messages.join('\n'),
+                        icon: 'success',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                    });
+                });
+
             } else {
                 Swal.fire({
                     title: 'Error al asignar las rutas',
@@ -46,14 +69,6 @@ export const AsignarCondu = ()=>{
         })
 
     }
-
-
-    useEffect(() => {
-        fetch('http://localhost:3000/api/id-conductores')
-        .then(response => response.json())
-        .then(data => setConductores(data))
-        .catch(error => console.error('Error al traer los datos:', error))
-    }, []);
 
     const handleDropdownChange = (cedula, ruta) => {
         setSelectedRutas((prevState) => ({

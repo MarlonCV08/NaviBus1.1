@@ -115,7 +115,12 @@ app.get('/api/id-despachadores', (req, res) => {
 
 //Consulta de conductores por ID a la base de datos
 app.get('/api/id-conductores', (req, res) => {
-  const sql = 'SELECT cedula, nombres, apellidos FROM usuarios WHERE rol = 2';
+  const sql = `
+    SELECT cedula, nombres, apellidos 
+    FROM usuarios 
+    WHERE rol = 2
+    AND cedula NOT IN (SELECT cedula FROM ruta_usuarios);
+  `;
   db.query(sql, (err, results) => {
     if (err) {
       console.error('Error al ejecutar la consulta:', err);

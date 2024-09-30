@@ -41,8 +41,8 @@ export const ModalAsignar=()=>{
       <div className="example">
         <motion.div className="box" animate={isVisible ? show : hide}>
           <section className='dropdownSection'>
-            <DropdownRuta/>
-            <DropdownPuntoControl/>
+            <DropdownRuta />
+            <DropdownPuntoControl />
           </section>
           <section className="buttonSection">
           <motion.button

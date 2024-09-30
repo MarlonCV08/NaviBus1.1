@@ -45,7 +45,8 @@ const userRoutes = (db) => {
 
           const token = jwt.sign(
             { cedula: user.cedula, rol: userRole }, 
-            SECRET_KEY
+            SECRET_KEY,
+            { expiresIn: '1m' }
           );
 
           res.json({ 
