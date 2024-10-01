@@ -9,6 +9,7 @@ const asignarCondu = (db) => {
 
     const promises = Object.entries(asignaciones).map(([cedula, rutaId]) => {
       return new Promise((resolve) => {
+        
         // Verificar si la asignación ya existe
         db.query('SELECT * FROM ruta_usuarios WHERE cedula = ?', [ cedula], (error, results) => {
           if (error) {
@@ -19,6 +20,7 @@ const asignarCondu = (db) => {
            console.error(`El conductor ${cedula} ya está asignado a una ruta`);
            return resolve({ error: `El conductor ${cedula} ya está asignado a una ruta` });
           }
+
           // Verificar si el conductor existe
           db.query('SELECT * FROM usuarios WHERE cedula = ? AND rol= 2', [cedula], (error, results) => {
             if (error) {
@@ -29,6 +31,7 @@ const asignarCondu = (db) => {
               console.error(`Conductor no encontrado o no válido: ${cedula}`);
               return resolve({ error: `Conductor no encontrado o no válido: ${cedula}` });
             }
+
             // Realizar la inserción
             db.query('INSERT INTO ruta_usuarios (ruta_codigo, cedula) VALUES (?, ?)', [rutaId, cedula], (error) => {
               if (error) {
