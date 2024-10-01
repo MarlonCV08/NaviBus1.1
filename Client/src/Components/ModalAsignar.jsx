@@ -8,7 +8,7 @@ import { DropdownPuntoControl } from './DropdownPuntoControl';
 export const ModalAsignar=()=>{
   const show = {
     opacity: 1,
-    display: "block"
+    display: "flex"
   };
 
   const hide = {
