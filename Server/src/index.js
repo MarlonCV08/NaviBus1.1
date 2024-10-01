@@ -14,7 +14,6 @@ const adminForm = require('./routes/adminForm');
 const conduForm = require('./routes/conduForm');
 const despaForm = require('./routes/despaForm');
 const asignarCondu = require('./routes/asignarCondu');
-const authRole = require('./middleware/authRole');
 
 
 //Configurar Express para manejar JSON
@@ -30,7 +29,7 @@ initializeSocket(server);  // Pasamos el servidor HTTP a la función de Socket.I
 app.use('/', userRoutes(db));
 
 //Traer e insertar datos del formulario de administrador
-app.use('/api/administradores', authRole([1]), adminForm(db));
+app.use('/api/administradores', adminForm(db));
 
 //Traer datos del formulario del conductor
 app.use('/api/conductores', conduForm(db));
