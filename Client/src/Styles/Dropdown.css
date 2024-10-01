@@ -50,8 +50,10 @@
     z-index: 1;
     border-radius: 0.5em;
     border: 1px #7579E7 solid;
+    max-height: 120px; /* Limita la altura (ajusta este valor para que se vean dos opciones) */
+    overflow-y: auto;
 }
-.menuListDoc li{
+.menuListDoc li {
     padding: 0.7em 0.5em;
     margin: 0.3em 0;
     border-radius: 0.5em;
@@ -60,10 +62,29 @@
 .menuListDoc li:hover{
     background: rgba(117, 121, 231, 0.25);
 }
-/* .active{
-    background: rgba(117, 121, 231, 0.25);
-} */
+
 .menu-open{
     display: block;
     opacity: 1;
+}
+
+.menuListDoc::-webkit-scrollbar {
+    width: 8px;               /* Ancho del scrollbar */
+}
+
+.menuListDoc::-webkit-scrollbar-track {
+    background: transparent;       /* Color de fondo del track del scrollbar */
+    border-radius: 10px;  
+    border: #7579E7;
+    height: 80%;     /* Bordes redondeados para el track */
+}
+
+.menuListDoc::-webkit-scrollbar-thumb {
+    background-color: #7579E7;
+    border-radius: 0.5em;
+    border: none;
+}
+
+.menuListDoc::-webkit-scrollbar-thumb:active {
+    background-color: #5b5fe7; /* Color al pasar el mouse sobre la barra */
 }

@@ -1,0 +1,7 @@
+.swal2-actions{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.swal2-styled{
+    width: 100%;
+}

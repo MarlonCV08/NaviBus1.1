@@ -2,41 +2,65 @@ import { useEffect, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import '../Styles/Scanner.css';
 import { HeaderCondu } from "../Components/HeaderCondu";
-import ScanQR from '../Assets/Images/ScanQR.svg'
+import ScanQR from '../Assets/Images/ScanQR.svg';
+import { toast, ToastContainer } from "react-toastify";
+import { ModalNotification } from "../Components/ModalNotification";
+import socket from "../Auth/socket";
 
 export const Scanner = () => {
-    const [scanResult, setScanResult] = useState(null);
     const [scanner, setScanner] = useState(null);
     const [scanning, setScanning] = useState(false);
+    const [notifications, setNotifications] = useState([])
 
+    useEffect(() => {
+        const userId = '1036743213'; // Este puede ser el ID del usuario actual que está usando la aplicación
+        socket.emit('register', userId); // Registra al usuario en el backend
+      }, []);
+      useEffect(() => {
+        // Escuchar el evento 'receiveNotification' desde el servidor
+        socket.on('receiveNotification', async (message) => {
+            console.log('Notificación recibida:', message);
+            setNotifications(prevNotifications => [...prevNotifications, message]);
+            
+            // Mostrar el modal y esperar la confirmación
+            const isConfirmed = await ModalNotification(message);
+
+            if (isConfirmed) {
+                socket.emit('notificationConfirmed', { message, userId: '1045738520' }); // Enviar confirmación al backend
+                console.log("Notificación confirmada y enviada al backend");
+            } else {
+                console.log("Notificación cancelada");
+            }
+        });
+
+        // Limpiar el evento cuando el componente se desmonte
+        return () => {
+          socket.off('receiveNotification');
+        };
+    }, []);
     const startScanning = () => {
         if (!scanner) {
             const newScanner = new Html5QrcodeScanner("reader", {
                 qrbox: {
-                    width: 600,
-                    height: 400,
+                    width: 1000,
+                    height: 1000,
                 },
                 fps: 10,
             });
 
             newScanner.render(
                 (result) => {
-                    setScanResult(result);
-                    newScanner.clear();
-
-                    if (result.startsWith("http://") || result.startsWith("https://")) {
-                        window.location.href = result;
-                    } else {
-                        console.warn("El resultado escaneado no es un enlace válido:", result);
-                    }
+                    console.log("Scanned result:", result);
+                    sendDataToBackend(result); // Enviar datos al backend
+                    newScanner.clear(); // Detener escaneo después de obtener el resultado
                 },
                 (error) => {
-                    console.warn("No se pudo escanear el código QR. Inténtalo de nuevo.", error);
+                    console.warn("Scan error:", error);
                 }
             );
 
             setScanner(newScanner);
-            setScanning(true); // Ocultar el botón de inicio al comenzar el escaneo
+            setScanning(true);
         }
     };
 
@@ -44,47 +68,55 @@ export const Scanner = () => {
         if (scanner) {
             scanner.clear();
             setScanner(null);
-            setScanning(false); // Mostrar el botón de inicio al detener el escaneo
+            setScanning(false);
         }
     };
 
-    useEffect(() => {
-        if (scanner) {
-            // Encontrar y ocultar el botón de detener escaneo predeterminado
-            const timer = setTimeout(() => {
-                const stopButton = document.querySelector("#reader .html5-qrcode-btn-container");
-                if (stopButton) {
-                    stopButton.classList.add('hidden');
-                }
-            }, 1000); // Esperar un segundo para asegurar que el escáner haya renderizado
+    const sendDataToBackend = (data) => {
+        fetch('https://your-backend-endpoint.com/api/save-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ qrData: data }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    };
 
-            // Limpiar el temporizador al desmontar el componente
-            return () => clearTimeout(timer);
-        }
+    useEffect(() => {
+        return () => {
+            if (scanner) {
+                scanner.clear();
+            }
+        };
     }, [scanner]);
 
     return (
         <>
-            <HeaderCondu/>
+            <HeaderCondu />
             <div className="contenedorQR">
                 <div className="Hijo">
-                    <div id="reader" className={`reader ${scanning ? 'active' : ''}`} style={{ width: "300px", height:"220px"}}>
-                        {/* El contenido generado por html5-qrcode será inyectado aquí */}
-                    </div>
+                    <div id="reader" className={`reader ${scanning ? 'active' : ''}`}></div>
                     <img
                         src={ScanQR}
-                        className={`ScanQR ${scanning ? 'hidden' : ''}`} 
+                        className={`ScanQR ${scanning ? 'hidden' : ''}`}
                         onClick={startScanning}
-                    >
-                    </img>
-                    <button 
-                        className={`btn detener ${scanning ? '' : 'hidden'}`} 
+                        alt="Start Scanning"
+                    />
+                    <button
+                        className={`btn detener ${scanning ? '' : 'hidden'}`}
                         onClick={stopScanning}
                     >
                         Detener Escaneo
                     </button>
-                    {scanResult && <p>Redirigiendo a: {scanResult}</p>}
                 </div>
+                <ToastContainer/>
             </div>
         </>
     );

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const authRole = (allowedRoles) => {
+const authRole = (allowedRoles, db) => {
   return (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -16,14 +16,29 @@ const authRole = (allowedRoles) => {
       const decoded = jwt.verify(token, process.env.SECRET_KEY);
       if (allowedRoles.includes(decoded.rol)) {
         req.user = decoded;
-        next();
+        return next();
       } else {
         return res.status(403).json({ message: 'No tienes permisos suficientes' });
       }
     } catch(err) {
-      res.status(401).json({ message: 'Token invalido' });
+      // Si el token ha expirado, eliminar los registros de ruta_usuarios
+      if (err.name === 'TokenExpiredError') {
+        const sql = 'DELETE FROM ruta_usuarios WHERE cedula = ?'; // Reemplaza con la condición adecuada
+        const cedula = req.user?.cedula; // Asegúrate de que el cedula esté disponible
+
+        db.query(sql, [cedula], (deleteErr) => {
+          if (deleteErr) {
+            console.error('Error al eliminar los datos de ruta_usuarios:', deleteErr);
+          } else {
+            console.log('Datos de ruta_usuarios eliminados correctamente.');
+          }
+          return res.status(401).json({ message: 'Token expirado. Datos eliminados.' });
+        });
+      } else {
+        return res.status(401).json({ message: 'Token invalido' });
+      }
     }
-  }
-}
+  };
+};
 
 module.exports = authRole;

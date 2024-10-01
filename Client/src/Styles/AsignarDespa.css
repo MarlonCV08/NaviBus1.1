@@ -15,3 +15,61 @@
         width: 12vh;
     }
 }
+.botonAsignar {
+    width: 100px;
+    color: #fefefe;
+    background: #7579E7;
+    border-radius: 5px;
+    border: none;
+    position: fixed;
+    right: 2%;
+    bottom: 2%;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    z-index: 1;
+}
+.infoConductorAsi{
+    width: 45vw;
+    border: #7579E7 2px solid;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.6% 0;
+}
+.infoConductorAsi p{
+    margin-left: 30px;
+    font-size: 25px;
+    color: #7579E7;
+    height: 48px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width: 1025px) {
+    .infoConductorAsi{
+        width: 80vw;
+    }
+}
+@media (min-width: 1025px) and (max-width: 1400px) {
+    /* Tus estilos aquí se aplicarán para pantallas con un ancho entre 600px y 1200px */
+    .infoConductorAsi{
+        width: 60vw;
+    }
+  }
+  @media (max-width: 1025px) {
+    .infoConductorAsi{
+        flex-direction: column;
+        width: 40vw;
+        min-width: 400px;
+        gap: 30px;
+    }
+    .infoConductorAsi p{
+        margin-left: 0;
+    }
+    .dropdownRuta{
+        min-width: 200px;
+    }
+}

@@ -1,0 +1,9 @@
+h1{
+    color: #fff;
+    position: absolute;
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    
+}

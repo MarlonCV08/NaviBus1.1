@@ -1,16 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, Route, Router } from "react-router-dom";
 import { Dropdown } from "../Components/Dropdown";
 import { Header } from "../Header";
 import "../Styles/Admin.css"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
+
 export const Administrador =()=>{
 
     const [nombres, setNombres] = useState('');
     const [apellidos, setApellidos] = useState('');
     const [cedula, setCedula] = useState('');
+    const [confirmCedula, setConfirmCedula] = useState('')
     const [correo, setCorreo] = useState('');
     const [selectedDropdown, setSelectedDropdown] = useState('');
+    const [errorQueue, setErrorQueue] = useState([]);
+    const [showingError, setShowingError] = useState(false);
+
+    const navigate = useNavigate();
+
+    const notify = (message) => {
+        toast.dismiss();
+        toast.error(message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored"
+        });
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -24,6 +45,9 @@ export const Administrador =()=>{
             case 'cedula':
                 setCedula(value);
                 break;
+            case 'confirmCedula':
+                setConfirmCedula(value);
+                break;
             case 'correo':
                 setCorreo(value);
                 break;
@@ -32,12 +56,24 @@ export const Administrador =()=>{
         };
     };
 
+    useEffect(() => {
+        if (errorQueue.length > 0 && !showingError) {
+            setShowingError(true);
+            notify(errorQueue[0]);
+        }
+    }, [errorQueue, showingError]);
+
     const handleDropdownChange = (option) => {
         setSelectedDropdown(option);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (cedula !== confirmCedula) {
+            notify('El documento y la confirmación de documento no coinciden');
+            return;
+        }
 
         const formData = {
             nombres,
@@ -63,26 +99,30 @@ export const Administrador =()=>{
                     title: 'Administrador creado correctamente',
                     text: `El administrador ${formData.nombres} ha sido registrado`,
                     icon: 'success',
-                    confirmButtonText: 'Aceptar',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
                 });
 
                 //Limpiar los campos del formulario
-                setNombres("");
-                setApellidos("");
-                setCedula("");
-                setCorreo("");
-                setSelectedDropdown("");
+                setNombres('');
+                setApellidos('');
+                setCedula('');
+                setConfirmCedula('');
+                setCorreo('');
+                setSelectedDropdown('');
+                /* navigate('/Ruta'); */
             } else {
-                Swal.fire({
-                    title: 'Error al crear administrador',
-                    text: data.message || 'Ocurrio un error al registrar el administrador',
-                    icon: 'error',
-                    confirmButtonText: 'Aceptar',
-                });
+                if (data.errors) {
+                    setErrorQueue(data.errors.map(error => error.msg));
+                    setShowingError(false);
+                } else {
+                    notify(data.message || "Error desconocido.");
+                }
             }
         })
         .catch(error => {
-            console.error('Error al enviar el formulario:', error);
+            console.error('Error al registrar el administrador', error);
         })
     }
 
@@ -128,6 +168,18 @@ export const Administrador =()=>{
                         <input 
                             type="text" 
                             className="input" 
+                            placeholder="Confirmar Documento"
+                            name="confirmCedula"
+                            value={confirmCedula}
+                            onChange={handleChange}
+                            onPaste={(e) => e.preventDefault()}  // Deshabilitar pegar
+                            onCopy={(e) => e.preventDefault()}   // Deshabilitar copiar
+                            />
+                    </section>
+                    <section>
+                        <input 
+                            type="text" 
+                            className="input" 
                             placeholder="Correo"
                             name="correo"
                             value={correo}
@@ -141,6 +193,7 @@ export const Administrador =()=>{
                         <input type="submit" value="Enviar" className="boton"/>
                     </section>
                 </form>
+                <ToastContainer closeButton={false} limit={1}/>
             </div>
         </>
     )
