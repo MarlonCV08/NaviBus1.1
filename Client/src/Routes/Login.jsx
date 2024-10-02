@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import OjoAbierto from '../Assets/Images/Ojo.svg';
 import OjoCerrado from '../Assets/Images/OjoCerrado.svg';
 import '../Styles/Login.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Importar SweetAlert2
 

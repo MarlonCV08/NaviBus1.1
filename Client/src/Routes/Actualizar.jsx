@@ -12,8 +12,6 @@ export const Actualizar = ()=>{
     const [correo, setCorreo] = useState('');
     const [selectedDropdown, setSelectedDropdown] = useState('');
 
-    const token = localStorage.getItem('token');
-
     useEffect(() => {
         fetch('http://localhost:3000/usuario-logueado', {
             method: 'GET',
@@ -33,7 +31,7 @@ export const Actualizar = ()=>{
         .catch(error => {
             console.error('Error al obtener los datos del usuario', error);
         });
-    }, [token]);
+    }, []);
 
     const handleDropdownChange = (option) => {
         setSelectedDropdown(option);

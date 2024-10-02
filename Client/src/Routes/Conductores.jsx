@@ -3,7 +3,6 @@ import Usuario from '../Assets/Images/Usuario.svg'
 import Ojo from '../Assets/Images/Ojo.svg'
 import { Header } from '../Header'
 import { Link, useParams } from 'react-router-dom'
-import { Notificacion } from '../Components/Notificacion'
 import { useEffect, useState } from 'react'
 export const Conductores =()=>{
 

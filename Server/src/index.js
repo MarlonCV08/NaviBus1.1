@@ -6,13 +6,13 @@ const PORT = 3000;
 const db = require('./db');
 const cors = require('./cors');
 const server = http.createServer(app);  // Crear servidor HTTP
+const initializeSocket = require('./io');
 
 const userRoutes = require('./routes/userRoutes');
 const vehicleForm = require('./routes/vehicleForm');
 const adminForm = require('./routes/adminForm');
 const conduForm = require('./routes/conduForm');
 const despaForm = require('./routes/despaForm');
-const initializeSocket = require('./io');
 const asignarCondu = require('./routes/asignarCondu');
 
 
@@ -57,11 +57,30 @@ app.get('/api/rutas', (req, res) => {
   });
 });
 
+//Consulta para traer el codigo de la ruta
+app.get('/api/ruta/:rutaNombre', (req, res) => {
+  const { rutaNombre } = req.params;
+
+  // Suponemos que tienes una tabla llamada 'ruta' con los campos 'codigo' y 'nombre'.
+  const sql = `SELECT codigo AS ruta_codigo FROM ruta WHERE nombre = ?`;
+  db.query(sql, [rutaNombre], (error, results) => {
+      if (error) {
+          console.error('Error al obtener el código de la ruta:', error);
+          return res.status(500).json({ success: false, message: 'Error al obtener el código de la ruta' });
+      }
+      // Verificar si se encontró la ruta
+      if (results.length > 0) {
+          return res.status(200).json({ success: true, ruta_codigo: results[0].ruta_codigo });
+      } else {
+          return res.status(404).json({ success: false, message: 'Ruta no encontrada' });
+      }
+  });
+});
+
 //Consulta para obtener los conductores de las rutas asignadas
 app.get('/api/usuarios/:rutaNombre', (req, res) => {
 
   const { rutaNombre } = req.params;
-  console.log('Ruta solicitada:', rutaNombre); 
 
   const sql = `SELECT u.cedula ,u.nombres, u.apellidos FROM usuarios u
               INNER JOIN ruta_usuarios ru ON ru.cedula = u.cedula
@@ -73,7 +92,6 @@ app.get('/api/usuarios/:rutaNombre', (req, res) => {
               return res.status(500).json({ error: 'Error al obtener los datos', err });
             }
             res.json(results);
-            console.log(results);
           }
           )
 
