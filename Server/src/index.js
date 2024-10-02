@@ -81,7 +81,6 @@ app.get('/api/ruta/:rutaNombre', (req, res) => {
 app.get('/api/usuarios/:rutaNombre', (req, res) => {
 
   const { rutaNombre } = req.params;
-  console.log('Ruta solicitada:', rutaNombre); 
 
   const sql = `SELECT u.cedula ,u.nombres, u.apellidos FROM usuarios u
               INNER JOIN ruta_usuarios ru ON ru.cedula = u.cedula
@@ -93,7 +92,6 @@ app.get('/api/usuarios/:rutaNombre', (req, res) => {
               return res.status(500).json({ error: 'Error al obtener los datos', err });
             }
             res.json(results);
-            console.log(results);
           }
           )
 
