@@ -14,9 +14,10 @@
     width: 300px;
     background: #fff;
     height: 100vh;
+    box-shadow: 0 0 10px 100vw rgba(0, 0, 0, 0.4);
   }
   
-  button {
+  .x {
     outline: none;
     border: none;
     cursor: pointer;

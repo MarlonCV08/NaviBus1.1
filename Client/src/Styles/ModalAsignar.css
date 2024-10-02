@@ -48,6 +48,7 @@
     padding: 10px 40px;
     margin-right: 10px;
     width: 8vw;
+    cursor: pointer;
 }
 @media (max-width: 1024px) {
     .dropdownSection{

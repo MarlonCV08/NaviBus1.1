@@ -22,7 +22,7 @@ export const Login = () => {
     toast.dismiss();
     toast.error(message, {
       position: "top-center",
-      autoClose: 2000,
+      autoClose: 20000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
