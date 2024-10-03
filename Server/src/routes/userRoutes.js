@@ -36,8 +36,7 @@ const userRoutes = (db) => {
 
         if(results.length > 0) {
           const user = results[0];
-          const roleMap = { 1:'administrador', 2:'conductor', 3:'despachador' };
-          const userRole = roleMap[user.rol];
+          const userRole = user.rol;
 
           if (!userRole) {
             return res.status(403).json({ message: `Rol '${user.rol}' no valido.` });
@@ -49,14 +48,15 @@ const userRoutes = (db) => {
             { expiresIn: '1h' }
           );
 
-          res.json({ 
+          res.json({
+            success: true,
             token, 
             message: 'Inicio de sesión exitoso', 
             user: { 
               cedula: user.cedula, 
               rol: userRole, 
               nombre: user.nombres 
-            } 
+            },
           });
         } else {
           res.status(401).json({ message: 'Usuario o clave incorrectos' });

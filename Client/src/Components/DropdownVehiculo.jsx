@@ -1,9 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../Styles/DropdownVehiculo.css"
-export const DropdownVehiculo = ()=>{
+import { toast } from "react-toastify";
+export const DropdownVehiculo = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState('Seleccione Vehiculo');
-    const options = ['01', '02', '03', '04'];
+    const [options, setOptions] = useState([]);
+
+    useEffect(() => {
+      const fetchVehiculos = async () => {
+        try {
+          const response = await fetch('http://localhost:3000/api/vehiculos');
+          const data = await response.json();
+          setOptions(data);
+        } catch(error) {
+          console.error('Error al obtener los vehículos', error);
+          toast.error('Error al cargar los vehículos.');
+        }
+      };
+
+      fetchVehiculos();
+    }, []);
   
     const handleSelectClick = () => {
       setIsOpen(!isOpen);
@@ -20,15 +36,19 @@ export const DropdownVehiculo = ()=>{
                 <div className={`caret ${isOpen ? 'caret-rotate' : ''}`}></div>
             </div>
             <ul className={`menuListDoc ${isOpen ? 'menu-open' : ''}`}>
-                {options.map((option, index) => (
+              {options.length > 0 ? (
+                options.map((vehiculo) => (
                   <li
-                    key={index}
-                    className={option === selected ? 'active' : ''}
-                    onClick={() => handleOptionClick(option)}
-                  >
-                    {option}
+                    key={vehiculo.placa}
+                    className={vehiculo.placa === selected ? 'active' : ''}
+                    onClick={() => handleOptionClick(`${vehiculo.placa}`)}
+                  > 
+                    {`${vehiculo.placa}`}
                   </li>
-                ))}
+                ))
+              ) : (
+                <li>No hay vehículos disponibles</li>
+              )}
             </ul>
         </div>
     )

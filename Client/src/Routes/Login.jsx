@@ -52,42 +52,53 @@ export const Login = () => {
       });
 
       const data = await response.json();
-      console.log('Respuesta del servidor', data);
       
       if (response.ok) {
         const token = data.token;
-        const userRole = data.user?.rol;
+        const userRole = data.user.rol;
         const userName = data.user?.nombre;
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', userRole);
 
         console.log('Inicio de sesión exitoso', data);
         console.log('token recibido', token);
         console.log('Nombre recibido', userName);
         
-        localStorage.setItem('token', token);
 
         // Mostrar el modal de bienvenida
         Swal.fire({
           title: `Bienvenido(a), ${userName}`,
           text: 'Inicio de sesión exitoso',
           icon: 'success',
-          timer: 2000,
+          timer: 10000,
           timerProgressBar: true,
           showConfirmButton: false,
         }).then(() => {
+          console.log('redirigiendo a la ruta:', userRole)
           // Navegación basada en el rol del usuario después de que se cierre el modal
-          switch (userRole) {
-            case 'administrador':
+          /* switch (userRole) {
+            case 1:
               navigate('/Ruta');
               break;
-            case 'conductor':
+            case 2:
               navigate('/Validar');
               break;
-            case 'despachador':
+            case 3:
               navigate('/Scanner');
               break;
             default:
-              navigate('/');
+              navigate('/Login');
               break;
+          } */
+
+          // Redirige según el rol del usuario
+          if (data.user.rol === 1) {
+            navigate('/Ruta'); // Admin
+          } else if (data.user.rol === 2) {
+            navigate('/Validar'); // Conductor
+          } else if (data.user.rol === 3) {
+            navigate('/Scanner'); // Despachador
           }
         });
 

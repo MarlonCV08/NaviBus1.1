@@ -3,7 +3,7 @@ const db = require("../db");
 
 const router = express.Router();
 
-const asignarCondu = (db) => {
+const asignarCondu = (db, io) => {
   router.post('/', async (req, res) => {
     const asignaciones = req.body; // Asegúrate de que req.body se esté recibiendo correctamente
 
@@ -40,6 +40,15 @@ const asignarCondu = (db) => {
                 return resolve({ error: `Error al asignar ruta a conductor ${cedula}: ${error.message}` });
               }
               console.log(`Ruta ${rutaId} asignada a conductor ${cedula} correctamente`);
+
+              const recipientSocketId =  users[cedula];//Obtener el socketId del conductor
+              if (recipientSocketId) {
+                const notificatioMessage = `Has sido asignado a la ruta ${rutaId}`;
+                io.to(recipientSocketId).emit('receiveNotification', { message: notificatioMessage });
+                console.log(`Notificación enviada a conductor ${cedula}: ${notificatioMessage}`);
+              } else {
+                console.log(`Conductor ${cedula} no está conectado`);
+              }
               resolve({ success: `Ruta ${rutaId} asignada a conductor ${cedula} correctamente` });
             });
           });
