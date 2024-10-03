@@ -16,18 +16,17 @@
     }
 }
 .botonAsignar {
-    width: 100px;
-    color: #fefefe;
-    background: #7579E7;
-    border-radius: 5px;
     border: none;
-    position: fixed;
+    border-radius: 10px;
+    background-color: #7579E7;
+    color: white;
+    padding: 10px;
+    margin-right: 10px;
+    width: 120px;
     right: 2%;
     bottom: 2%;
+    position: fixed;
     cursor: pointer;
-    display: block;
-    text-align: center;
-    z-index: 1;
 }
 .infoConductorAsi{
     width: 45vw;

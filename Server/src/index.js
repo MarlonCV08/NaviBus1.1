@@ -14,7 +14,6 @@ const adminForm = require('./routes/adminForm');
 const conduForm = require('./routes/conduForm');
 const despaForm = require('./routes/despaForm');
 const asignarCondu = require('./routes/asignarCondu');
-const authRole = require('./middleware/authRole');
 
 
 //Configurar Express para manejar JSON
@@ -30,7 +29,7 @@ initializeSocket(server);  // Pasamos el servidor HTTP a la función de Socket.I
 app.use('/', userRoutes(db));
 
 //Traer e insertar datos del formulario de administrador
-app.use('/api/administradores', authRole([1]), adminForm(db));
+app.use('/api/administradores', adminForm(db));
 
 //Traer datos del formulario del conductor
 app.use('/api/conductores', conduForm(db));
@@ -82,7 +81,6 @@ app.get('/api/ruta/:rutaNombre', (req, res) => {
 app.get('/api/usuarios/:rutaNombre', (req, res) => {
 
   const { rutaNombre } = req.params;
-  console.log('Ruta solicitada:', rutaNombre); 
 
   const sql = `SELECT u.cedula ,u.nombres, u.apellidos FROM usuarios u
               INNER JOIN ruta_usuarios ru ON ru.cedula = u.cedula
@@ -94,7 +92,6 @@ app.get('/api/usuarios/:rutaNombre', (req, res) => {
               return res.status(500).json({ error: 'Error al obtener los datos', err });
             }
             res.json(results);
-            console.log(results);
           }
           )
 

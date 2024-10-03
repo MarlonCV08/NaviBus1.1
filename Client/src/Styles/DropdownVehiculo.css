@@ -11,7 +11,8 @@
     gap: 25px;
 }
 .dropdownValidar{
-    width: 55vw;
+    width: 100%;
+    position: relative;
 }
 .menuListValidar{
     list-style: none;
@@ -22,7 +23,7 @@
     position: absolute;
     margin-top: 1%;
     left: 50%;
-    width: 55vw;
+    width: 100%;
     transform: translateX(-50%);
     transition: 0.2s;
     z-index: 1;

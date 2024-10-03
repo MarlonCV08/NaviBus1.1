@@ -5,7 +5,21 @@ import { DropdownRuta } from './DropdownRuta';
 import Swal from 'sweetalert2';
 import { DropdownPuntoControl } from './DropdownPuntoControl';
 
-export const ModalAsignar=()=>{
+export const ModalAsignar = ({ cedula, onDropdownChange }) => {
+  const [selectedRuta, setSelectedRuta] = useState(""); // Estado para la ruta seleccionada
+  const [selectedPuntoControl, setSelectedPuntoControl] = useState(""); // Estado para el punto de control
+
+  // Maneja el cambio de ruta en el DropdownRuta
+  const handleRutaChange = (ruta) => {
+    setSelectedRuta(ruta);
+    onDropdownChange(cedula, ruta); // Comunicar al componente padre la ruta seleccionada
+  };
+
+  // Maneja el cambio de punto de control en el DropdownPuntoControl
+  const handlePuntoControlChange = (puntoControl) => {
+    setSelectedPuntoControl(puntoControl);
+  };
+
   const show = {
     opacity: 1,
     display: "flex"
@@ -41,8 +55,8 @@ export const ModalAsignar=()=>{
       <div className="example">
         <motion.div className="box" animate={isVisible ? show : hide}>
           <section className='dropdownSection'>
-            <DropdownRuta />
-            <DropdownPuntoControl />
+            <DropdownRuta value={selectedRuta} onChange={handleRutaChange} />
+            <DropdownPuntoControl value={selectedPuntoControl} onChange={handlePuntoControlChange} />
           </section>
           <section className="buttonSection">
           <motion.button

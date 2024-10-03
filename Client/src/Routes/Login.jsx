@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import OjoAbierto from '../Assets/Images/Ojo.svg';
 import OjoCerrado from '../Assets/Images/OjoCerrado.svg';
 import '../Styles/Login.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Importar SweetAlert2
 
@@ -22,7 +23,7 @@ export const Login = () => {
     toast.dismiss();
     toast.error(message, {
       position: "top-center",
-      autoClose: 2000,
+      autoClose: 20000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -66,7 +67,7 @@ export const Login = () => {
 
         // Mostrar el modal de bienvenida
         Swal.fire({
-          title: `Bienvenido, ${userName}`,
+          title: `Bienvenido(a), ${userName}`,
           text: 'Inicio de sesión exitoso',
           icon: 'success',
           timer: 2000,
