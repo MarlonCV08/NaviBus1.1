@@ -1,7 +1,5 @@
 import { Header } from "../Header"
-import { DropdownRuta } from "../Components/DropdownRuta"
 import "../Styles/AsignarDespa.css"
-import Swal from "sweetalert2"
 import { useEffect, useState } from "react"
 import { ModalAsignar } from "../Components/ModalAsignar"
 
@@ -23,15 +21,6 @@ export const AsignarDespa = ()=>{
         }));
     };
     
-    const handleButton =()=>{
-        Swal.fire({
-            title: `Ruta asignada correctamente`,
-            icon: 'success',
-            timer: 2000,
-            timerProgressBar: true,
-            showConfirmButton: false,
-          })
-    }
     return (
         <>
             <Header/>
@@ -40,8 +29,7 @@ export const AsignarDespa = ()=>{
                     <div className="contInfo" key={despachador.cedula}>
                         <div className="infoConductorAsi">
                             <p>{despachador.nombres} {despachador.apellidos}</p>
-                            <ModalAsignar/>
-                            {/* <DropdownRuta value={selectedRutas[despachador.cedula]} onChange={(ruta) => handleDropdownChange(despachador.cedula, ruta)} /> */}
+                            <ModalAsignar cedula={despachador.cedula} onDropdownChange={handleDropdownChange} />
                         </div>
                     </div>
                     ))}

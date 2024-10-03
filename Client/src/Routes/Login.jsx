@@ -67,7 +67,7 @@ export const Login = () => {
 
         // Mostrar el modal de bienvenida
         Swal.fire({
-          title: `Bienvenido, ${userName}`,
+          title: `Bienvenido(a), ${userName}`,
           text: 'Inicio de sesión exitoso',
           icon: 'success',
           timer: 2000,
