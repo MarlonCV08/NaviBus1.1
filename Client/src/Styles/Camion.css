@@ -1,11 +1,23 @@
-.camion {
-    animation: moverYCambiarColor 8s infinite; /* Cambiado a 8 segundos para cuatro etapas */
+.divCamiones{
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     position: absolute;
-    top: 50%;
+    top: 0;
+    flex-direction: column;
+}
+.camion {
+    animation: moverCamion1 8s infinite;
     height: 200px;
     z-index: -1;
 }
-@keyframes moverYCambiarColor {
+.camion2{
+    height: 200px;
+    animation: moverCamion2 8s infinite;
+    z-index: -1;
+}
+@keyframes moverCamion1 {
     0% {
         transform: translateX(0) rotateY(0deg);
     }
@@ -21,4 +33,21 @@
     100% {
         transform: translateX(0) rotateY(0deg);
     }
+}
+@keyframes moverCamion2 {
+    0% {
+        transform: translateX(calc(100vw - 200px)) rotateY(0deg);
+}
+    25% {
+        transform: translateX(0) rotateY(0deg);
+}
+    50% {
+        transform: translateX(0) rotateY(180deg);
+}
+    75% {
+        transform: translateX(calc(100vw - 200px)) rotateY(180deg);
+}
+    100% {
+        transform: translateX(calc(100vw - 200px)) rotateY(0deg);
+}
 }
