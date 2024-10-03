@@ -6,6 +6,7 @@ import ScanQR from '../Assets/Images/ScanQR.svg';
 import { toast, ToastContainer } from "react-toastify";
 import { ModalNotification } from "../Components/ModalNotification";
 import socket from "../Auth/socket";
+import { HeaderDespa } from "../Components/HeaderDespa";
 
 export const Scanner = () => {
     const [scanner, setScanner] = useState(null);
@@ -99,7 +100,7 @@ export const Scanner = () => {
 
     return (
         <>
-            <HeaderCondu />
+            <HeaderDespa />
             <div className="contenedorQR">
                 <div className="Hijo">
                     <div id="reader" className={`reader ${scanning ? 'active' : ''}`}></div>

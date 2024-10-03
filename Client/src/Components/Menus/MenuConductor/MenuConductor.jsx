@@ -1,9 +1,9 @@
 import { motion, useCycle } from "framer-motion"
 import { useRef } from "react"
-import { Navigation } from "./Navigation"
-import { MenuToggle } from "./MenuToggle"
+import { ToggleConductor } from "./ToggleConductor"
 import '../../../Styles/Styles.css'
-import { UseDimensions } from "./UseDimensions"
+import { UseDimensions } from "../UseDimensions"
+import { Navegacion } from "./Navegacion"
 
 const sidebar ={
     open: (height= 1000)=>({
@@ -24,7 +24,7 @@ const sidebar ={
         }
     }
 }
-export const Example=()=>{
+export const MenuConductor =()=>{
     const [isOpen, toggleOpen]= useCycle(false, true)
     const containerRef = useRef(null)
     const {height} = UseDimensions(containerRef)
@@ -36,8 +36,8 @@ export const Example=()=>{
             ref={containerRef}
         >
             <motion.div className="background" variants={sidebar}/>
-            <Navigation/>
-            <MenuToggle toggle={()=> toggleOpen()}/>
+            <Navegacion/>
+            <ToggleConductor toggle={()=> toggleOpen()}/>
         </motion.nav>
     )
 }

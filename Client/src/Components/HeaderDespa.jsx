@@ -1,9 +1,9 @@
-import { MenuDespa } from "./MenuDespa"
+import { MenuDespachador } from "./Menus/MenuDespachador/MenuDespachador"
 export const HeaderDespa = ()=>{
     return (
         <>
             <section className="curvedCondu">
-            <MenuDespa/>
+            <MenuDespachador/>
             </section>
         </>
     )

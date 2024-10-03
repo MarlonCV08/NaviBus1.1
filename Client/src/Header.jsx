@@ -1,7 +1,7 @@
 import "./Styles/Header.css";
 import { useLocation } from "react-router-dom";
 import { Lupa } from "./Components/Lupa";
-import { Example } from "./Components/Menus/HeaderAdmin/Example";
+import { Example } from "./Components/Menus/MenuAdmin/Example";
 import { TituloBienvenida } from "./Components/TituloBienvenida";
 
 export const Header = () => {

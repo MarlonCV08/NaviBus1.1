@@ -1,9 +1,9 @@
-import { MenuCondu } from "./MenuCondu"
+import { MenuConductor } from "./Menus/MenuConductor/MenuConductor"
 export const HeaderCondu = ()=>{
     return (
         <>
             <section className="curvedCondu">
-            <MenuCondu/>
+            <MenuConductor/>
             </section>
         </>
     )

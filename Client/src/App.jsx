@@ -19,6 +19,7 @@ import { Validar } from "./Routes/Validar"
 import { InfoDia } from "./Routes/InfoDia"
 import { ActualizarCondu } from "./Routes/ActualizarCondu"
 import { Scanner } from "./Routes/Scanner"
+import { ActualizarDespa } from "./Routes/ActualizarDespa"
 
 const router = createBrowserRouter ([
     {
@@ -100,7 +101,11 @@ const router = createBrowserRouter ([
                 path: "/Scanner",
                 element: <Scanner />,
                 allowedRole: "despachador"
-            },
+            },{
+                path: "/Scanner/Actualizar",
+                element: <ActualizarDespa/>,
+                allowedRole: "despachador"
+            }
 
         ]
     }
