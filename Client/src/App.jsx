@@ -21,7 +21,7 @@ import { ActualizarCondu } from "./Routes/ActualizarCondu"
 import { Scanner } from "./Routes/Scanner"
 import { ActualizarDespa } from "./Routes/ActualizarDespa"
 
-const router = createBrowserRouter ([
+/* const router = createBrowserRouter ([
     {
         path: "/",
         element: <Login />
@@ -110,6 +110,108 @@ const router = createBrowserRouter ([
         ]
     }
 ]);
+ */
+// Rutas para el Administrador
+const router = createBrowserRouter([
+    {
+        path: "/Login",
+        element: <Login />
+    },
+    {
+        path: "/",
+        element: <RutaProtegida allowedRoles={[1]} />, // Admin
+        children: [
+            {
+                path: "Ruta",
+                element: <Ruta />
+            },
+            {
+                path: "Ruta/:rutaNombre",
+                element: <Conductores />
+            },
+            {
+                path: "Ruta/Conductores/Control",
+                element: <Control />
+            },
+            {
+                path: "Registro",
+                element: <Registro />
+            },
+            {
+                path: "Registro/Usuario",
+                element: <Usuario />
+            },
+            {
+                path: "Registro/Usuario/Administrador",
+                element: <Administrador />
+            },
+            {
+                path: "Registro/Usuario/Despachador",
+                element: <Despachador />
+            },
+            {
+                path: "Registro/Usuario/Conductor",
+                element: <Conductor/>
+            },
+            {
+                path: "Registro/Vehiculo",
+                element: <Vehiculo />
+            },
+            {
+                path:"Actualizar",
+                element: <Actualizar/>
+            },
+            {
+                path:"Asignar",
+                element: <Asignar/>
+            },
+            {
+                path: "Asignar/Despachador",
+                element: <AsignarDespa/>
+            },
+            {
+                path: "Asignar/Conductor",
+                element: <AsignarCondu/>
+            },
+        ]
+    },
+    {
+        path: "/",
+        element: <RutaProtegida allowedRoles={[2]} />, // Conductor
+        children: [
+            {
+                path: "Validar",
+                element: <Validar />
+            },
+            {
+                path: "Validar/InfoDia",
+                element: <InfoDia />
+            },
+            {
+                path: "Validar/Actualizar",
+                element: <ActualizarCondu />
+            },
+            // Otras rutas para conductores
+        ]
+    },
+    {
+        path: "/",
+        element: <RutaProtegida allowedRoles={[3]} />, // Despachador
+        children: [
+            {
+                path: "Scanner",
+                element: <Scanner />
+            },
+            {
+                path: "Scanner/Actualizar",
+                element: <ActualizarDespa />
+            },
+            // Otras rutas para despachadores
+        ]
+    }
+]);
+
+
 
 export const App = ()=>{
 

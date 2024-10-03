@@ -4,11 +4,14 @@ import { Loader } from "../Components/Loader";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import socket from '../Auth/socket';
+import { DropdownDespachador } from '../Components/DropdownDespachador';
 
 
 export const Validar = () => {
+
+
+
   const [loading, setLoading] = useState(false);
-  const [placa, setPlaca] = useState('');
   const [despachadorId, setDespachadorId] = useState(''); // ID del despachador
   const navigate = useNavigate();
   const [userId, setUserId]= useState('')
@@ -21,15 +24,11 @@ export const Validar = () => {
 
   
   const handleValidation = () => {
-    if (placa === '' || despachadorId === '') {
-      toast.error('Por favor, llena todos los campos.');
-      return;
-    }
 
     setLoading(true);
     
     // Envía la notificación al despachador con el ID ingresado
-    const notificationMessage = `El Conductor con ID ${userId} validó el vehículo con placa ${placa}.`;
+    const notificationMessage = `El Conductor con ID ${userId} validó el vehículo.`;
     socket.emit('sendNotification', {
       recipientCedula: despachadorId, // Usamos el ID del despachador ingresado
       message: notificationMessage,
@@ -45,7 +44,6 @@ export const Validar = () => {
       setLoading(false);
       toast.success('Confirmación recibida. Procediendo...');
       navigate('/Validar/InfoDia');
-      // Aquí puedes agregar la lógica que quieras después de la confirmación
     });
     return () => {
       // Limpiar el evento al desmontar el componente
@@ -63,13 +61,7 @@ export const Validar = () => {
         <div className="validar">
           <section className="sectionValidar">
             <DropdownVehiculo />
-            <input 
-              type="text" 
-              className="inputValidar" 
-              placeholder="Placa" 
-              value={placa} 
-              onChange={(e) => setPlaca(e.target.value)} 
-            />
+            <DropdownDespachador />
             <input 
               type="text" 
               className="inputValidar" 

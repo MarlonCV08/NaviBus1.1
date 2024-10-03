@@ -14,15 +14,12 @@ const initializeSocket = (server) => {
         }
     });
     // Manejar la conexión de clientes
-    // Manejar la conexión de clientes
     io.on('connection', (socket) => {
         console.log(`Usuario conectado: ${socket.id}`);
         socket.on('register', (cedula) => {
             users[cedula] = socket.id;  // Guardar el socket.id con la cédula del usuario
             console.log(`Usuario ${cedula} registrado con socket ID: ${socket.id}`);
         });
-        // No es necesario registrar al usuario ya que no quieres hacerlo
-        // socket.on('register', (cedula) => { ... });
 
         // Enviar notificación a un usuario específico (despachadorId)
         socket.on('sendNotification', (data) => {
@@ -63,18 +60,18 @@ const initializeSocket = (server) => {
         });
 
     
-      // Manejar la desconexión
-      socket.on('disconnect', () => {
-        console.log(`Usuario desconectado: ${socket.id}`);
-        // Eliminar usuario de la lista de conectados
-        for (const cedula in users) {
-          if (users[cedula] === socket.id) {
-            delete users[cedula];
-            console.log(`Usuario ${cedula} eliminado de la lista de conectados`);
-            break;
-          }
-        }
-      });
+        // Manejar la desconexión
+        socket.on('disconnect', () => {
+            console.log(`Usuario desconectado: ${socket.id}`);
+            // Eliminar usuario de la lista de conectados
+            for (const cedula in users) {
+                if (users[cedula] === socket.id) {
+                delete users[cedula];
+                console.log(`Usuario ${cedula} eliminado de la lista de conectados`);
+                break;
+                }
+            }
+        });
     });
 }
 module.exports = initializeSocket;

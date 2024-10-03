@@ -3,13 +3,16 @@ import { useEffect, useState } from "react"
 import { Outlet, Navigate, useLocation } from "react-router-dom"
 import Swal from "sweetalert2";
 
-export const RutaProtegida = ({ allowedRole }) => {
+export const RutaProtegida = ({ allowedRoles }) => {
   const [isAuth, setIsAuth] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const userRole = localStorage.getItem('role');
+    const userRole = parseInt(localStorage.getItem('role'));
+
+    console.log('Token:', token);
+    console.log('User Role:', userRole);
     
     const checkAuth = () => {
 
@@ -28,11 +31,8 @@ export const RutaProtegida = ({ allowedRole }) => {
             setIsAuth(false);
           });
         } else {
-          if (!allowedRole || userRole === allowedRole) {
-            setIsAuth(true);
-          } else {
-            setIsAuth(false);
-          }
+          console.log('Allowed Roles:', allowedRoles);
+          setIsAuth(allowedRoles.includes(userRole));
         }
       } else {
         setIsAuth(false);
@@ -40,7 +40,7 @@ export const RutaProtegida = ({ allowedRole }) => {
     }
     
     checkAuth();
-  }, [allowedRole, location]);
+  }, [allowedRoles, location]);
 
   const isTokenExpired = (token) => {
     const decoded = jwtDecode(token);
@@ -53,6 +53,6 @@ export const RutaProtegida = ({ allowedRole }) => {
     return <div>Loading...</div>;
   };
 
-  return isAuth ? <Outlet /> : <Navigate to="/" />
+  return isAuth ? <Outlet /> : <Navigate to="/Login" />
 
 };

@@ -178,6 +178,17 @@ app.get('/api/tipodocumento', (req, res) => {
   });
 });
 
+//Consulta para obtener los vehiculos
+app.get('/api/vehiculos', (req, res) => {
+  const sql = 'SELECT * FROM vehiculo';
+  db.query(sql, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error al obtener vehículos' });
+    }
+    res.json(results);
+  });
+});
+
 //Consulta para obtener opciones de marca
 app.get('/api/marca', (req, res) => {
   const sql = 'SELECT * FROM marca';
