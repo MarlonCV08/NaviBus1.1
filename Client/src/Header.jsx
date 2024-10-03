@@ -1,17 +1,19 @@
 import "./Styles/Header.css";
-import { useLocation } from "react-router-dom";
-import { Lupa } from "./Components/Lupa";
 import { Example } from "./Components/Menus/MenuAdmin/Example";
 import { TituloBienvenida } from "./Components/TituloBienvenida";
+import Logo from './Assets/Images/Logo.svg'
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
-  const location = useLocation();
-  const noLupa = ["/Registro", "/Registro/Usuario", "/Registro/Usuario/Admin", "/Registro/Usuario/Despachador", "/Registro/Usuario/Conductor", "/Registro/Vehiculo", "/Ruta/Conductor/Control", "/Actualizar", "/Asignar"];
-
+  const Navigate = useNavigate();
+  const inicio =()=>{
+    Navigate('/Ruta')
+  }
   return (
     <section className="curved">
       <Example/>
       <TituloBienvenida/>
+      <img src={Logo} onClick={inicio}/>
     </section>
   );
 };

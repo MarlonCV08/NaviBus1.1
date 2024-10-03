@@ -1,0 +1,24 @@
+.camion {
+    animation: moverYCambiarColor 8s infinite; /* Cambiado a 8 segundos para cuatro etapas */
+    position: absolute;
+    top: 50%;
+    height: 200px;
+    z-index: -1;
+}
+@keyframes moverYCambiarColor {
+    0% {
+        transform: translateX(0) rotateY(0deg);
+    }
+    25% {
+        transform: translateX(calc(100vw - 200px)) rotateY(0deg);
+}
+    50% {
+        transform: translateX(calc(100vw - 200px)) rotateY(180deg);
+}
+    75% {
+        transform: translateX(0) rotateY(180deg); /* Regreso a la posición inicial con rotación */
+    }
+    100% {
+        transform: translateX(0) rotateY(0deg);
+    }
+}

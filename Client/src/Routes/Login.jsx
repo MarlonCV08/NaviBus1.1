@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Importar SweetAlert2
+import { Camion } from '../Components/Camion';
 
 export const Login = () => {
   const [cedula, setCedula] = useState('');
@@ -123,39 +124,42 @@ export const Login = () => {
   };
 
   return (
-    <div className="login">
-      <form className="contenedorLog" onSubmit={handleSubmit}>
-        <div className="contenedortitulo">
-          <label className="titulo">Iniciar Sesión</label>
-        </div>
-        <div className="usuario">
-          <input 
-            type="text" 
-            id="usuario" 
-            className="inputusuario"
-            value={cedula} 
-            onChange={handleUsuarioChange}
-          />
-          <label className={`usuariotxt ${subirUser ? 'subir' : ''}`}>Usuario</label>
-        </div>
-        <div className="usuario">
-          <input 
-            type={mostrarClave ? "text" : "password"}
-            className="inputusuario" 
-            value={clave} 
-            onChange={handleClaveChange}
-          />
-          <label className={`usuariotxt ${subirPass ? 'subir' : ''}`}>Contraseña</label>
-          <img 
-            src={mostrarClave ? OjoCerrado : OjoAbierto} 
-            className={`ojo ${mostrarOjo ? 'visible' : 'noVisible'}`} 
-            onClick={toggleMostrarClave}
-            alt="Toggle visibility"
-          />
-        </div>
-        <input type="submit" className='button' value="Ingresar" />
-      </form>
-      <ToastContainer closeButton={false} limit={1}/>
-    </div>
+    <>
+      <div className="login">
+        <form className="contenedorLog" onSubmit={handleSubmit}>
+          <div className="contenedortitulo">
+            <label className="titulo">Iniciar Sesión</label>
+          </div>
+          <div className="usuario">
+            <input 
+              type="text" 
+              id="usuario" 
+              className="inputusuario"
+              value={cedula} 
+              onChange={handleUsuarioChange}
+            />
+            <label className={`usuariotxt ${subirUser ? 'subir' : ''}`}>Usuario</label>
+          </div>
+          <div className="usuario">
+            <input 
+              type={mostrarClave ? "text" : "password"}
+              className="inputusuario" 
+              value={clave} 
+              onChange={handleClaveChange}
+            />
+            <label className={`usuariotxt ${subirPass ? 'subir' : ''}`}>Contraseña</label>
+            <img 
+              src={mostrarClave ? OjoCerrado : OjoAbierto} 
+              className={`ojo ${mostrarOjo ? 'visible' : 'noVisible'}`} 
+              onClick={toggleMostrarClave}
+              alt="Toggle visibility"
+            />
+          </div>
+          <input type="submit" className='button' value="Ingresar" />
+        </form>
+        <ToastContainer closeButton={false} limit={1}/>
+      </div>
+      <Camion/>
+    </>
   );
 };
