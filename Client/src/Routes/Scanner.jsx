@@ -7,27 +7,46 @@ import { toast, ToastContainer } from "react-toastify";
 import { ModalNotification } from "../Components/ModalNotification";
 import socket from "../Auth/socket";
 import { HeaderDespa } from "../Components/HeaderDespa";
+import { jwtDecode } from "jwt-decode";
 
 export const Scanner = () => {
     const [scanner, setScanner] = useState(null);
     const [scanning, setScanning] = useState(false);
+    const [userId, setUserId] = useState(null);
     const [notifications, setNotifications] = useState([])
 
     useEffect(() => {
-        const userId = '1036743213'; // Este puede ser el ID del usuario actual que está usando la aplicación
-        socket.emit('register', userId); // Registra al usuario en el backend
-      }, []);
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            const decodedToken = jwtDecode(token);
+            const cedula = decodedToken.cedula;
+            setUserId(cedula);
+
+        }
+    }, [])
+    
+    useEffect(() => {
+        if (userId) {
+            socket.emit('register', userId); // Registra al usuario en el backend
+        }
+      }, [userId]);
+      
       useEffect(() => {
         // Escuchar el evento 'receiveNotification' desde el servidor
-        socket.on('receiveNotification', async (message) => {
-            console.log('Notificación recibida:', message);
+        socket.on('receiveNotification', async (data) => {
+            console.log('Notificación recibida:', data);
+
+            const message = data.message;
+            const conductorId = data.conductorId;
+
             setNotifications(prevNotifications => [...prevNotifications, message]);
             
             // Mostrar el modal y esperar la confirmación
             const isConfirmed = await ModalNotification(message);
 
             if (isConfirmed) {
-                socket.emit('notificationConfirmed', { message, userId: '1045738520' }); // Enviar confirmación al backend
+                socket.emit('notificationConfirmed', { message, userId, conductorId }); // Enviar confirmación al backend
                 console.log("Notificación confirmada y enviada al backend");
             } else {
                 console.log("Notificación cancelada");
@@ -38,7 +57,8 @@ export const Scanner = () => {
         return () => {
           socket.off('receiveNotification');
         };
-    }, []);
+    }, [userId]);
+
     const startScanning = () => {
         if (!scanner) {
             const newScanner = new Html5QrcodeScanner("reader", {

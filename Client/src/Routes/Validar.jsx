@@ -5,11 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import socket from '../Auth/socket';
 import { DropdownDespachador } from '../Components/DropdownDespachador';
+import { jwtDecode } from 'jwt-decode';
 
 
 export const Validar = () => {
-
-
 
   const [loading, setLoading] = useState(false);
   const [despachadorId, setDespachadorId] = useState(''); // ID del despachador
@@ -17,9 +16,20 @@ export const Validar = () => {
   const [userId, setUserId]= useState('')
 
   useEffect(() => {
-    const currentUserId = '1045738520';
-    setUserId(currentUserId);
-    socket.emit('register', currentUserId); // Registra al usuario en el backend
+    const token = localStorage.getItem('token');
+    console.log('Token:', token);
+
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        console.log('Token decodificado:', decodedToken);
+        const currentUserId = decodedToken.cedula;
+        setUserId(currentUserId)
+        socket.emit('register', currentUserId);
+      } catch(error) {
+        console.error('Error al decodificar el token:', error);
+      }
+    }
   }, []);
 
   
@@ -32,6 +42,7 @@ export const Validar = () => {
     socket.emit('sendNotification', {
       recipientCedula: despachadorId, // Usamos el ID del despachador ingresado
       message: notificationMessage,
+      conductorId: userId
     });
     
     toast.success('Notificación enviada. Esperando confirmación...');
