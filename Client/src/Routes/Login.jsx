@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Importar SweetAlert2
 import { Camion } from '../Components/Camion';
+import logoMorado from '../Assets/Images/LogoMorado.svg'
+import { LogoMorado } from '../Components/LogoMorado';
 
 export const Login = () => {
   const [cedula, setCedula] = useState('');
@@ -138,6 +140,9 @@ export const Login = () => {
     <>
       <div className="login">
         <form className="contenedorLog" onSubmit={handleSubmit}>
+          <div className="contenedorLogo">
+            <LogoMorado/>
+          </div>
           <div className="contenedortitulo">
             <label className="titulo">Iniciar Sesión</label>
           </div>
@@ -151,7 +156,7 @@ export const Login = () => {
             />
             <label className={`usuariotxt ${subirUser ? 'subir' : ''}`}>Usuario</label>
           </div>
-          <div className="usuario">
+          <div className="usuarioC">
             <input 
               type={mostrarClave ? "text" : "password"}
               className="inputusuario" 
@@ -166,11 +171,12 @@ export const Login = () => {
               alt="Toggle visibility"
             />
           </div>
-          <input type="submit" className='button' value="Ingresar" />
+          <input type="submit" className='buttonLogin' value="Ingresar" />
         </form>
         <ToastContainer closeButton={false} limit={1}/>
       </div>
       <Camion/>
+      
     </>
   );
 };

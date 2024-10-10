@@ -1,0 +1,14 @@
+.curvedCondu{
+    position: fixed;
+    top: 0;
+    height: 90px;
+    width: 100vw;
+    background: #7579E7;
+    border-bottom-left-radius: 50% 15%;
+    border-bottom-right-radius: 50% 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+    padding-right: 15px;
+}

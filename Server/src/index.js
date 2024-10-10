@@ -247,7 +247,25 @@ app.get('/api/categoria', (req, res) => {
 });
 
 
+// Endpoint para guardar escaneo
+app.post('/api/guardar-escaneo', (req, res) => {
+  const { userId, dia, hora, puntoControl, ruta, userInfo } = req.body;
+
+  const sql = `INSERT INTO ruta_usuarios (escaneo_fecha_hora)
+               VALUES (?)`;
+
+  const userInfoJson = JSON.stringify(userInfo); // Convertir objeto a JSON si es necesario
+
+  db.query(sql, [userId, dia, hora, puntoControl, ruta, userInfoJson], (err, results) => {
+      if (err) {
+          console.error('Error al guardar el escaneo:', err);
+          return res.status(500).json({ success: false, message: 'Error al guardar el escaneo' });
+      }
+
+      res.status(201).json({ success: true, message: 'Datos guardados correctamente' });
+  });
+});
+
 server.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
-
