@@ -74,35 +74,25 @@ export const Login = () => {
           title: `Bienvenido(a), ${userName}`,
           text: 'Inicio de sesión exitoso',
           icon: 'success',
-          timer: 10000,
+          timer: 2000,
           timerProgressBar: true,
           showConfirmButton: false,
         }).then(() => {
-          console.log('redirigiendo a la ruta:', userRole)
-          // Navegación basada en el rol del usuario después de que se cierre el modal
-          /* switch (userRole) {
-            case 1:
-              navigate('/Ruta');
-              break;
-            case 2:
-              navigate('/Validar');
-              break;
-            case 3:
-              navigate('/Scanner');
-              break;
-            default:
-              navigate('/Login');
-              break;
-          } */
+          console.log('Redirigiendo a ruta según el rol');
 
-          // Redirige según el rol del usuario
-          if (data.user.rol === 1) {
-            navigate('/Ruta'); // Admin
-          } else if (data.user.rol === 2) {
-            navigate('/Validar'); // Conductor
-          } else if (data.user.rol === 3) {
-            navigate('/Scanner'); // Despachador
-          }
+            switch(userRole) {
+              case 1:
+                navigate('/Ruta');
+                break;
+              case 2: 
+                navigate('/Validar');
+                break;
+              case 3:
+                navigate('/Scanner');
+                break;
+              default:
+                console.error('Rol no reconocido')
+            }
         });
 
       } else {

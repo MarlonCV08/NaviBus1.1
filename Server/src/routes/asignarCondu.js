@@ -41,14 +41,14 @@ const asignarCondu = (db, io) => {
               }
               console.log(`Ruta ${rutaId} asignada a conductor ${cedula} correctamente`);
 
-              const recipientSocketId =  users[cedula];//Obtener el socketId del conductor
+              /* const recipientSocketId =  users[cedula];//Obtener el socketId del conductor
               if (recipientSocketId) {
                 const notificatioMessage = `Has sido asignado a la ruta ${rutaId}`;
                 io.to(recipientSocketId).emit('receiveNotification', { message: notificatioMessage });
                 console.log(`Notificación enviada a conductor ${cedula}: ${notificatioMessage}`);
               } else {
                 console.log(`Conductor ${cedula} no está conectado`);
-              }
+              } */
               resolve({ success: `Ruta ${rutaId} asignada a conductor ${cedula} correctamente` });
             });
           });

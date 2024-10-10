@@ -8,16 +8,13 @@ export const RutaProtegida = ({ allowedRoles }) => {
   const location = useLocation();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userRole = parseInt(localStorage.getItem('role'));
-
-    console.log('Token:', token);
-    console.log('User Role:', userRole);
-    
     const checkAuth = () => {
+      const token = localStorage.getItem('token');
+      const userRole = parseInt(localStorage.getItem('role'));
 
       if(token) {
         if (isTokenExpired(token)) {
+          setIsAuth(false);
           Swal.fire({
             title: 'Sesión expirada',
             text: 'Tu sesión ha expirado. Por favor inicia sesión nuevamente.',
@@ -28,10 +25,8 @@ export const RutaProtegida = ({ allowedRoles }) => {
           }).then(() => {
             localStorage.removeItem('token');
             localStorage.removeItem('role');
-            setIsAuth(false);
           });
         } else {
-          console.log('Allowed Roles:', allowedRoles);
           setIsAuth(allowedRoles.includes(userRole));
         }
       } else {

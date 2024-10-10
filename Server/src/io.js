@@ -23,7 +23,7 @@ const initializeSocket = (server) => {
 
         // Enviar notificación a un usuario específico (despachadorId)
         socket.on('sendNotification', (data) => {
-            const { recipientCedula, message } = data;
+            const { recipientCedula, message, conductorId } = data;
 
             // Verificar si la cédula existe en la base de datos
             db.query('SELECT cedula FROM usuarios WHERE cedula = ?', [recipientCedula], (err, results) => {
@@ -36,7 +36,10 @@ const initializeSocket = (server) => {
                     const recipientSocketId = users[recipientCedula];
 
                     if (recipientSocketId) {
-                        io.to(recipientSocketId).emit('receiveNotification', message);  // Enviar la notificación
+                        io.to(recipientSocketId).emit('receiveNotification', {
+                            message,
+                            conductorId
+                        });  // Enviar la notificación
                         console.log(`Notificación enviada a despachador ${recipientCedula}: ${message}`);
                     } else {
                         console.log(`Despachador ${recipientCedula} no está conectado`);
@@ -48,14 +51,16 @@ const initializeSocket = (server) => {
         });
 
         socket.on('notificationConfirmed', (data) => {
-            const { userId } = data; // userId es el ID del conductor
-            const senderSocketId = users[userId]; // Obtener el socket ID del conductor que envió la notificación
+            console.log(data);
+            const { userId, conductorId } = data; // userId es el ID del conductor
+            console.log('ID del conductor en la confirmacion', userId);
+            const senderSocketId = users[conductorId]; // Obtener el socket ID del conductor que envió la notificación
         
             if (senderSocketId) {
                 io.to(senderSocketId).emit('confirmationReceived');  // Notificar al conductor
-                console.log(`Confirmación enviada al conductor ${userId}`);
+                console.log(`Confirmación enviada al conductor ${conductorId}`);
             } else {
-                console.log(`Conductor ${userId} no está conectado`);
+                console.log(`Conductor ${conductorId} no está conectado`);
             }
         });
 

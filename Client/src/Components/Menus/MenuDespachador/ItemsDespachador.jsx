@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // Usa useNavigate en lugar de Navigate
-import { Logout } from "../../../Routes/Logout";
+import { useNavigate } from "react-router-dom";
 
 const variants = {
   open: {
@@ -46,7 +45,7 @@ export const ItemsDespachador = ({ i }) => {
   const handleClick = () => {
     if (i === 1) {
       localStorage.removeItem('token');
-      navigate('/');
+      navigate('/Login');
       console.log('Cerrando sesión...');
     } else {
       navigate(routes[i]);

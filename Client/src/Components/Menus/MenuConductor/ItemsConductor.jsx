@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // Usa useNavigate en lugar de Navigate
-import { Logout } from "../../../Routes/Logout";
+import { useNavigate } from "react-router-dom";
 
 const variants = {
   open: {
