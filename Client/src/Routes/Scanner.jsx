@@ -6,7 +6,6 @@ import ScanQR from '../Assets/Images/ScanQR.svg';
 import { toast, ToastContainer } from "react-toastify";
 import { ModalNotification } from "../Components/ModalNotification";
 import socket from "../Auth/socket";
-import { HeaderDespa } from "../Components/HeaderDespa";
 import { jwtDecode } from "jwt-decode";
 
 export const Scanner = () => {
