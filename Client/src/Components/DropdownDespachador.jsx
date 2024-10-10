@@ -1,31 +1,34 @@
 import { useEffect, useState } from "react";
 
-export const DropdownDespachador = () => {
+export const DropdownDespachador = ({ onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState('Seleccione Despachador');
   const [options, setOptions] = useState([]);
+
   useEffect(() => {
-    const fetchVehiculos = async () => {
+    const fetchDespachadores = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/id-despachadores');
         const data = await response.json();
         setOptions(data);
       } catch(error) {
-        console.error('Error al obtener los vehículos', error);
-        toast.error('Error al cargar los vehículos.');
+        console.error('Error al obtener los despachadores', error);
+        toast.error('Error al cargar los despachadores.');
       }
     };
-    fetchVehiculos();
+    fetchDespachadores();
   }, []);
 
   const handleSelectClick = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (option) => {
-    setSelected(option);
+  const handleOptionClick = (despachador) => {
+    setSelected(`${despachador.cedula} - ${despachador.nombres}`);
     setIsOpen(false);
+    onSelect(despachador.cedula);
   };
+
   return(
     <div className="dropdownValidar">
         <div className={`select ${isOpen ? 'select-clicked' : ''}`} onClick={handleSelectClick}>
@@ -38,7 +41,7 @@ export const DropdownDespachador = () => {
               <li
                 key={despachador.cedula}
                 className={despachador.cedula === selected ? 'active' : ''}
-                onClick={() => handleOptionClick(`${despachador.cedula} - ${despachador.nombres}`)}
+                onClick={() => handleOptionClick(despachador)}
               > 
                 {`${despachador.cedula} - ${despachador.nombres}`}
               </li>

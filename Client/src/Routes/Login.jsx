@@ -57,16 +57,14 @@ export const Login = () => {
       const data = await response.json();
       
       if (response.ok) {
-        const token = data.token;
-        const userRole = data.user.rol;
-        const userName = data.user?.nombre;
+        const { token, user: { rol: userRole, nombre: userName } } = data;
 
         localStorage.setItem('token', token);
         localStorage.setItem('role', userRole);
 
         console.log('Inicio de sesión exitoso', data);
         console.log('token recibido', token);
-        console.log('Nombre recibido', userName);
+        console.log('Rol recibido', userRole);
         
 
         // Mostrar el modal de bienvenida
