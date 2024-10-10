@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import socket from '../Auth/socket';
 import { DropdownDespachador } from '../Components/DropdownDespachador';
 import { jwtDecode } from 'jwt-decode';
+import Swal from 'sweetalert2';
 
 
 export const Validar = () => {
@@ -13,7 +14,7 @@ export const Validar = () => {
   const [loading, setLoading] = useState(false);
   const [despachadorId, setDespachadorId] = useState(''); // ID del despachador
   const navigate = useNavigate();
-  const [userId, setUserId]= useState('')
+  const [userId, setUserId]= useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -26,6 +27,29 @@ export const Validar = () => {
         const currentUserId = decodedToken.cedula;
         setUserId(currentUserId)
         socket.emit('register', currentUserId);
+
+        const notificationShown = sessionStorage.getItem('notificationShown');
+
+        //Obtener las rutas asignadas al conductor al iniciar sesion
+        fetch(`http://localhost:3000/api/rutas-asignadas/${currentUserId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (!notificationShown && data.length > 0) {
+            // Mostrar notificación con SweetAlert al iniciar sesión
+            Swal.fire({
+              title: `Te han asignado a la ruta: ${data[0].nombre}`,
+              icon: 'info',
+              timer: 2000,
+              timerProgressBar: true,
+              showConfirmButton: false,
+            });
+            sessionStorage.setItem('notificationShown', 'false');
+          }
+
+        })
+        .catch(error => {
+          console.error('Error al obtener las rutas asignadas:', error);
+        })
       } catch(error) {
         console.error('Error al decodificar el token:', error);
       }
@@ -72,14 +96,7 @@ export const Validar = () => {
         <div className="validar">
           <section className="sectionValidar">
             <DropdownVehiculo />
-            <DropdownDespachador />
-            <input 
-              type="text" 
-              className="inputValidar" 
-              placeholder="ID despachador" 
-              value={despachadorId} 
-              onChange={(e) => setDespachadorId(e.target.value)} 
-            />
+            <DropdownDespachador onSelect={setDespachadorId} />
             <section className="sectionBtnValidar">
               <button onClick={handleValidation} className="btnValidar">Validar</button>
             </section>

@@ -12,6 +12,9 @@ export const RutaProtegida = ({ allowedRoles }) => {
       const token = localStorage.getItem('token');
       const userRole = parseInt(localStorage.getItem('role'));
 
+      console.log('Token', token);
+      console.log('Role', userRole);
+
       if(token) {
         if (isTokenExpired(token)) {
           setIsAuth(false);

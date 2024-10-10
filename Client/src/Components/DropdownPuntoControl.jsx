@@ -1,7 +1,8 @@
-import { useState } from "react";
-export const DropdownPuntoControl = ()=>{
+import { useEffect, useRef, useState } from "react";
+export const DropdownPuntoControl = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState('Punto de control');
+    const dropdownRef = useRef(null);
     const options = ['UDEA', 'Porvenir', 'San Antonio', 'San nicolas', 'La pola'];
   
     const handleSelectClick = () => {
@@ -12,8 +13,22 @@ export const DropdownPuntoControl = ()=>{
       setSelected(option);
       setIsOpen(false);
     };
+
+    // Cerrar el dropdown al hacer clic fuera
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setIsOpen(false);
+        }
+      };
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
+
     return(
-        <div className="dropdownRuta">
+        <div className="dropdownRuta" ref={dropdownRef}>
             <div className={`select ${isOpen ? 'select-clicked' : ''}`} onClick={handleSelectClick}>
                 <span className="selected">{selected}</span>
                 <div className={`caret ${isOpen ? 'caret-rotate' : ''}`}></div>

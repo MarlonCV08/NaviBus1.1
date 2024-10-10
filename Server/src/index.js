@@ -22,7 +22,7 @@ app.use(express.json());
 //configurar CORS
 app.use(cors);
 
-// Inicializar Socket.IO
+// Inicializar Socket.IOa
 initializeSocket(server);  // Pasamos el servidor HTTP a la función de Socket.IO
 
 //Traer datos del formulario del usuario
@@ -57,6 +57,24 @@ app.get('/api/rutas', (req, res) => {
   });
 });
 
+//Consulta para traer el nombre de la ruta que tiene asignado un conductor
+app.get('/api/rutas-asignadas/:currentUserId', (req, res) => {
+  const { currentUserId } = req.params;
+  const sql = `SELECT r.nombre
+              FROM ruta AS r
+              INNER JOIN ruta_usuarios AS ru ON r.codigo = ru.ruta_codigo
+              WHERE ru.cedula = ?
+              `;
+
+  db.query(sql, [currentUserId], (error, results) => {
+    if (error) {
+      console.error('Error al ejecutar la consulta:', error);
+      return res.status(500).json({ message: 'Error al ejecutar la consulta' });
+    }
+      res.status(200).json(results);
+  });
+});
+
 //Consulta para traer el codigo de la ruta
 app.get('/api/ruta/:rutaNombre', (req, res) => {
   const { rutaNombre } = req.params;
@@ -88,13 +106,11 @@ app.get('/api/usuarios/:rutaNombre', (req, res) => {
               WHERE r.nombre = ?`;
 
   db.query(sql, [rutaNombre], (err, results) => {
-            if (err) {
-              return res.status(500).json({ error: 'Error al obtener los datos', err });
-            }
-            res.json(results);
-          }
-          )
-
+    if (err) {
+      return res.status(500).json({ error: 'Error al obtener los datos', err });
+    }
+    res.json(results);
+    });
 });
 
 //Consulta de usuarios a la base de datos

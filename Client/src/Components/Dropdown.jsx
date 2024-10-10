@@ -30,7 +30,7 @@ export const Dropdown = ({ value, onChange })=>{
   
     const handleOptionClick = (option) => {
       setSelected(option.nombre);
-      onChange(option.codigo);    
+      onChange(option.codigo);
       setIsOpen(false);
     };
 
