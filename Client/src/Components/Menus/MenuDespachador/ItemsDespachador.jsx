@@ -25,8 +25,8 @@ const variants = {
   },
 };
 
-const menuTexts = ['Actualizar datos', 'Cerrar sesión']; // Textos para cada ítem
-const routes = ['/Scanner/Actualizar']; // Rutas correspondientes
+const menuTexts = ['Inicio', 'Actualizar datos', 'Cerrar sesión']; // Textos para cada ítem
+const routes = ['/Scanner','/Scanner/Actualizar']; // Rutas correspondientes
 
 export const ItemsDespachador = ({ i }) => {
   const navigate = useNavigate(); // Hook para navegar entre rutas
@@ -43,7 +43,7 @@ export const ItemsDespachador = ({ i }) => {
   };
 
   const handleClick = () => {
-    if (i === 1) {
+    if (i === 2) {
       localStorage.removeItem('token');
       navigate('/Login');
       console.log('Cerrando sesión...');
