@@ -6,6 +6,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Importar SweetAlert2
+import { Camion } from '../Components/Camion';
+import logoMorado from '../Assets/Images/LogoMorado.svg'
+import { LogoMorado } from '../Components/LogoMorado';
 
 export const Login = () => {
   const [cedula, setCedula] = useState('');
@@ -52,18 +55,17 @@ export const Login = () => {
       });
 
       const data = await response.json();
-      console.log('Respuesta del servidor', data);
       
       if (response.ok) {
-        const token = data.token;
-        const userRole = data.user?.rol;
-        const userName = data.user?.nombre;
+        const { token, user: { rol: userRole, nombre: userName } } = data;
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', userRole);
 
         console.log('Inicio de sesión exitoso', data);
         console.log('token recibido', token);
-        console.log('Nombre recibido', userName);
+        console.log('Rol recibido', userRole);
         
-        localStorage.setItem('token', token);
 
         // Mostrar el modal de bienvenida
         Swal.fire({
@@ -74,21 +76,21 @@ export const Login = () => {
           timerProgressBar: true,
           showConfirmButton: false,
         }).then(() => {
-          // Navegación basada en el rol del usuario después de que se cierre el modal
-          switch (userRole) {
-            case 'administrador':
-              navigate('/Ruta');
-              break;
-            case 'conductor':
-              navigate('/Validar');
-              break;
-            case 'despachador':
-              navigate('/Scanner');
-              break;
-            default:
-              navigate('/');
-              break;
-          }
+          console.log('Redirigiendo a ruta según el rol');
+
+            switch(userRole) {
+              case 1:
+                navigate('/Ruta');
+                break;
+              case 2: 
+                navigate('/Validar');
+                break;
+              case 3:
+                navigate('/Scanner');
+                break;
+              default:
+                console.error('Rol no reconocido')
+            }
         });
 
       } else {
@@ -123,39 +125,46 @@ export const Login = () => {
   };
 
   return (
-    <div className="login">
-      <form className="contenedorLog" onSubmit={handleSubmit}>
-        <div className="contenedortitulo">
-          <label className="titulo">Iniciar Sesión</label>
-        </div>
-        <div className="usuario">
-          <input 
-            type="text" 
-            id="usuario" 
-            className="inputusuario"
-            value={cedula} 
-            onChange={handleUsuarioChange}
-          />
-          <label className={`usuariotxt ${subirUser ? 'subir' : ''}`}>Usuario</label>
-        </div>
-        <div className="usuario">
-          <input 
-            type={mostrarClave ? "text" : "password"}
-            className="inputusuario" 
-            value={clave} 
-            onChange={handleClaveChange}
-          />
-          <label className={`usuariotxt ${subirPass ? 'subir' : ''}`}>Contraseña</label>
-          <img 
-            src={mostrarClave ? OjoCerrado : OjoAbierto} 
-            className={`ojo ${mostrarOjo ? 'visible' : 'noVisible'}`} 
-            onClick={toggleMostrarClave}
-            alt="Toggle visibility"
-          />
-        </div>
-        <input type="submit" className='button' value="Ingresar" />
-      </form>
-      <ToastContainer closeButton={false} limit={1}/>
-    </div>
+    <>
+      <div className="login">
+        <form className="contenedorLog" onSubmit={handleSubmit}>
+          <div className="contenedorLogo">
+            <LogoMorado/>
+          </div>
+          <div className="contenedortitulo">
+            <label className="titulo">Iniciar Sesión</label>
+          </div>
+          <div className="usuario">
+            <input 
+              type="text" 
+              id="usuario" 
+              className="inputusuario"
+              value={cedula} 
+              onChange={handleUsuarioChange}
+            />
+            <label className={`usuariotxt ${subirUser ? 'subir' : ''}`}>Usuario</label>
+          </div>
+          <div className="usuarioC">
+            <input 
+              type={mostrarClave ? "text" : "password"}
+              className="inputusuario" 
+              value={clave} 
+              onChange={handleClaveChange}
+            />
+            <label className={`usuariotxt ${subirPass ? 'subir' : ''}`}>Contraseña</label>
+            <img 
+              src={mostrarClave ? OjoCerrado : OjoAbierto} 
+              className={`ojo ${mostrarOjo ? 'visible' : 'noVisible'}`} 
+              onClick={toggleMostrarClave}
+              alt="Toggle visibility"
+            />
+          </div>
+          <input type="submit" className='buttonLogin' value="Ingresar" />
+        </form>
+        <ToastContainer closeButton={false} limit={1}/>
+      </div>
+      <Camion/>
+      
+    </>
   );
 };

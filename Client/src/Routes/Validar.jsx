@@ -4,35 +4,69 @@ import { Loader } from "../Components/Loader";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import socket from '../Auth/socket';
+import { DropdownDespachador } from '../Components/DropdownDespachador';
+import { jwtDecode } from 'jwt-decode';
+import Swal from 'sweetalert2';
 
 
 export const Validar = () => {
+
   const [loading, setLoading] = useState(false);
-  const [placa, setPlaca] = useState('');
   const [despachadorId, setDespachadorId] = useState(''); // ID del despachador
   const navigate = useNavigate();
-  const [userId, setUserId]= useState('')
+  const [userId, setUserId]= useState('');
 
   useEffect(() => {
-    const currentUserId = '1045738520';
-    setUserId(currentUserId);
-    socket.emit('register', currentUserId); // Registra al usuario en el backend
+    const token = localStorage.getItem('token');
+    console.log('Token:', token);
+
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        console.log('Token decodificado:', decodedToken);
+        const currentUserId = decodedToken.cedula;
+        setUserId(currentUserId)
+        socket.emit('register', currentUserId);
+
+        const notificationShown = sessionStorage.getItem('notificationShown');
+
+        //Obtener las rutas asignadas al conductor al iniciar sesion
+        fetch(`http://localhost:3000/api/rutas-asignadas/${currentUserId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (!notificationShown && data.length > 0) {
+            // Mostrar notificación con SweetAlert al iniciar sesión
+            Swal.fire({
+              title: `Te han asignado a la ruta: ${data[0].nombre}`,
+              icon: 'info',
+              timer: 2000,
+              timerProgressBar: true,
+              showConfirmButton: false,
+            });
+            sessionStorage.setItem('notificationShown', 'false');
+          }
+
+        })
+        .catch(error => {
+          console.error('Error al obtener las rutas asignadas:', error);
+        })
+      } catch(error) {
+        console.error('Error al decodificar el token:', error);
+      }
+    }
   }, []);
 
   
   const handleValidation = () => {
-    if (placa === '' || despachadorId === '') {
-      toast.error('Por favor, llena todos los campos.');
-      return;
-    }
 
     setLoading(true);
     
     // Envía la notificación al despachador con el ID ingresado
-    const notificationMessage = `El Conductor con ID ${userId} validó el vehículo con placa ${placa}.`;
+    const notificationMessage = `El Conductor con ID ${userId} validó el vehículo.`;
     socket.emit('sendNotification', {
       recipientCedula: despachadorId, // Usamos el ID del despachador ingresado
       message: notificationMessage,
+      conductorId: userId
     });
     
     toast.success('Notificación enviada. Esperando confirmación...');
@@ -45,7 +79,6 @@ export const Validar = () => {
       setLoading(false);
       toast.success('Confirmación recibida. Procediendo...');
       navigate('/Validar/InfoDia');
-      // Aquí puedes agregar la lógica que quieras después de la confirmación
     });
     return () => {
       // Limpiar el evento al desmontar el componente
@@ -63,20 +96,7 @@ export const Validar = () => {
         <div className="validar">
           <section className="sectionValidar">
             <DropdownVehiculo />
-            <input 
-              type="text" 
-              className="inputValidar" 
-              placeholder="Placa" 
-              value={placa} 
-              onChange={(e) => setPlaca(e.target.value)} 
-            />
-            <input 
-              type="text" 
-              className="inputValidar" 
-              placeholder="ID despachador" 
-              value={despachadorId} 
-              onChange={(e) => setDespachadorId(e.target.value)} 
-            />
+            <DropdownDespachador onSelect={setDespachadorId} />
             <section className="sectionBtnValidar">
               <button onClick={handleValidation} className="btnValidar">Validar</button>
             </section>

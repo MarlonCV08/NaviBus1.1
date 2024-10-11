@@ -18,4 +18,4 @@ export const Navegacion = ()=>{
         </motion.ul>
     )
 }
-const itemIds = [0, 1]
+const itemIds = [0, 1, 2]

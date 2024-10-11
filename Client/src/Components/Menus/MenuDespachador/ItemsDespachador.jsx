@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // Usa useNavigate en lugar de Navigate
-import { Logout } from "../../../Routes/Logout";
+import { useNavigate } from "react-router-dom";
 
 const variants = {
   open: {
@@ -26,8 +25,8 @@ const variants = {
   },
 };
 
-const menuTexts = ['Actualizar datos', 'Cerrar sesión']; // Textos para cada ítem
-const routes = ['/Scanner/Actualizar']; // Rutas correspondientes
+const menuTexts = ['Inicio', 'Actualizar datos', 'Cerrar sesión']; // Textos para cada ítem
+const routes = ['/Scanner','/Scanner/Actualizar']; // Rutas correspondientes
 
 export const ItemsDespachador = ({ i }) => {
   const navigate = useNavigate(); // Hook para navegar entre rutas
@@ -44,9 +43,9 @@ export const ItemsDespachador = ({ i }) => {
   };
 
   const handleClick = () => {
-    if (i === 1) {
+    if (i === 2) {
       localStorage.removeItem('token');
-      navigate('/');
+      navigate('/Login');
       console.log('Cerrando sesión...');
     } else {
       navigate(routes[i]);

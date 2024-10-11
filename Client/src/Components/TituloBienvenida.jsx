@@ -18,29 +18,29 @@ export const TituloBienvenida = () => {
   const getTitulo = () => {
     switch (location.pathname) {
       case '/Ruta':
-        return 'Seccion de rutas';
+        return 'Sección De Rutas';
       case `/Ruta/${rutaNombre}`:
-        return 'Conductores asignados';
+        return 'Conductores Asignados';
       case '/Registro':
-        return 'Seleccione tipo de registro';
+        return 'Seleccione Tipo De Registro';
         case '/Registro/Usuario':
-          return 'Seleccione tipo de Usuario';
+          return 'Seleccione Tipo De Usuario';
         case '/Registro/Usuario/Administrador':
-          return 'Registro de administrador';
+          return 'Registro De Administrador';
         case '/Registro/Usuario/Conductor':
-          return 'Registro de conductor';
+          return 'Registro De Conductor';
         case '/Registro/Usuario/Despachador':
-          return 'Registro de despachador';
+          return 'Registro De Despachador';
         case '/Registro/Vehiculo':
-          return 'Registro de vehiculo';
+          return 'Registro De Vehiculo';
         case '/Actualizar':
-          return 'Actualizar datos de usuario';
+          return 'Actualizar Datos De Usuario';
         case '/Asignar':
-          return 'Seleccione tipo de usuario para asignar';
+          return 'Seleccione Tipo De Usuario Para Asignar';
         case '/Asignar/Despachador':
-          return 'Asignación de ruta y punto de control';
+          return 'Asignación De Ruta y Punto De Control';
         case '/Asignar/Conductor':
-          return 'Asignación de ruta';
+          return 'Asignación de Ruta';
       default:
         return 'Bienvenido';
     }
@@ -48,8 +48,9 @@ export const TituloBienvenida = () => {
 
   return (
     <motion.h1
+    className='tituloMotion'
       initial={{ y: -100 }}
-      animate={{ y: [-100, 0, 0, -100] }}  // El elemento se mueve hacia abajo, se detiene brevemente, y sigue
+      animate={{ y: [-100, 0] }}  // El elemento se mueve hacia abajo, se detiene brevemente, y sigue
       transition={{
         duration: 3,           // Duración total de la animación
         times: [0, 0.4, 0.6, 1], // Controla cuándo se produce cada valor

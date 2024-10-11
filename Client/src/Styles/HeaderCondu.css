@@ -1,4 +1,4 @@
-.curved {
+.curvedCondu{
     position: fixed;
     top: 0;
     height: 90px;
@@ -11,7 +11,4 @@
     align-items: center;
     z-index: 2;
     padding-right: 15px;
-}
-img{
-    cursor: pointer;
 }
