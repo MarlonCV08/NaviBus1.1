@@ -262,25 +262,35 @@ app.get('/api/categoria', (req, res) => {
   });
 });
 
-
 // Endpoint para guardar escaneo
-app.post('/api/guardar-escaneo', (req, res) => {
-  const { userId, dia, hora, puntoControl, ruta, userInfo } = req.body;
+app.post('/api/save', (req, res) => {
+  console.log("Datos recibidos en el servidor:", req.body);
+  const { name, puntoControl, timestamp } = req.body;
 
-  const sql = `INSERT INTO ruta_usuarios (escaneo_fecha_hora)
-               VALUES (?)`;
-
-  const userInfoJson = JSON.stringify(userInfo); // Convertir objeto a JSON si es necesario
-
-  db.query(sql, [userId, dia, hora, puntoControl, ruta, userInfoJson], (err, results) => {
-      if (err) {
-          console.error('Error al guardar el escaneo:', err);
-          return res.status(500).json({ success: false, message: 'Error al guardar el escaneo' });
-      }
-
-      res.status(201).json({ success: true, message: 'Datos guardados correctamente' });
+  const sql = 'INSERT INTO escaneos (cedula, codigo_puntoscontrol, Hora) VALUES (?, ?, ?)';
+  db.query(sql, [name, puntoControl, timestamp], (err) => {
+    if(err){
+      console.error('Error al ingresar datos a la db', err)
+      return;
+    }
+    // Aquí agregarías la lógica para guardar en la base de datos
+    console.log(`Nombre: ${name}, Punto de Control: ${puntoControl}, Hora: ${timestamp}`);
+    // Simulación de guardado exitoso
+    res.status(200).json({ message: 'Datos guardados con éxito' });
   });
 });
+
+//Endpoint para obtener escaneos
+app.get('/api/show', (req, res)=>{
+  const sql = 'SELECT * FROM escaneos';
+  db.query(sql, (err, results) => {
+    if(err){
+      console.error('Error al obtener datos de la db', err)
+      return res.status(500).send('Error al ejecutar la consulta')
+    }
+    res.json(results);
+  })
+})
 
 server.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
