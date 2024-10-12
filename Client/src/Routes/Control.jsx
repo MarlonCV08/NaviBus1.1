@@ -10,60 +10,63 @@ export const Control = () => {
           <table className="custom-table">
             <thead>
               <tr>
-                <th>Información</th>
-                <th>Detalles 1</th>
-                <th>Detalles 2</th>
-                <th>Detalles 3</th>
+                <th>Vuelta</th>
+                <th>Punto de Control</th>
+                <th>Hora</th>
+                <th>Minutos de Retraso</th>
+                <th>Sanciones</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th>Día</th>
-                <td>11/04/2024</td>
-                <td></td>
-                <td></td>
+                <th rowSpan="6">1</th> {/* La primera vuelta cubre 6 filas */}
+                <td>Barro Blanco</td>
+                <td>6:00 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
               </tr>
               <tr>
-                <th>Ruta</th>
-                <td>05</td>
-                <td></td>
-                <td></td>
+                <td>Alto de Vallejo</td>
+                <td>6:28 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
               </tr>
               <tr>
-                <th>Lugar de salida</th>
-                <td>Paradero 1</td>
-                <td>Paradero 2</td>
-                <td>Paradero 3</td>
+                <td>Abreito</td>
+                <td>7:02 a.m.</td>
+                <td>0:03</td>
+                <td>6000</td>
               </tr>
               <tr>
-                <th>Lugar de llegada</th>
-                <td>Paradero 2</td>
-                <td>Paradero 3</td>
-                <td>Paradero 4</td>
+                <td>Fonda Buenos Aires</td>
+                <td>7:35 a.m.</td>
+                <td>0:05</td>
+                <td>10000</td>
               </tr>
               <tr>
-                <th>Hora de salida</th>
-                <td>6:00 AM</td>
-                <td>6:27 AM</td>
-                <td>7:02 AM</td>
+                <td>El Carmin</td>
+                <td>7:59 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
               </tr>
               <tr>
-                <th>Hora de llegada</th>
-                <td>6:27 AM</td>
-                <td>7:02 AM</td>
-                <td>7:29 AM</td>
+                <td>Alto de los Correas</td>
+                <td>8:27 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
               </tr>
               <tr>
-                <th>Minutos de retraso</th>
-                <td>0</td>
-                <td>2</td>
-                <td>0</td>
+                <th rowSpan="2">2</th> {/* La segunda vuelta cubre 2 filas */}
+                <td>Barro Blanco</td>
+                <td>8:58 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
               </tr>
               <tr>
-                <th>Sanciones</th>
-                <td></td>
-                <td>4000</td>
-                <td></td>
+                <td>Alto de Vallejo</td>
+                <td>9:31 a.m.</td>
+                <td>0:01</td>
+                <td>2000</td>
               </tr>
             </tbody>
           </table>
