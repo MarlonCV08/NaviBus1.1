@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const variants = {
   open: {
@@ -30,27 +30,43 @@ const routes = ['/Validar/InfoDia', '/Validar/Actualizar']; // Rutas correspondi
 
 export const ItemsConductor = ({ i }) => {
   const navigate = useNavigate(); // Hook para navegar entre rutas
+  const location = useLocation(); // Hook para obtener la ruta actual
 
   const style = {
     border: `2px solid #7579E7`,
+    background: '#7579e7',
+    width: '20px',
+    height: '20px',
+    flex: '20px 0',
+    marginRight: '25px',
+    marginLeft: '5px'
   };
-
+  
+  const styleIn = {
+    border: `2px solid #7579E7`,
+    background: '#ffffff' // Estilo alternativo (cambia el fondo, por ejemplo)
+  };
+  
   const textStyle = {
     color: '#7579E7',
     fontSize: '18px',
     fontWeight: 'bold',
     margin: '10px 0',
+    border: `2px solid #7579E7`,
   };
 
   const handleClick = () => {
     if (i === 2) {
       localStorage.removeItem('token');
-      navigate('/');
+      navigate('/Login');
       console.log('Cerrando sesión...');
     } else {
       navigate(routes[i]);
     }
   };
+
+  // Verifica si la ruta actual es la misma que la ruta en el índice `i`
+  const isActive = location.pathname === routes[i];
 
   return (
     <motion.li
@@ -60,8 +76,8 @@ export const ItemsConductor = ({ i }) => {
       onClick={handleClick} // Asigna la función handleClick al evento onClick
       style={{ cursor: 'pointer' }} // Añade estilo de cursor para indicar que es clickeable
     >
-      <div className="icon-placeholder" style={style} />
-      <div className="text-placeholder" style={{ ...style, ...textStyle }}>
+      <div className="icon-placeholder" style={isActive ? style : styleIn} />
+      <div className="text-placeholder" style={{...textStyle }}>
         {menuTexts[i]}
       </div>
     </motion.li>
