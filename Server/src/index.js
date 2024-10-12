@@ -14,6 +14,7 @@ const adminForm = require('./routes/adminForm');
 const conduForm = require('./routes/conduForm');
 const despaForm = require('./routes/despaForm');
 const asignarCondu = require('./routes/asignarCondu');
+const asignarDespa = require('./routes/asignarDespa');
 
 
 //Configurar Express para manejar JSON
@@ -42,6 +43,9 @@ app.use('/api/vehiculos', vehicleForm(db));
 
 //Traer y asignar conductor a una ruta
 app.use('/api/asignar-rutas', asignarCondu(db));
+
+//Traer y asignar despachador a un punto de control
+app.use('/api/asignar-despachador', asignarDespa(db));
 
 //Consulta de rutas a la base de datos
 app.get('/api/rutas', (req, res) => {
@@ -134,9 +138,14 @@ app.post('/api/usuarios', (req, res) => {
   res.json({ message: 'Rol ID recibido correctamente' });
 });
 
-//Consulta de despachadores por ID a la base de datos
+// Consulta de despachadores por ID a la base de datos
 app.get('/api/id-despachadores', (req, res) => {
-  const sql = 'SELECT cedula, nombres, apellidos FROM usuarios WHERE rol = 3';
+  const sql = `
+    SELECT cedula, nombres, apellidos 
+    FROM usuarios 
+    WHERE rol = 3
+    AND cedula NOT IN (SELECT cedula FROM asignaciones);
+  `;
   db.query(sql, (err, results) => {
     if (err) {
       console.error('Error al ejecutar la consulta:', err);
@@ -262,6 +271,20 @@ app.get('/api/categoria', (req, res) => {
   });
 });
 
+//Consulta para obtener los puntos de control
+app.get('/api/puntos-control/:ruta', (req, res) => {
+  const { ruta } = req.params;
+
+  const sql = 'SELECT * FROM puntoscontrol WHERE ruta = ?';
+  db.query(sql, [ruta], (err, results) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
+  });
+});
 
 // Endpoint para guardar escaneo
 app.post('/api/guardar-escaneo', (req, res) => {

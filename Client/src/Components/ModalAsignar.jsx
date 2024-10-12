@@ -8,6 +8,8 @@ import { DropdownPuntoControl } from './DropdownPuntoControl';
 export const ModalAsignar = ({ cedula, onDropdownChange }) => {
   const [selectedRuta, setSelectedRuta] = useState(""); // Estado para la ruta seleccionada
   const [selectedPuntoControl, setSelectedPuntoControl] = useState(""); // Estado para el punto de control
+  const [isVisible, setIsVisible] = useState(false);
+  const [botonVisible, setBotonVisible] = useState(true);
 
   // Maneja el cambio de ruta en el DropdownRuta
   const handleRutaChange = (ruta) => {
@@ -35,28 +37,60 @@ export const ModalAsignar = ({ cedula, onDropdownChange }) => {
     opacity:1,
     display: 'flex'
   }
+
   const handleButton =()=>{
-    Swal.fire({
-        title: `Ruta asignada correctamente`,
-        icon: 'success',
-        timer: 2000,
-        timerProgressBar: true,
-        showConfirmButton: false,
+
+    if (selectedRuta && selectedPuntoControl) {
+      fetch('http://localhost:3000/api/asignar-despachador', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cedula: cedula,
+          ruta: selectedRuta,
+          puntoControl: selectedPuntoControl,
+        }),
       })
-      setTimeout(() => {
-        setIsVisible(!isVisible)
-        setBotonVisible(!botonVisible)
-      }, 2100);
-}
-  const [isVisible, setIsVisible] = useState(false);
-  const [botonVisible, setBotonVisible] = useState(true)
+      .then(response => response.json())
+      .then(() => {
+        Swal.fire({
+          title: `Despachador asignado correctamente`,
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          onDropdownChange(cedula);
+          setIsVisible(!isVisible)
+          setBotonVisible(!botonVisible)
+        }, 2100);
+      })
+      .catch((error) => {
+        console.error('Error al asignar:', error);
+        Swal.fire({
+          title: `Error al asignar`,
+          icon: 'error',
+          text: 'Inténtalo nuevamente.',
+        });
+      });
+    } else {
+      Swal.fire({
+        title: 'Faltan datos',
+        text: 'Debes seleccionar una ruta y un punto de control',
+        icon: 'warning',
+      });
+    }
+  }
+  
 
     return (
       <div className="example">
         <motion.div className="box" animate={isVisible ? show : hide}>
           <section className='dropdownSection'>
             <DropdownRuta value={selectedRuta} onChange={handleRutaChange} />
-            <DropdownPuntoControl value={selectedPuntoControl} onChange={handlePuntoControlChange} />
+            <DropdownPuntoControl value={selectedPuntoControl} onChange={handlePuntoControlChange} selectedRuta={selectedRuta} />
           </section>
           <section className="buttonSection">
           <motion.button
