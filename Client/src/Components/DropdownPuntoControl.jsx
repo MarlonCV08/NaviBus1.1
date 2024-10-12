@@ -1,17 +1,41 @@
 import { useEffect, useRef, useState } from "react";
-export const DropdownPuntoControl = () => {
+export const DropdownPuntoControl = ({ value, onChange, selectedRuta }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState('Punto de control');
     const dropdownRef = useRef(null);
-    const options = ['UDEA', 'Porvenir', 'San Antonio', 'San nicolas', 'La pola'];
+    const [options, setOptions] = useState([]);
+
+    useEffect(() => {
+      console.log('Ruta seleccionada', selectedRuta);
+      if (selectedRuta) {
+        fetch(`http://localhost:3000/api/puntos-control/${selectedRuta}`)
+        .then(response => response.json())
+        .then(data => setOptions(data))
+        .catch(error => console.error('Error al traer los datos:', error))
+      } else {
+        setOptions([]);
+      }
+    }, [selectedRuta]);
+
+    useEffect(() => {
+      if (value === "") {
+          setSelected('Punto de Control');
+      } else {
+        const selectedOption = options.find(option => option.codigo === value);
+        if (selectedOption) {
+          setSelected(selectedOption.nombre);
+        }
+      }
+    }, [value, options]);
   
     const handleSelectClick = () => {
       setIsOpen(!isOpen);
     };
   
     const handleOptionClick = (option) => {
-      setSelected(option);
+      setSelected(option.nombre);
       setIsOpen(false);
+      onChange(option.codigo)
     };
 
     // Cerrar el dropdown al hacer clic fuera
@@ -34,13 +58,13 @@ export const DropdownPuntoControl = () => {
                 <div className={`caret ${isOpen ? 'caret-rotate' : ''}`}></div>
             </div>
             <ul className={`menuListDoc ${isOpen ? 'menu-open' : ''}`}>
-                {options.map((option, index) => (
+                {options.map((option) => (
                   <li
-                    key={index}
-                    className={option === selected ? 'active' : ''}
+                    key={option.codigo}
+                    className={option.codigo === value ? 'active' : ''}
                     onClick={() => handleOptionClick(option)}
                   >
-                    {option}
+                    {option.nombre}
                   </li>
                 ))}
             </ul>
