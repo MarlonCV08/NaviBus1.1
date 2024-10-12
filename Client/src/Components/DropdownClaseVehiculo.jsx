@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export const DropdownClaseVehiculo = ({ value, onChange })=>{
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState('Seleccione tipo de vehiculo');
+    const [selected, setSelected] = useState('Seleccione Tipo de Vehículo');
     const [options, setOptions] = useState([]);
     const dropdownRef = useRef(null);
 
@@ -15,7 +15,7 @@ export const DropdownClaseVehiculo = ({ value, onChange })=>{
 
     useEffect(() => {
       if (value === "") {
-        setSelected('Seleccione tipo de vehiculo');
+        setSelected('Seleccione Tipo de Vehículo');
       } else {
         const selectedOption = options.find(option => option.codigo === value);
         if (selectedOption) {

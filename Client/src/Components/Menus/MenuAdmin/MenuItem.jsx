@@ -25,7 +25,7 @@ const variants = {
   },
 };
 
-const menuTexts = ['Inicio', 'Registro', 'Actualizar datos', 'Asignar ruta', 'Cerrar sesión']; // Textos para cada ítem
+const menuTexts = ['Inicio', 'Registro', 'Actualizar Datos', 'Asignar Ruta', 'Cerrar Sesión']; // Textos para cada ítem
 const routes = ['/Ruta', '/Registro', '/Actualizar', '/Asignar']; // Rutas correspondientes
 
 export const MenuItem = ({ i }) => {
