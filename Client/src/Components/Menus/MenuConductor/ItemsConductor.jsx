@@ -25,7 +25,7 @@ const variants = {
   },
 };
 
-const menuTexts = ['Inicio', 'Actualizar datos', 'Cerrar sesión']; // Textos para cada ítem
+const menuTexts = ['Inicio', 'Actualizar Datos', 'Cerrar Sesión']; // Textos para cada ítem
 const routes = ['/Validar/InfoDia', '/Validar/Actualizar']; // Rutas correspondientes
 
 export const ItemsConductor = ({ i }) => {

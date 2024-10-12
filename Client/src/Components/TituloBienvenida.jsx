@@ -18,29 +18,29 @@ export const TituloBienvenida = () => {
   const getTitulo = () => {
     switch (location.pathname) {
       case '/Ruta':
-        return 'Sección De Rutas';
+        return 'Rutas';
       case `/Ruta/${rutaNombre}`:
         return 'Conductores Asignados';
       case '/Registro':
-        return 'Seleccione Tipo De Registro';
+        return 'Seleccione Tipo de Registro';
         case '/Registro/Usuario':
-          return 'Seleccione Tipo De Usuario';
+          return 'Seleccione Tipo de Usuario';
         case '/Registro/Usuario/Administrador':
-          return 'Registro De Administrador';
+          return 'Registro de Administrador';
         case '/Registro/Usuario/Conductor':
-          return 'Registro De Conductor';
+          return 'Registro de Conductor';
         case '/Registro/Usuario/Despachador':
-          return 'Registro De Despachador';
+          return 'Registro de Despachador';
         case '/Registro/Vehiculo':
-          return 'Registro De Vehiculo';
+          return 'Registro de Vehículo';
         case '/Actualizar':
-          return 'Actualizar Datos De Usuario';
+          return 'Actualizar Datos de Usuario';
         case '/Asignar':
-          return 'Seleccione Tipo De Usuario Para Asignar';
+          return 'Seleccione Tipo de Usuario Para Asignar';
         case '/Asignar/Despachador':
-          return 'Asignación De Ruta y Punto De Control';
+          return 'Asignación de Despachadores';
         case '/Asignar/Conductor':
-          return 'Asignación de Ruta';
+          return 'Asignación de Conductores';
       default:
         return 'Bienvenido';
     }
@@ -52,7 +52,7 @@ export const TituloBienvenida = () => {
       initial={{ y: -100 }}
       animate={{ y: [-100, 0] }}  // El elemento se mueve hacia abajo, se detiene brevemente, y sigue
       transition={{
-        duration: 3,           // Duración total de la animación
+        duration: 1,           // Duración total de la animación
         times: [0, 0.4, 0.6, 1], // Controla cuándo se produce cada valor
         ease: 'easeInOut',
       }}

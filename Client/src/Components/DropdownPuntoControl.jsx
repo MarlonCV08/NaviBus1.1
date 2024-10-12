@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 export const DropdownPuntoControl = ({ value, onChange, selectedRuta }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState('Punto de control');
+    const [selected, setSelected] = useState('Punto de Control');
     const dropdownRef = useRef(null);
     const [options, setOptions] = useState([]);
 

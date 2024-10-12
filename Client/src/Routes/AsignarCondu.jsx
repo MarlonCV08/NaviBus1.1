@@ -90,7 +90,7 @@ export const AsignarCondu = ()=>{
                         </div>
                     ))}
             </div>
-            <button onClick={handleButton} className="botonAsignar">Asignar ruta</button>
+            <button onClick={handleButton} className="botonAsignar">Asignar Ruta</button>
         </>
     )
 }
