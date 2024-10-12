@@ -14,6 +14,7 @@ const adminForm = require('./routes/adminForm');
 const conduForm = require('./routes/conduForm');
 const despaForm = require('./routes/despaForm');
 const asignarCondu = require('./routes/asignarCondu');
+const asignarDespa = require('./routes/asignarDespa');
 
 
 //Configurar Express para manejar JSON
@@ -42,6 +43,9 @@ app.use('/api/vehiculos', vehicleForm(db));
 
 //Traer y asignar conductor a una ruta
 app.use('/api/asignar-rutas', asignarCondu(db));
+
+//Traer y asignar despachador a un punto de control
+app.use('/api/asignar-despachador', asignarDespa(db));
 
 //Consulta de rutas a la base de datos
 app.get('/api/rutas', (req, res) => {
@@ -134,9 +138,14 @@ app.post('/api/usuarios', (req, res) => {
   res.json({ message: 'Rol ID recibido correctamente' });
 });
 
-//Consulta de despachadores por ID a la base de datos
+// Consulta de despachadores por ID a la base de datos
 app.get('/api/id-despachadores', (req, res) => {
-  const sql = 'SELECT cedula, nombres, apellidos FROM usuarios WHERE rol = 3';
+  const sql = `
+    SELECT cedula, nombres, apellidos 
+    FROM usuarios 
+    WHERE rol = 3
+    AND cedula NOT IN (SELECT cedula FROM asignaciones);
+  `;
   db.query(sql, (err, results) => {
     if (err) {
       console.error('Error al ejecutar la consulta:', err);
@@ -262,25 +271,50 @@ app.get('/api/categoria', (req, res) => {
   });
 });
 
+//Consulta para obtener los puntos de control
+app.get('/api/puntos-control/:ruta', (req, res) => {
+  const { ruta } = req.params;
 
-// Endpoint para guardar escaneo
-app.post('/api/guardar-escaneo', (req, res) => {
-  const { userId, dia, hora, puntoControl, ruta, userInfo } = req.body;
-
-  const sql = `INSERT INTO ruta_usuarios (escaneo_fecha_hora)
-               VALUES (?)`;
-
-  const userInfoJson = JSON.stringify(userInfo); // Convertir objeto a JSON si es necesario
-
-  db.query(sql, [userId, dia, hora, puntoControl, ruta, userInfoJson], (err, results) => {
-      if (err) {
-          console.error('Error al guardar el escaneo:', err);
-          return res.status(500).json({ success: false, message: 'Error al guardar el escaneo' });
-      }
-
-      res.status(201).json({ success: true, message: 'Datos guardados correctamente' });
+  const sql = 'SELECT * FROM puntoscontrol WHERE ruta = ?';
+  db.query(sql, [ruta], (err, results) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).send('Error al ejecutar la consulta');
+      return;
+    }
+    res.json(results);
   });
 });
+
+// Endpoint para guardar escaneo
+app.post('/api/save', (req, res) => {
+  console.log("Datos recibidos en el servidor:", req.body);
+  const { name, puntoControl, timestamp } = req.body;
+
+  const sql = 'INSERT INTO escaneos (cedula, codigo_puntoscontrol, Hora) VALUES (?, ?, ?)';
+  db.query(sql, [name, puntoControl, timestamp], (err) => {
+    if(err){
+      console.error('Error al ingresar datos a la db', err)
+      return;
+    }
+    // Aquí agregarías la lógica para guardar en la base de datos
+    console.log(`Nombre: ${name}, Punto de Control: ${puntoControl}, Hora: ${timestamp}`);
+    // Simulación de guardado exitoso
+    res.status(200).json({ message: 'Datos guardados con éxito' });
+  });
+});
+
+//Endpoint para obtener escaneos
+app.get('/api/show', (req, res)=>{
+  const sql = 'SELECT * FROM escaneos';
+  db.query(sql, (err, results) => {
+    if(err){
+      console.error('Error al obtener datos de la db', err)
+      return res.status(500).send('Error al ejecutar la consulta')
+    }
+    res.json(results);
+  })
+})
 
 server.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);

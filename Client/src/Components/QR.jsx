@@ -1,6 +1,20 @@
+import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 
-export const QR = ({ userId }) => {
+export const QR = () => {
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (token) {
+            // Decodifica el token para obtener la cédula
+            const decodedToken = jwtDecode(token);
+            const { cedula } = decodedToken; // Extrae la cédula del token decodificado
+            
+            setUserId(cedula); // Asigna la cédula como userId
+        }
+    }, []);
     // Verifica si userId está definido
     console.log("Valor de userId:", userId);
     if (!userId) {
