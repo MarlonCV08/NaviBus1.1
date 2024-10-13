@@ -56,7 +56,7 @@ export const Control = () => {
                 <td>Sin Sanciones</td>
               </tr>
               <tr>
-                <th rowSpan="2">2</th> {/* La segunda vuelta cubre 2 filas */}
+                <th rowSpan="6">2</th> {/* La segunda vuelta cubre 2 filas */}
                 <td>Barro Blanco</td>
                 <td>8:58 a.m.</td>
                 <td>0:00</td>
@@ -67,6 +67,30 @@ export const Control = () => {
                 <td>9:31 a.m.</td>
                 <td>0:01</td>
                 <td>2000</td>
+              </tr>
+              <tr>
+                <td>Abreito</td>
+                <td>7:02 a.m.</td>
+                <td>0:03</td>
+                <td>6000</td>
+              </tr>
+              <tr>
+                <td>Fonda Buenos Aires</td>
+                <td>7:35 a.m.</td>
+                <td>0:05</td>
+                <td>10000</td>
+              </tr>
+              <tr>
+                <td>El Carmin</td>
+                <td>7:59 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
+              </tr>
+              <tr>
+                <td>Alto de los Correas</td>
+                <td>8:27 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
               </tr>
             </tbody>
           </table>

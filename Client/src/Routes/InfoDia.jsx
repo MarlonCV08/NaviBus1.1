@@ -8,14 +8,28 @@ export const InfoDia = ()=>{
          <div className="contenedorInfo">
             <QR/>
             <div className="contenedorTabla">
-                <label>Ruta</label>
-                <label>Dia</label>
-                <label>Hora de salida</label>
-                <label>Hora de llegada</label>
-                <label>Lugar de salida</label>
-                <label>Lugar de llegada</label>
-                <label>Multas</label>
+                <table className="custom-tableInfo">
+                    <tbody>
+                        <tr>
+                            <th>Punto de Control</th>
+                            <td>Barro Blanco</td>
+                        </tr>
+                        <tr>
+                            <th>Hora</th>
+                            <td>06:00 a.m.</td>
+                        </tr>
+                        <tr>
+                            <th>Minutos de retraso</th>
+                            <td>0:00</td>
+                        </tr>
+                        <tr>
+                            <th>Sanciones</th>
+                            <td>Sin Sanciones</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+
          </div>
         </>
     )
