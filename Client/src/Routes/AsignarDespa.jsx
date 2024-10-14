@@ -15,10 +15,15 @@ export const AsignarDespa = ()=>{
     }, []);
 
     const handleDropdownChange = (cedula, ruta) => {
-        setSelectedRutas((prevState) => ({
-            ...prevState,
-            [cedula]: ruta
-        }));
+        console.log('Cédula:', cedula, 'Ruta:', ruta);
+        setSelectedRutas((prevState) => {
+            const newState = {
+                ...prevState,
+                [cedula]: ruta
+            };
+            console.log('Nuevo estado:', newState);
+            return newState;
+        });
     };
     
     return (

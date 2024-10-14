@@ -138,13 +138,40 @@ app.post('/api/usuarios', (req, res) => {
   res.json({ message: 'Rol ID recibido correctamente' });
 });
 
+//Consulta para traer el punto de control asignado al despachador
+app.get('/api/asignaciones/:cedula', async (req, res) => {
+  const { cedula } = req.params;
+
+  const getPuntoControlByCedula = async(cedula) => {
+    const sql = 'SELECT codigo_puntoscontrol FROM asignaciones WHERE cedula = ?';
+    const [rows] = await db.promise().query(sql, [cedula]);
+
+    if (rows.length > 0) {
+      return rows[0].codigo_puntoscontrol;
+    } else {
+      return null;
+    }
+  };
+  try {
+    const puntoControl = await getPuntoControlByCedula(cedula);
+
+    if (puntoControl) {
+      res.status(200).json(puntoControl);
+    } else {
+      res.status(404).json({ message: 'Punto de control no encontrado' });
+    }
+  } catch (error) {
+        console.error('Error al obtener el punto de control:', error);
+        res.status(500).json({ message: 'Error al obtener el punto de control' });
+    }
+});
+
 // Consulta de despachadores por ID a la base de datos
 app.get('/api/id-despachadores', (req, res) => {
   const sql = `
     SELECT cedula, nombres, apellidos 
     FROM usuarios 
     WHERE rol = 3
-    AND cedula NOT IN (SELECT cedula FROM asignaciones);
   `;
   db.query(sql, (err, results) => {
     if (err) {
@@ -286,7 +313,7 @@ app.get('/api/puntos-control/:ruta', (req, res) => {
   });
 });
 
-// Endpoint para guardar escaneo
+//Consulta para guardar escaneo
 app.post('/api/save', (req, res) => {
   console.log("Datos recibidos en el servidor:", req.body);
   const { name, puntoControl, timestamp } = req.body;
@@ -304,7 +331,7 @@ app.post('/api/save', (req, res) => {
   });
 });
 
-//Endpoint para obtener escaneos
+//Consulta para obtener escaneos
 app.get('/api/show', (req, res)=>{
   const sql = 'SELECT * FROM escaneos';
   db.query(sql, (err, results) => {

@@ -12,6 +12,7 @@ import axios from 'axios';
 export const Scanner = () => {
     const [scanning, setScanning] = useState(false);
     const [userId, setUserId] = useState(null);
+    const [puntoControl, setPuntoControl] = useState(null);
     const [notifications, setNotifications] = useState([]);
     const [scannedData, setScannedData] = useState('');
     const [error, setError] = useState(null);
@@ -24,6 +25,17 @@ export const Scanner = () => {
             const decodedToken = jwtDecode(token);
             const cedula = decodedToken.cedula;
             setUserId(cedula);
+
+            const fetchPuntoControl = async () => {
+                try {
+                    const response = await axios.get(`http://localhost:3000/api/asignaciones/${cedula}`);
+                    setPuntoControl(response.data);
+                } catch (error) {
+                    console.error('Error al obtener el punto de control:', error);
+                    setError('Error al obtener el punto de control.')
+                }
+            };
+            fetchPuntoControl();
         }
     }, []);
     
@@ -114,7 +126,6 @@ export const Scanner = () => {
                     isScanningRef.current = false;
                     setScanning(false);
                     const name = decodedText;
-                    const puntoControl = '103'
                     const getLocalTimestamp = () => {
                         const now = new Date();
                         const year = now.getFullYear();
