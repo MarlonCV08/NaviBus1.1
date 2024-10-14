@@ -2,44 +2,96 @@ import "../Styles/Control.css";
 import { Header } from "../Header";
 
 export const Control = () => {
-  const rows = [
-    ["Dia", "11/04/2024"],
-    ["Ruta", "05"],
-    ["Lugar de salida", "paradero 1", "paradero 2", "Paradero 3"],
-    ["Lugar de llegada", "Paradero 2", "Paradero 3", "Paradero 4"],
-    ["Hora de salida", "6:00 AM", "6:27 AM", "7:02 AM"],
-    ["Hora de llegada", "6:27 AM", "7:02 AM", "7:29"],
-    ["Minutos de retraso", "0", "2", "0"],
-    ["Sanciones", "", "4000", ""]
-  ];
-
-  // Encontrar el número máximo de columnas en cualquier fila
-  const maxColumns = rows.reduce((max, row) => Math.max(max, row.length), 0);
-
   return (
     <>
       <Header />
       <div className="tableContainer">
-        <div className="table">
-          <table>
+        <div className="table-responsive">
+          <table className="custom-table">
+            <thead>
+              <tr>
+                <th>Vuelta</th>
+                <th>Punto de Control</th>
+                <th>Hora</th>
+                <th>Minutos de Retraso</th>
+                <th>Sanciones</th>
+              </tr>
+            </thead>
             <tbody>
-              {rows.map((row, rowIndex) => (
-                <tr key={rowIndex}>
-                  {row.map((cell, cellIndex) => {
-                    // Asignar colSpan a las filas de "Dia" y "Ruta"
-                    const colSpan = rowIndex === 0 || rowIndex === 1 ? maxColumns - 1 : 1;
-                    return (
-                      <td key={cellIndex} colSpan={cellIndex === 1 ? colSpan : 1} className={cellIndex === 1 ? 'td' : ''}>
-                        {cell}
-                      </td>
-                    );
-                  })}
-                  {/* Asegurarse de que las filas sin suficiente columnas se llenen */}
-                  {row.length < maxColumns && rowIndex > 1 && (
-                    <td colSpan={maxColumns - row.length}></td>
-                  )}
-                </tr>
-              ))}
+              <tr>
+                <th rowSpan="6">1</th> {/* La primera vuelta cubre 6 filas */}
+                <td>Barro Blanco</td>
+                <td>6:00 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
+              </tr>
+              <tr>
+                <td>Alto de Vallejo</td>
+                <td>6:28 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
+              </tr>
+              <tr>
+                <td>Abreito</td>
+                <td>7:02 a.m.</td>
+                <td>0:03</td>
+                <td>6000</td>
+              </tr>
+              <tr>
+                <td>Fonda Buenos Aires</td>
+                <td>7:35 a.m.</td>
+                <td>0:05</td>
+                <td>10000</td>
+              </tr>
+              <tr>
+                <td>El Carmin</td>
+                <td>7:59 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
+              </tr>
+              <tr>
+                <td>Alto de los Correas</td>
+                <td>8:27 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
+              </tr>
+              <tr>
+                <th rowSpan="6">2</th> {/* La segunda vuelta cubre 2 filas */}
+                <td>Barro Blanco</td>
+                <td>8:58 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
+              </tr>
+              <tr>
+                <td>Alto de Vallejo</td>
+                <td>9:31 a.m.</td>
+                <td>0:01</td>
+                <td>2000</td>
+              </tr>
+              <tr>
+                <td>Abreito</td>
+                <td>7:02 a.m.</td>
+                <td>0:03</td>
+                <td>6000</td>
+              </tr>
+              <tr>
+                <td>Fonda Buenos Aires</td>
+                <td>7:35 a.m.</td>
+                <td>0:05</td>
+                <td>10000</td>
+              </tr>
+              <tr>
+                <td>El Carmin</td>
+                <td>7:59 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
+              </tr>
+              <tr>
+                <td>Alto de los Correas</td>
+                <td>8:27 a.m.</td>
+                <td>0:00</td>
+                <td>Sin Sanciones</td>
+              </tr>
             </tbody>
           </table>
         </div>

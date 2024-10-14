@@ -114,7 +114,7 @@ export const ModalAsignar = ({ cedula, onDropdownChange }) => {
             onClick={() => {setIsVisible(!isVisible); setBotonVisible(!botonVisible)}}
             animate={botonVisible ? showButton : hide}
           >
-            asignar
+            Asignar
           </motion.button>
         </div>
       </div>

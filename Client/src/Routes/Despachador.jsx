@@ -1,6 +1,6 @@
 import { Dropdown } from "../Components/Dropdown"
 import { Header } from "../Header"
-import Camara from "../Assets/Images/Camara.svg"
+import Scanning from '../Assets/Images/Scanning.svg'
 import "../Styles/Despachador.css"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
@@ -130,11 +130,7 @@ export const Despachador = ()=>{
                     <form className="contenedor" onSubmit={handleSubmit}>
                         <div className="contenedorHijo">
                             <div className="contenedorCamara">
-                                <img src={Camara} alt=""/>
-                                <section>
-                                    <label className="label">Subir archivo</label>
-                                    <input type="file" id="btn-file"/>
-                                </section>
+                                <img src={Scanning} alt=""/>
                             </div>
                             <div className="contenedorInput">
                                 <section>

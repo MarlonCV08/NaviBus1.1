@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export const DropdownLinea = ({ marcaCod, value, onChange })=>{
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState('Seleccione Linea');
+    const [selected, setSelected] = useState('Seleccione Línea');
     const [options, setOptions] = useState([]);
     const dropdownRef = useRef(null);
 
@@ -19,7 +19,7 @@ export const DropdownLinea = ({ marcaCod, value, onChange })=>{
 
     useEffect(() => {
       if (value === "") {
-        setSelected('Seleccione Linea');
+        setSelected('Seleccione Línea');
       } else {
         const selectedOption = options.find(option => option.codigo === value);
         if (selectedOption) {

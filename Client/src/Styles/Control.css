@@ -1,23 +1,89 @@
-.tableContainer{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-items: center;
-    overflow-x: auto;
+.tableContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Para posicionar los pseudo-elementos */
 }
-.table{
-    background: #d9d9d9;
-    padding: 35px;
-    border-radius: 8px;
+
+.table-responsive {
+  overflow-x: auto; /* Scroll horizontal si el contenido es muy ancho */
+  max-height: 400px; /* Limita la altura del contenedor para el scroll vertical */
+  overflow-y: auto; /* Scroll vertical */
+  border-radius: 10px; /* Bordes redondeados del contenedor */
 }
-table, tr, td{
-    border: solid 1px black;
-    border-collapse: collapse;
-    padding: 8px 12px;
-    text-align: center;
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px;
+  text-align: left;
+  cursor: default;
+  color: #3d3d3d;
+  border-radius: 10px; /* Bordes redondeados para la tabla */
+  position: relative;
 }
-.td{
-    border-right: none; 
+
+/* Encabezado sticky */
+.custom-table thead {
+  background-color: #c0c0c0; /* Color de fondo del encabezado */
+  color: white; /* Color del texto en el encabezado */
+  position: sticky; /* Hace que el encabezado sea fijo */
+  top: 0; /* Posiciona el encabezado en la parte superior */
+  font-size: inherit; /* Mantener el tamaño de la fuente igual al tbody */
+  height: 50px; /* Altura fija para el thead */
+}
+
+/* Celdas y bordes */
+.custom-table th,
+.custom-table td {
+  border: 1px solid #dee2e6; /* Bordes de celdas */
+  padding: 12px; /* Espaciado interno */
+}
+
+/* Efecto hover solo en las filas del tbody */
+.custom-table tbody tr:hover td {
+  background-color: #a8a8a8; /* Color de fondo al pasar el ratón por las celdas del tbody */
+}
+
+.custom-table tbody tr th {
+  pointer-events: none;
+  background: #b4b4b4; /* Fondo para las celdas de encabezado del tbody */
+  text-align: center;
+}
+
+/* Estilo para filas pares (2, 4, 6, ...) */
+.custom-table tbody tr:nth-child(even) {
+  background-color: #c0c0c0; /* Color de fondo para filas pares */
+}
+
+/* Estilo para filas impares (1, 3, 5, ...) */
+.custom-table tbody tr:nth-child(odd) {
+  background-color: #d9d9d9; /* Color de fondo para filas impares */
+}
+
+/* No aplicar hover en el thead */
+.custom-table thead tr:hover {
+  background-color: inherit; /* Mantiene el color original en los th */
+  pointer-events: none; /* Deshabilita eventos para evitar interacción */
+}
+
+/* Scrollbar personalizado */
+.table-responsive::-webkit-scrollbar {
+  width: 8px; /* Ancho del scrollbar */
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: transparent; /* Color de fondo del track del scrollbar */
+  border-radius: 10px;  
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: #a8a8a8; /* Color del scrollbar */
+  border-radius: 0.5em; /* Bordes redondeados */
+}
+
+.table-responsive::-webkit-scrollbar-thumb:active {
+  background-color: #949494; /* Color al hacer clic o mantener presionado */
 }
