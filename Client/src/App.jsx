@@ -114,7 +114,7 @@ import { ActualizarDespa } from "./Routes/ActualizarDespa"
 // Rutas para el Administrador
 const router = createBrowserRouter([
     {
-        path: "/Login",
+        path: "/",
         element: <Login />
     },
     {
