@@ -20,7 +20,6 @@ import { InfoDia } from "./Routes/InfoDia"
 import { ActualizarCondu } from "./Routes/ActualizarCondu"
 import { Scanner } from "./Routes/Scanner"
 import { ActualizarDespa } from "./Routes/ActualizarDespa"
-import { Carga } from "./Routes/Carga"
 
 /* const router = createBrowserRouter ([
     {
@@ -115,10 +114,10 @@ import { Carga } from "./Routes/Carga"
 // Rutas para el Administrador
 const router = createBrowserRouter([
     {
-        path: "/",
-        element: <Carga />
+        path: "/Login",
+        element: <Login />
     },
-   /*  {
+    {
         path: "/",
         element: <RutaProtegida allowedRoles={[1]} />, // Admin
         children: [
@@ -209,7 +208,7 @@ const router = createBrowserRouter([
             },
             // Otras rutas para despachadores
         ]
-    } */
+    }
 ]);
 
 
