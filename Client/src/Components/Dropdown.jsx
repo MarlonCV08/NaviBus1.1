@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "../Styles/Dropdown.css"
-export const Dropdown = ({ value, onChange })=>{
+export const Dropdown = ({ value, onChange, disabled })=>{
     const [isOpen, setIsOpen] = useState(false);
     const [options, setOptions] = useState([]);
     const [selected, setSelected] = useState('Tipo de Documento');
@@ -25,13 +25,17 @@ export const Dropdown = ({ value, onChange })=>{
     }, [value, options]);
   
     const handleSelectClick = () => {
-      setIsOpen(!isOpen);
+      if (!disabled) {
+        setIsOpen(!isOpen);
+      }
     };
   
     const handleOptionClick = (option) => {
-      setSelected(option.nombre);
-      onChange(option.codigo);
-      setIsOpen(false);
+      if (!disabled) {
+        setSelected(option.nombre);
+        onChange(option.codigo);
+        setIsOpen(false);
+      }
     };
 
     // Cerrar el dropdown al hacer clic fuera
@@ -48,7 +52,7 @@ export const Dropdown = ({ value, onChange })=>{
     }, []);
 
     return(
-        <div className="dropdown" ref={dropdownRef}>
+        <div className={`dropdown ${disabled ? 'dropdown-disabled' : ''}`} ref={dropdownRef}>
             <div className={`select ${isOpen ? 'select-clicked' : ''}`} onClick={handleSelectClick}>
                 <span className="selected">{selected}</span>
                 <div className={`caret ${isOpen ? 'caret-rotate' : ''}`}></div>

@@ -21,97 +21,6 @@ import { ActualizarCondu } from "./Routes/ActualizarCondu"
 import { Scanner } from "./Routes/Scanner"
 import { ActualizarDespa } from "./Routes/ActualizarDespa"
 
-/* const router = createBrowserRouter ([
-    {
-        path: "/",
-        element: <Login />
-    },
-    {
-        path: "/",
-        element: <RutaProtegida />,
-        children: [
-            {
-                path: "/Ruta",
-                element: <Ruta />
-            },
-            {
-                path: "/Ruta/:rutaNombre",
-                element: <Conductores />
-            },
-            {
-                path: "/Ruta/Conductores/Control",
-                element: <Control />
-            },
-            {
-                path: "/Registro",
-                element: <Registro />
-            },
-            {
-                path: "/Registro/Usuario",
-                element: <Usuario />
-            },
-            {
-                path: "/Registro/Usuario/Administrador",
-                element: <Administrador />
-            },
-            {
-                path: "/Registro/Usuario/Despachador",
-                element: <Despachador />
-            },
-            {
-                path: "/Registro/Usuario/Conductor",
-                element: <Conductor/>
-            },
-            {
-                path: "/Registro/Vehiculo",
-                element: <Vehiculo />
-            },
-            {
-                path:"/Actualizar",
-                element: <Actualizar/>
-            },
-            {
-                path:"/Asignar",
-                element: <Asignar/>
-            },
-            {
-                path: "/Asignar/Despachador",
-                element: <AsignarDespa/>
-            },
-            {
-                path: "/Asignar/Conductor",
-                element: <AsignarCondu/>
-            },
-            {
-                path: "/Validar",
-                element: <Validar />,
-                allowedRole: "conductor"
-            },
-            {
-                path: "/Validar/InfoDia",
-                element: <InfoDia/>,
-                allowedRole: "conductor"
-            },
-            {
-                path: "/Validar/Actualizar",
-                element: <ActualizarCondu/>,
-                allowedRole: "conductor"
-            },
-            {
-                path: "/Scanner",
-                element: <Scanner />,
-                allowedRole: "despachador"
-            },{
-                path: "/Scanner/Actualizar",
-                element: <ActualizarDespa/>,
-                allowedRole: "despachador"
-            }
-
-        ]
-    }
-]);
- */
-// Rutas para el Administrador
 const router = createBrowserRouter([
     {
         path: "/Login",
@@ -130,7 +39,7 @@ const router = createBrowserRouter([
                 element: <Conductores />
             },
             {
-                path: "Ruta/Conductores/Control",
+                path: "Ruta/:rutaNombre/:cedula",
                 element: <Control />
             },
             {

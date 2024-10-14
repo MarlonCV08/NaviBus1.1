@@ -15,6 +15,7 @@ const conduForm = require('./routes/conduForm');
 const despaForm = require('./routes/despaForm');
 const asignarCondu = require('./routes/asignarCondu');
 const asignarDespa = require('./routes/asignarDespa');
+const escaneosCondu = require('./routes/escaneosCondu');
 
 
 //Configurar Express para manejar JSON
@@ -46,6 +47,9 @@ app.use('/api/asignar-rutas', asignarCondu(db));
 
 //Traer y asignar despachador a un punto de control
 app.use('/api/asignar-despachador', asignarDespa(db));
+
+//Traer los escaneos para el conductor correspondiente
+app.use('/api/control', escaneosCondu(db));
 
 //Consulta de rutas a la base de datos
 app.get('/api/rutas', (req, res) => {

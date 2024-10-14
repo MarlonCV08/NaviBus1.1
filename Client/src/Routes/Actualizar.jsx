@@ -108,7 +108,8 @@ export const Actualizar = ()=>{
                     <section>
                         <Dropdown
                             value={selectedDropdown}
-                            onChange={handleDropdownChange}  
+                            onChange={handleDropdownChange}
+                            disabled={true}
                         />
                     </section>
                     <section>
