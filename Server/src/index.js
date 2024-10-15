@@ -115,6 +115,29 @@ app.get('/api/rutas-asignadas/:currentUserId', (req, res) => {
   });
 });
 
+//Consulta para traer el nombre del punto de control asignado al despachador
+app.get('/api/puntocontrol-asignado/:currentUserId', (req, res) => {
+  const { currentUserId } = req.params;
+  const sql = `SELECT 
+                pc.nombre 
+              FROM 
+                puntoscontrol AS pc
+              INNER JOIN 
+                asignaciones AS a 
+                ON pc.codigo = a.codigo_puntoscontrol
+              WHERE
+                a.cedula = ?
+              `;
+
+  db.query(sql, [currentUserId], (error, results) => {
+    if (error) {
+      console.error('Error al ejecutar la consulta:', error);
+      return res.status(500).json({ message: 'Error al ejecutar la consulta' });
+    }
+    res.status(200).json(results);
+  });
+});
+
 //Consulta para traer el codigo de la ruta
 app.get('/api/ruta/:rutaNombre', (req, res) => {
   const { rutaNombre } = req.params;
