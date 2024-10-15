@@ -397,14 +397,14 @@ app.post('/api/save', (req, res) => {
   console.log("Datos recibidos en el servidor:", req.body);
   const { name, puntoControl, timestamp, minutosRetraso, sanciones } = req.body;
 
-  const sql = 'INSERT INTO escaneos (cedula, codigo_puntoscontrol, Hora, minutos_retraso, sanciones) VALUES (?, ?, ?, ?, ?)';
-  db.query(sql, [name, puntoControl, timestamp, minutosRetraso, sanciones], (err) => {
+  const sql = 'INSERT INTO escaneos (cedula, codigo_puntoscontrol, Hora) VALUES (?, ?, ?)';
+  db.query(sql, [name, puntoControl, timestamp], (err) => {
     if(err){
       console.error('Error al ingresar datos a la db', err)
       return;
     }
     // Aquí agregarías la lógica para guardar en la base de datos
-    console.log(`Nombre: ${name}, Punto de Control: ${puntoControl}, Hora: ${timestamp}, Minutos de Retraso: ${minutosRetraso}, Sanciones: ${sanciones}`);
+    console.log(`Nombre: ${name}, Punto de Control: ${puntoControl}, Hora: ${timestamp}`);
     // Simulación de guardado exitoso
     res.status(200).json({ message: 'Datos guardados con éxito' });
   });

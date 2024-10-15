@@ -6,9 +6,9 @@ export const DropdownPuntoControl = ({ value, onChange, selectedRuta }) => {
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
-      console.log('Ruta seleccionada', selectedRuta);
+      console.log('Ruta seleccionada', selectedRuta.ruta_codigo);
       if (selectedRuta) {
-        fetch(`http://localhost:3000/api/puntos-control/${selectedRuta}`)
+        fetch(`http://localhost:3000/api/puntos-control/${selectedRuta.ruta_codigo}`)
         .then(response => response.json())
         .then(data => setOptions(data))
         .catch(error => console.error('Error al traer los datos:', error))
