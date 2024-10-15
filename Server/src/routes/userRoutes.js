@@ -76,7 +76,7 @@ const userRoutes = (db) => {
           return res.status(401).json({ error: 'Token invalido' });
         }
         const cedula = decoded.cedula;
-        const sql = 'SELECT cedula, nombres, apellidos, tipodocumento, correo FROM usuarios WHERE cedula = ?';
+        const sql = 'SELECT cedula, nombres, apellidos, tipodocumento, categoria, correo FROM usuarios WHERE cedula = ?';
         db.query(sql, [cedula], (err, results) => {
           if (err) {
             return res.status(500).send('Error al ejecutar la consulta');
@@ -111,6 +111,52 @@ const userRoutes = (db) => {
           }
 
           res.json({ success: true, message: 'Datos actualizados correctamente' });
+        });
+      });
+    });
+
+    router.put('/actualizar-conductor', (req, res) => {
+      const token = req.headers['authorization']?.split(' ')[1];
+      if (!token) {
+        return res.status(401).json({ error: 'Token inválido' });
+      }
+      jwt.verify(token, SECRET_KEY, (err, decoded) => {
+        if (err) {
+          return res.status(401).json({ message: 'Token invalido' });
+        }
+        const { nombres, apellidos, tipodocumento, categoria, correo } = req.body;
+        const cedula = decoded.cedula;
+  
+        const sql = 'UPDATE usuarios SET nombres = ?, apellidos = ?, tipodocumento = ?, categoria = ?, correo = ? WHERE cedula = ? AND rol = 2';
+        db.query(sql, [nombres, apellidos, tipodocumento, categoria, correo, cedula], (err, result) => {
+          if (err) {
+            return res.status(500).json({ message: 'Error al actualizar los datos del conductor' });
+          }
+  
+          res.json({ success: true, message: 'Datos del conductor actualizados correctamente' });
+        });
+      });
+    });
+
+    router.put('/actualizar-despachador', (req, res) => {
+      const token = req.headers['authorization']?.split(' ')[1];
+      if (!token) {
+        return res.status(401).json({ error: 'Token inválido' });
+      }
+      jwt.verify(token, SECRET_KEY, (err, decoded) => {
+        if (err) {
+          return res.status(401).json({ message: 'Token invalido' });
+        }
+        const { nombres, apellidos, tipodocumento, correo } = req.body;
+        const cedula = decoded.cedula;
+  
+        const sql = 'UPDATE usuarios SET nombres = ?, apellidos = ?, tipodocumento = ?, correo = ? WHERE cedula = ? AND rol = 2';
+        db.query(sql, [nombres, apellidos, tipodocumento, correo, cedula], (err, result) => {
+          if (err) {
+            return res.status(500).json({ message: 'Error al actualizar los datos del despachador' });
+          }
+  
+          res.json({ success: true, message: 'Datos del despachador actualizados correctamente' });
         });
       });
     });

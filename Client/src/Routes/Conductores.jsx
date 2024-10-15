@@ -27,7 +27,7 @@ export const Conductores =()=>{
                                 <img src={Usuario} className="imgUser"/>
                                 <p>{usuario.nombres} {usuario.apellidos}</p>
                             </div>
-                            <Link to={`/Ruta/${usuario.nombres}`} className='link' >
+                            <Link to={`/Ruta/${rutaNombre}/${usuario.cedula}`} className='link' >
                                 <img src={Ojo} className="imgEye"/>
                             </Link>
                         </div>

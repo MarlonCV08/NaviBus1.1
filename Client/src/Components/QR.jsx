@@ -15,8 +15,6 @@ export const QR = () => {
             setUserId(cedula); // Asigna la cédula como userId
         }
     }, []);
-    // Verifica si userId está definido
-    console.log("Valor de userId:", userId);
     if (!userId) {
         return <div>No hay ID de usuario disponible.</div>; // Mensaje alternativo si no hay userId
         

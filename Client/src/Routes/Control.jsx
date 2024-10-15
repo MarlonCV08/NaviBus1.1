@@ -1,11 +1,72 @@
 import "../Styles/Control.css";
 import { Header } from "../Header";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const Control = () => {
+
+  const { rutaNombre, cedula } = useParams();
+  const [controlData, setControlData] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/control/${rutaNombre}/${cedula}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const processedData = proccessControlData(data);
+        setControlData(processedData);
+      })
+      .catch((error) => console.error('Error al obtener los datos de control', error));
+  }, [rutaNombre, cedula]);
+
+  const proccessControlData = (data) => {
+    const processed = [];
+    let previousHour= null;
+    let vueltaCount = 1;
+    let puntosEnVuelta = 0;
+
+    data.forEach((control) => {
+      const hour = new Date(control.hora.replace(" ", "T"));
+      const currentHour = hour.getHours() * 60 + hour.getMinutes();
+
+      let delayMinutes = 0;
+      let sanction = 0;
+
+      if (previousHour !== null) {
+        const timeDifference = currentHour - previousHour;
+        if (timeDifference > 1) {
+          delayMinutes = timeDifference - 1;
+          sanction = delayMinutes * 2000;
+        }
+      }
+
+      const formattedHour = String(hour.getHours()).padStart(2, '0') + ':' + String(hour.getMinutes()).padStart(2, '0');
+
+      processed.push({
+        vuelta: vueltaCount,
+        puntoscontrol: control.puntoscontrol || 'N/A',
+        hora: formattedHour,
+        minutosRetraso: delayMinutes,
+        sanciones: sanction,
+        ultimo: control.ultimo
+      });
+
+      if (control.ultimo) {
+        vueltaCount++;
+        puntosEnVuelta = 0;
+      }
+      previousHour = currentHour;
+    });
+
+    return processed;
+  }
+
   return (
     <>
       <Header />
       <div className="tableContainer">
+        {/* <h2>Control de la Ruta: {rutaNombre}</h2>
+        <h3>Conductor: {cedula}</h3> */}
+        
         <div className="table-responsive">
           <table className="custom-table">
             <thead>
@@ -18,80 +79,32 @@ export const Control = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th rowSpan="6">1</th> {/* La primera vuelta cubre 6 filas */}
-                <td>Barro Blanco</td>
-                <td>6:00 a.m.</td>
-                <td>0:00</td>
-                <td>Sin Sanciones</td>
-              </tr>
-              <tr>
-                <td>Alto de Vallejo</td>
-                <td>6:28 a.m.</td>
-                <td>0:00</td>
-                <td>Sin Sanciones</td>
-              </tr>
-              <tr>
-                <td>Abreito</td>
-                <td>7:02 a.m.</td>
-                <td>0:03</td>
-                <td>6000</td>
-              </tr>
-              <tr>
-                <td>Fonda Buenos Aires</td>
-                <td>7:35 a.m.</td>
-                <td>0:05</td>
-                <td>10000</td>
-              </tr>
-              <tr>
-                <td>El Carmin</td>
-                <td>7:59 a.m.</td>
-                <td>0:00</td>
-                <td>Sin Sanciones</td>
-              </tr>
-              <tr>
-                <td>Alto de los Correas</td>
-                <td>8:27 a.m.</td>
-                <td>0:00</td>
-                <td>Sin Sanciones</td>
-              </tr>
-              <tr>
-                <th rowSpan="6">2</th> {/* La segunda vuelta cubre 2 filas */}
-                <td>Barro Blanco</td>
-                <td>8:58 a.m.</td>
-                <td>0:00</td>
-                <td>Sin Sanciones</td>
-              </tr>
-              <tr>
-                <td>Alto de Vallejo</td>
-                <td>9:31 a.m.</td>
-                <td>0:01</td>
-                <td>2000</td>
-              </tr>
-              <tr>
-                <td>Abreito</td>
-                <td>7:02 a.m.</td>
-                <td>0:03</td>
-                <td>6000</td>
-              </tr>
-              <tr>
-                <td>Fonda Buenos Aires</td>
-                <td>7:35 a.m.</td>
-                <td>0:05</td>
-                <td>10000</td>
-              </tr>
-              <tr>
-                <td>El Carmin</td>
-                <td>7:59 a.m.</td>
-                <td>0:00</td>
-                <td>Sin Sanciones</td>
-              </tr>
-              <tr>
-                <td>Alto de los Correas</td>
-                <td>8:27 a.m.</td>
-                <td>0:00</td>
-                <td>Sin Sanciones</td>
-              </tr>
+              {controlData.length > 0 ? (
+                controlData.map((control, index, array) => {
+                  const esPrimeraFilaDeVuelta = index === 0 || array[index - 1].vuelta !== control.vuelta;
+                  const esUltimaFilaDeVuelta = index === array.length - 1 || array[index + 1].vuelta !== control.vuelta;
+                  const rowspan = array.filter(c => c.vuelta === control.vuelta).length;
+
+                  return (
+                    <tr key={index}>
+                      {/* Si es la primera fila de la vuelta, mostrar la celda con rowspan */}
+                      {esPrimeraFilaDeVuelta && (
+                        <td rowSpan={rowspan} className="vuelta-cell">
+                          {control.vuelta}
+                        </td>
+                      )}
+                      <td>{control.puntoscontrol}</td>
+                      <td>{control.hora}</td>
+                      <td>{control.minutosRetraso || '0'}</td>
+                      <td>{control.sanciones || '0'}</td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan="5">No se encontraron datos de control para este usuario</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

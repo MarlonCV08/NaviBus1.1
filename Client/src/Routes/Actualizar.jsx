@@ -114,7 +114,8 @@ export const Actualizar = ()=>{
                             <section>
                                 <Dropdown
                                     value={selectedDropdown}
-                                    onChange={handleDropdownChange}  
+                                    onChange={handleDropdownChange}
+                                    disabled={true}
                                 />
                             </section>
                             <section>
@@ -135,7 +136,7 @@ export const Actualizar = ()=>{
                                     onChange={(e) => setCorreo(e.target.value)}
                                 />
                             </section>
-                        </div> 
+                        </div>
                     </div>
                     <section className="botones">
                     <Link to='/Ruta' className="linkRegistro">

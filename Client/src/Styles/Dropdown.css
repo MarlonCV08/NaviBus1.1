@@ -5,6 +5,10 @@
 .dropdown *{
     box-sizing: border-box;
 }
+.dropdown-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
 .select{
     background: #fff;
     color: #7579E7;
