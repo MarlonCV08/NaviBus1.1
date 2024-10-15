@@ -30,7 +30,7 @@ export const DropdownRuta = ({ value, onChange })=>{
   
     const handleOptionClick = (option) => {
       setSelected(option.nombre);
-      onChange(option.codigo);
+      onChange({ ruta_codigo: option.codigo, nombre: option.nombre });
       setIsOpen(false);
     };
 

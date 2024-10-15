@@ -6,7 +6,7 @@ const asignarCondu = (db) => {
   router.post('/', async (req, res) => {
     const asignaciones = req.body; // Asegúrate de que req.body se esté recibiendo correctamente
 
-    const promises = Object.entries(asignaciones).map(([cedula, rutaId]) => {
+    const promises = Object.entries(asignaciones).map(([cedula, { ruta_codigo }]) => {
       return new Promise((resolve) => {
         
         // Verificar si la asignación ya existe
@@ -32,14 +32,15 @@ const asignarCondu = (db) => {
             }
 
             // Realizar la inserción
-            db.query('INSERT INTO ruta_usuarios (ruta_codigo, cedula) VALUES (?, ?)', [rutaId, cedula], (error) => {
+            db.query('INSERT INTO ruta_usuarios (ruta_codigo, cedula) VALUES (?, ?)', [ruta_codigo, cedula], (error) => {
+              console.log(ruta_codigo);
               if (error) {
                 // Captura el error de clave duplicada y otros errores
                 console.error(`Error al asignar ruta a conductor ${cedula}: ${error.message}`);
                 return resolve({ error: `Error al asignar ruta a conductor ${cedula}: ${error.message}` });
               }
-              console.log(`Ruta ${rutaId} asignada a conductor ${cedula} correctamente`);
-              resolve({ success: `Ruta ${rutaId} asignada a conductor ${cedula} correctamente` });
+              console.log(`Ruta ${ruta_codigo}} asignada a conductor ${cedula} correctamente`);
+              resolve({ success: `Ruta ${ruta_codigo}} asignada a conductor ${cedula} correctamente` });
             });
           });
         });

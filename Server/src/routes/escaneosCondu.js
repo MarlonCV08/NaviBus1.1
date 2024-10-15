@@ -14,8 +14,6 @@ const escaneosCondu = (db) => {
         u.apellidos,
         p.nombre AS puntoscontrol,
         e.hora,
-        e.minutos_retraso,
-        e.sanciones,
         p.ultimo
       FROM 
         escaneos AS e
