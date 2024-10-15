@@ -65,6 +65,38 @@ app.get('/api/rutas', (req, res) => {
   });
 });
 
+//Traer el ultimo registro del conductor
+app.get('/api/ultimo-registro/:cedula', (req, res) => {
+  const { cedula } = req.params; // Obtén la cédula del parámetro de la URL
+  const sql = `
+    SELECT 
+        e.cedula,
+        u.nombres,
+        u.apellidos,
+        p.nombre AS puntoscontrol,
+        e.hora,
+        p.ultimo
+    FROM 
+        escaneos AS e
+    INNER JOIN 
+        usuarios AS u ON e.cedula = u.cedula
+    INNER JOIN
+        puntoscontrol AS p ON e.codigo_puntoscontrol = p.codigo
+    WHERE 
+        e.cedula = ?
+    ORDER BY 
+        e.hora DESC
+    LIMIT 1
+  `;
+
+  db.query(sql, [cedula], (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: 'Error al obtener el último registro' });
+    }
+    res.json(results[0]); // Enviamos solo el último registro
+  });
+});
+
 //Consulta para traer el nombre de la ruta que tiene asignado un conductor
 app.get('/api/rutas-asignadas/:currentUserId', (req, res) => {
   const { currentUserId } = req.params;
@@ -320,16 +352,16 @@ app.get('/api/puntos-control/:ruta', (req, res) => {
 //Consulta para guardar escaneo
 app.post('/api/save', (req, res) => {
   console.log("Datos recibidos en el servidor:", req.body);
-  const { name, puntoControl, timestamp } = req.body;
+  const { name, puntoControl, timestamp, minutosRetraso, sanciones } = req.body;
 
-  const sql = 'INSERT INTO escaneos (cedula, codigo_puntoscontrol, Hora) VALUES (?, ?, ?)';
-  db.query(sql, [name, puntoControl, timestamp], (err) => {
+  const sql = 'INSERT INTO escaneos (cedula, codigo_puntoscontrol, Hora, minutos_retraso, sanciones) VALUES (?, ?, ?, ?, ?)';
+  db.query(sql, [name, puntoControl, timestamp, minutosRetraso, sanciones], (err) => {
     if(err){
       console.error('Error al ingresar datos a la db', err)
       return;
     }
     // Aquí agregarías la lógica para guardar en la base de datos
-    console.log(`Nombre: ${name}, Punto de Control: ${puntoControl}, Hora: ${timestamp}`);
+    console.log(`Nombre: ${name}, Punto de Control: ${puntoControl}, Hora: ${timestamp}, Minutos de Retraso: ${minutosRetraso}, Sanciones: ${sanciones}`);
     // Simulación de guardado exitoso
     res.status(200).json({ message: 'Datos guardados con éxito' });
   });

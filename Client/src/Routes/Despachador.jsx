@@ -106,6 +106,7 @@ export const Despachador = ()=>{
                 setNombres('');
                 setApellidos('');
                 setCedula('');
+                setConfirmCedula('');
                 setCorreo('');
                 setSelectedDropdown('');
             } else {

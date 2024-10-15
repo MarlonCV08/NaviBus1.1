@@ -13,7 +13,10 @@ const escaneosCondu = (db) => {
         u.nombres,
         u.apellidos,
         p.nombre AS puntoscontrol,
-        e.hora
+        e.hora,
+        e.minutos_retraso,
+        e.sanciones,
+        p.ultimo
       FROM 
         escaneos AS e
       INNER JOIN 
