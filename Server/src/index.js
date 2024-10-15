@@ -260,6 +260,26 @@ app.get('/api/id-conductores', (req, res) => {
   });
 });
 
+//Traer el nombre del conductor
+app.get('/api/conductor/:cedula', (req, res) => {
+  const { cedula } = req.params;
+
+  const query = 'SELECT nombres FROM usuarios WHERE cedula = ? AND rol = 2';
+
+  db.query(query, [cedula], (error, results) => {
+    if (error) {
+      console.error('Error al realizar la consulta:', error);
+      return res.status(500).json({ message: 'Error en el servidor' });
+    }
+
+    if (results.length > 0) {
+      return res.json(results[0]); // Enviar el primer resultado, que contiene el nombre
+    } else {
+      return res.status(404).json({ message: 'Conductor no encontrado' });
+    }
+  });
+});
+
 
 //Consulta de roles a la base de datos
 app.get('/api/roles', (req, res) => {

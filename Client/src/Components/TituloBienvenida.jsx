@@ -5,22 +5,41 @@ import { useEffect, useState } from 'react';
 
 export const TituloBienvenida = () => {
   const location = useLocation();
-  const { rutaNombre } = useParams();
+  const { rutaNombre, cedula } = useParams();
   const [usuarios, setUsuarios] = useState([]);
+  const [nombre, setNombre] = useState([]);
 
   useEffect(() => {
-      fetch(`http://localhost:3000/api/usuarios/${rutaNombre}`)
+    // Obtener datos de usuarios
+    fetch(`http://localhost:3000/api/usuarios/${rutaNombre}`)
       .then(response => response.json())
       .then(data => setUsuarios(data))
-      .catch(error => console.error('Error al obtener los conductores', error))
-  }, [rutaNombre]);
+      .catch(error => console.error('Error al obtener los conductores', error));
+
+    // Obtener el nombre del conductor por cédula
+    if (cedula) {
+      fetch(`http://localhost:3000/api/conductor/${cedula}`) // Cambia la URL según tu endpoint
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.nombres) {
+            setNombre(data.nombres); // Suponiendo que el nombre está en data.nombre
+          }
+        })
+        .catch(error => console.error('Error al obtener el nombre del conductor', error));
+    }
+  }, [rutaNombre, cedula]);
   // Determina el texto del título basado en la ruta actual
   const getTitulo = () => {
+    // Si tienes conductor y ruta, incluye sus nombres
+    const conductorTitle = nombre ? ` ${nombre}` : '';
+    const rutaTitle = rutaNombre ? ` en la ruta ${rutaNombre}` : '';
     switch (location.pathname) {
       case '/Ruta':
         return 'Rutas';
       case `/Ruta/${rutaNombre}`:
         return 'Conductores Asignados';
+      case `/Ruta/${rutaNombre}/${cedula}`:
+        return `Control de ${conductorTitle}${rutaTitle}`;
       case '/Registro':
         return 'Seleccione Tipo de Registro';
         case '/Registro/Usuario':

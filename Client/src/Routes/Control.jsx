@@ -7,8 +7,15 @@ export const Control = () => {
 
   const { rutaNombre, cedula } = useParams();
   const [controlData, setControlData] = useState([]);
+  const [nombre, setNombre] = useState('');
 
   useEffect(() => {
+
+    fetch(`http://localhost:3000/api/conductor/${cedula}`)
+    .then((response) => response.json())
+    .then((data) => setNombre(data.nombres))
+    .catch((error) => console.error('Error al obtener el nombre del conductor', error));
+
     fetch(`http://localhost:3000/api/control/${rutaNombre}/${cedula}`)
       .then((response) => response.json())
       .then((data) => {
@@ -64,9 +71,6 @@ export const Control = () => {
     <>
       <Header />
       <div className="tableContainer">
-        {/* <h2>Control de la Ruta: {rutaNombre}</h2>
-        <h3>Conductor: {cedula}</h3> */}
-        
         <div className="table-responsive">
           <table className="custom-table">
             <thead>
