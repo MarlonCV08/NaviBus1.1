@@ -22,7 +22,7 @@ export const Conductores =()=>{
             <div className="contInfo">
                 {usuarios.length > 0 ? (
                     usuarios.map((usuario) => (
-                        <div className="infoConductor" key={usuario.cedula}>
+                        <div className="infoConductorAsi" key={usuario.cedula}>
                             <div className='div'>
                                 <img src={Usuario} className="imgUser"/>
                                 <p>{usuario.nombres} {usuario.apellidos}</p>
