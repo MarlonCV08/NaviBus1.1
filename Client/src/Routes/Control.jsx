@@ -93,9 +93,9 @@ export const Control = () => {
                     <tr key={index}>
                       {/* Si es la primera fila de la vuelta, mostrar la celda con rowspan */}
                       {esPrimeraFilaDeVuelta && (
-                        <td rowSpan={rowspan} className="vuelta-cell">
+                        <th rowSpan={rowspan} className="vuelta-cell">
                           {control.vuelta}
-                        </td>
+                        </th>
                       )}
                       <td>{control.puntoscontrol}</td>
                       <td>{control.hora}</td>

@@ -18,7 +18,7 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 18px;
-  text-align: left;
+  text-align: center;
   cursor: default;
   color: #3d3d3d;
   border-radius: 10px; /* Bordes redondeados para la tabla */
@@ -49,7 +49,7 @@
 
 .custom-table tbody tr th {
   pointer-events: none;
-  background: #b4b4b4; /* Fondo para las celdas de encabezado del tbody */
+  background: #c0c0c0; /* Fondo para las celdas de encabezado del tbody */
   text-align: center;
 }
 
@@ -68,7 +68,10 @@
   background-color: inherit; /* Mantiene el color original en los th */
   pointer-events: none; /* Deshabilita eventos para evitar interacción */
 }
-
+.vuelta-cell{
+  pointer-events: none;
+  background: #d9d9d9;
+}
 /* Scrollbar personalizado */
 .table-responsive::-webkit-scrollbar {
   width: 8px; /* Ancho del scrollbar */
