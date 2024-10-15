@@ -1,15 +1,18 @@
 .modalInfo {
-    position: absolute;
-    background-color: #fefefe;
-    border: 1px solid #ccc;
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
-    padding: 16px;
-    border-radius: 8px;
-    z-index: 1000;
-    max-width: 300px;
-    transform: translateY(-10px);
-    animation: fadeIn 0.2s ease-in-out;
-  }
+  position: absolute;
+  background-color: #fefefe;
+  border: 1px solid #ccc;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 16px;
+  border-radius: 8px;
+  z-index: 1000;
+  max-width: 300px;
+  left: 0; /* Alinea el modal a la izquierda */
+  top: 50%; /* Centra verticalmente en la pantalla */
+  transform: translateY(-50%); /* Ajusta el desplazamiento vertical para centrar */
+  animation: fadeIn 0.2s ease-in-out;
+}
+
   
   @keyframes fadeIn {
     from {
