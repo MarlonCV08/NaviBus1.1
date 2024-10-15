@@ -100,7 +100,7 @@ export const Control = () => {
                       <td>{control.puntoscontrol}</td>
                       <td>{control.hora}</td>
                       <td>{control.minutosRetraso || '0'}</td>
-                      <td>{control.sanciones || '0'}</td>
+                      <td>$ {control.sanciones || '0'}</td>
                     </tr>
                   );
                 })
