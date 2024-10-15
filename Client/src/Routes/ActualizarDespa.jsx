@@ -1,4 +1,4 @@
-import { HeaderCondu } from "../Components/HeaderCondu"
+import { HeaderDespa } from "../Components/HeaderDespa"
 import { Dropdown } from "../Components/Dropdown"
 import Scanning from '../Assets/Images/Scanning.svg'
 import "../Styles/Despachador.css"
@@ -85,7 +85,7 @@ export const ActualizarDespa = ()=>{
 
     return(
         <>
-            <HeaderCondu/>
+            <HeaderDespa/>
             <div className="contenedorPadre">
                     <form className="contenedor" onSubmit={handleSubmit}>
                         <div className="contenedorHijo">
