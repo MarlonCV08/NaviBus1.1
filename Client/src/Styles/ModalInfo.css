@@ -1,0 +1,34 @@
+.modalInfo {
+    position: absolute;
+    background-color: #fefefe;
+    border: 1px solid #ccc;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 16px;
+    border-radius: 8px;
+    z-index: 1000;
+    max-width: 300px;
+    transform: translateY(-10px);
+    animation: fadeIn 0.2s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .modalInfo h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+  }
+  
+  .modalInfo p {
+    margin: 5px 0;
+    font-size: 1em;
+  }
+  

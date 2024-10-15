@@ -4,6 +4,7 @@ import "../Styles/Admin.css"
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import Gear from '../Assets/Images/Gear.svg'
 export const Actualizar = ()=>{
 
     const [nombres, setNombres] = useState('');
@@ -87,48 +88,55 @@ export const Actualizar = ()=>{
             <Header/>
             <div className="contenedorPadre">
                 <form className="contenedor" onSubmit={handleSubmit}>
-                    <section>
-                        <input 
-                            type="text" 
-                            className="input" 
-                            placeholder="Nombres"
-                            value={nombres}
-                            onChange={(e) => setNombres(e.target.value)}
-                        />
-                    </section>
-                    <section>
-                        <input 
-                            type="text" 
-                            className="input" 
-                            placeholder="Apellidos"
-                            value={apellidos}
-                            onChange={(e) => setApellidos(e.target.value)}
-                        />
-                    </section>
-                    <section>
-                        <Dropdown
-                            value={selectedDropdown}
-                            onChange={handleDropdownChange}  
-                        />
-                    </section>
-                    <section>
-                        <input 
-                            type="text" 
-                            className="input" 
-                            placeholder="Documento"
-                            value={cedula}
-                            readOnly
-                        />
-                    </section>
-                    <section>
-                        <input 
-                            type="text" 
-                            className="input" 
-                            placeholder="Correo"
-                            value={correo}
-                            onChange={(e) => setCorreo(e.target.value)}
-                        />
-                    </section>
+                    <div className="contenedorHijo">
+                        <div className="contenedorCamara">
+                            <img src={Gear} alt=""/>
+                        </div>
+                        <div className="contenedorInput">
+                            <section>
+                                <input 
+                                    type="text" 
+                                    className="input" 
+                                    placeholder="Nombres"
+                                    value={nombres}
+                                    onChange={(e) => setNombres(e.target.value)}
+                                />
+                            </section>
+                            <section>
+                                <input 
+                                    type="text" 
+                                    className="input" 
+                                    placeholder="Apellidos"
+                                    value={apellidos}
+                                    onChange={(e) => setApellidos(e.target.value)}
+                                />
+                            </section>
+                            <section>
+                                <Dropdown
+                                    value={selectedDropdown}
+                                    onChange={handleDropdownChange}  
+                                />
+                            </section>
+                            <section>
+                                <input 
+                                    type="text" 
+                                    className="input" 
+                                    placeholder="Documento"
+                                    value={cedula}
+                                    readOnly
+                                />
+                            </section>
+                            <section>
+                                <input 
+                                    type="text" 
+                                    className="input" 
+                                    placeholder="Correo"
+                                    value={correo}
+                                    onChange={(e) => setCorreo(e.target.value)}
+                                />
+                            </section>
+                        </div> 
+                    </div>
                     <section className="botones">
                     <Link to='/Ruta' className="linkRegistro">
                         <input type="button" value="Cancelar" className="boton"/>

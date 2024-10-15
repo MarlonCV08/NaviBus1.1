@@ -5,6 +5,7 @@ import "../Styles/Admin.css"
 import React, { useEffect, useState } from 'react';
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
+import Gear from '../Assets/Images/Gear.svg'
 
 export const Administrador =()=>{
 
@@ -131,61 +132,69 @@ export const Administrador =()=>{
         <Header/>
             <div className="contenedorPadre">
                 <form className="contenedor" onSubmit={handleSubmit}>
-                    <section>
-                        <input 
-                            type="text" 
-                            className="input" 
-                            placeholder="Nombres"
-                            name="nombres"
-                            value={nombres}
-                            onChange={handleChange}
-                            />
-                    </section>
-                    <section>
-                        <input 
-                            type="text" 
-                            className="input" 
-                            placeholder="Apellidos"
-                            name="apellidos"
-                            value={apellidos}
-                            onChange={handleChange}
-                            />
-                    </section>
-                    <section>
-                        <Dropdown value={selectedDropdown} onChange={handleDropdownChange} />
-                    </section>
-                    <section>
-                        <input 
-                            type="text" 
-                            className="input" 
-                            placeholder="Documento"
-                            name="cedula"
-                            value={cedula}
-                            onChange={handleChange}
-                            />
-                    </section>
-                    <section>
-                        <input 
-                            type="text" 
-                            className="input" 
-                            placeholder="Confirmar Documento"
-                            name="confirmCedula"
-                            value={confirmCedula}
-                            onChange={handleChange}
-                            onPaste={(e) => e.preventDefault()}  // Deshabilitar pegar
-                            onCopy={(e) => e.preventDefault()}   // Deshabilitar copiar
-                            />
-                    </section>
-                    <section>
-                        <input 
-                            type="text" 
-                            className="input" 
-                            placeholder="Correo"
-                            name="correo"
-                            value={correo}
-                            onChange={handleChange}
-                            />
-                    </section>
+                    <div className="contenedorHijo">
+                        <div className="contenedorCamara">
+                            <img src={Gear} alt=""/>
+                        </div>
+                        <div className="contenedorInput">
+
+                            <section>
+                                <input 
+                                    type="text" 
+                                    className="input" 
+                                    placeholder="Nombres"
+                                    name="nombres"
+                                    value={nombres}
+                                    onChange={handleChange}
+                                    />
+                            </section>
+                            <section>
+                                <input 
+                                    type="text" 
+                                    className="input" 
+                                    placeholder="Apellidos"
+                                    name="apellidos"
+                                    value={apellidos}
+                                    onChange={handleChange}
+                                    />
+                            </section>
+                            <section>
+                                <Dropdown value={selectedDropdown} onChange={handleDropdownChange} />
+                            </section>
+                            <section>
+                                <input 
+                                    type="text" 
+                                    className="input" 
+                                    placeholder="Documento"
+                                    name="cedula"
+                                    value={cedula}
+                                    onChange={handleChange}
+                                    />
+                            </section>
+                            <section>
+                                <input 
+                                    type="text" 
+                                    className="input" 
+                                    placeholder="Confirmar Documento"
+                                    name="confirmCedula"
+                                    value={confirmCedula}
+                                    onChange={handleChange}
+                                    onPaste={(e) => e.preventDefault()}  // Deshabilitar pegar
+                                    onCopy={(e) => e.preventDefault()}   // Deshabilitar copiar
+                                    />
+                            </section>
+                            <section>
+                                <input 
+                                    type="text" 
+                                    className="input" 
+                                    placeholder="Correo"
+                                    name="correo"
+                                    value={correo}
+                                    onChange={handleChange}
+                                    />
+                            </section>
+                        </div>
+                    </div>
                     <section className="botones">
                     <Link to='/Registro/Usuario' className="linkRegistro">
                         <input type="button" value="Cancelar" className="boton"/>

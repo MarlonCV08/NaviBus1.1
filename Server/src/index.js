@@ -343,6 +343,34 @@ app.get('/api/show', (req, res)=>{
   })
 })
 
+app.get('/api/info/:cedula', (req, res) => {
+  const { cedula } = req.params;
+  const sql = `
+    SELECT 
+      u.nombres AS nombre_persona, 
+      pc.nombre AS nombre_punto_control, 
+      r.nombre AS nombre_ruta 
+    FROM 
+      asignaciones a
+    INNER JOIN 
+      usuarios u ON a.cedula = u.cedula
+    INNER JOIN 
+      puntoscontrol pc ON a.codigo_puntoscontrol = pc.codigo
+    INNER JOIN 
+      ruta r ON pc.ruta = r.codigo
+    WHERE 
+      u.cedula = ?`; // Filtra por cédula
+  db.query(sql, [cedula], (err, results) => {
+    if (err) {
+      console.error('Error al obtener datos de la db', err);
+      return res.status(500).send('Error al ejecutar la consulta');
+    }
+    res.json(results);
+  });
+});
+
+
+
 server.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
