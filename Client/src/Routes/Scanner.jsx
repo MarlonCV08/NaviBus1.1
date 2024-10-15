@@ -8,6 +8,7 @@ import socket from "../Auth/socket";
 import { jwtDecode } from "jwt-decode";
 import { Html5Qrcode } from 'html5-qrcode';
 import axios from 'axios';
+import Swal from "sweetalert2";
 
 export const Scanner = () => {
     const [scanning, setScanning] = useState(false);
@@ -18,6 +19,46 @@ export const Scanner = () => {
     const [error, setError] = useState(null);
     const html5QrCodeRef = useRef(null);
     const isScanningRef = useRef(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        console.log('Token:', token);
+    
+        if (token) {
+          try {
+            const decodedToken = jwtDecode(token);
+            console.log('Token decodificado:', decodedToken);
+            const currentUserId = decodedToken.cedula;
+            setUserId(currentUserId)
+            socket.emit('register', currentUserId);
+    
+            const notificationShown = sessionStorage.getItem('notificationShown');
+    
+            //Obtener las rutas asignadas al conductor al iniciar sesion
+            fetch(`http://localhost:3000/api/puntocontrol-asignado/${currentUserId}`)
+            .then(response => response.json())
+            .then(data => {
+              if (!notificationShown && data.length > 0) {
+                // Mostrar notificación con SweetAlert al iniciar sesión
+                Swal.fire({
+                  title: `Te han asignado al punto de control: ${data[0].nombre}`,
+                  icon: 'info',
+                  timer: 2000,
+                  timerProgressBar: true,
+                  showConfirmButton: false,
+                });
+                sessionStorage.setItem('notificationShown', 'false');
+              }
+    
+            })
+            .catch(error => {
+              console.error('Error al obtener las rutas asignadas:', error);
+            })
+          } catch(error) {
+            console.error('Error al decodificar el token:', error);
+          }
+        }
+      }, []);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
