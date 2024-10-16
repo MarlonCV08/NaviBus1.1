@@ -1,0 +1,90 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro para el backdrop */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+ 
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+}
+.RName{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.RName {
+    position: relative; /* Necesario para que el pseudo-elemento esté posicionado correctamente */
+}
+.RNameInput {
+  border: none;
+  outline: none;
+  padding-bottom: 5px; /* Espacio para el pseudo-elemento */
+  border: 1px solid #ccc;
+  color: #a8a8a8;
+}
+.RNameInput:focus{
+    border: 1px solid #7579e7;
+}
+  
+.raya{
+  border: 1px solid #ccc;
+}
+.PName{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.PNameInput{
+    border: 1px solid #ccc;
+    color: #a8a8a8;
+}
+.PNameInput:focus{
+    border: 1px solid #7579e7,
+}
+.PDiv{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+.PDivInt{
+    background-color: #7579e7;
+    color: white;
+    height: 32px;
+    width: 32px;
+    border-radius: 120px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+}
+.plus-button{
+    background-color: #7579e7;
+    color: white;
+    height: 32px;
+    width: 32px;
+    border-radius: 120px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
