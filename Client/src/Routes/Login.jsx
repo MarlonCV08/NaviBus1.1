@@ -9,6 +9,7 @@ import Swal from 'sweetalert2'; // Importar SweetAlert2
 import { Camion } from '../Components/Camion';
 import logoMorado from '../Assets/Images/LogoMorado.svg'
 import { LogoMorado } from '../Components/LogoMorado';
+import { RecuperarClave } from '../Components/RecuperarClave';
 
 export const Login = () => {
   const [cedula, setCedula] = useState('');
@@ -18,6 +19,7 @@ export const Login = () => {
   const [subirUser, setSubirUser] = useState(false);
   const [subirPass, setSubirPass] = useState(false);
   const [errorQueue, setErrorQueue] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const [showingError, setShowingError] = useState(false);
 
   const navigate = useNavigate();
@@ -160,7 +162,12 @@ export const Login = () => {
             />
           </div>
           <input type="submit" className='buttonLogin' value="Ingresar" />
+          <RecuperarClave 
+            isOpen={showModal}
+            onRequestClose={() => setShowModal(false)}
+          />
         </form>
+        <button onClick={() => setShowModal(true)}>Recuperar contraseña</button>
         <ToastContainer closeButton={false} limit={1}/>
       </div>
       <Camion/>

@@ -20,6 +20,10 @@ import { InfoDia } from "./Routes/InfoDia"
 import { ActualizarCondu } from "./Routes/ActualizarCondu"
 import { Scanner } from "./Routes/Scanner"
 import { ActualizarDespa } from "./Routes/ActualizarDespa"
+import Modal from 'react-modal';
+
+// Si tu elemento root en el HTML tiene el id "root"
+Modal.setAppElement('#root');
 
 const router = createBrowserRouter([
     {
