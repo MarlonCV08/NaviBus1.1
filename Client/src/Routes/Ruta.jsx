@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import RutaImg from "../Assets/Images/Ruta.svg"
 import { Header } from "../Header";
 import { useEffect, useState } from "react";
+import { BottonAdd } from "../Components/BotonAdd";
 export const Ruta = ()=>{
 
     const [rutas, setRutas ] = useState([]);
@@ -27,7 +28,7 @@ export const Ruta = ()=>{
                     </Link>
                 ))}
             </div>
-                
+            <BottonAdd />
         </>
     )
 }
