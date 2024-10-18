@@ -2,13 +2,28 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import '../Styles/ModalAdd.css';
 import PlusButton from './PlusButton';
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
+import { toast, ToastContainer } from 'react-toastify';
 
 export const ModalAdd = ({ isOpen, onClose }) => {
   const [ruta, setRuta] = useState('');
   const [puntos, setPuntos] = useState(['']);
   const [focusedIndex, setFocusedIndex] = useState(null);
   const [isPlusButtonOpen, setIsPlusButtonOpen] = useState(false); // Nuevo estado
+
+  const notify = (message) => {
+    toast.dismiss();
+    toast.error(message, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    });
+  };
 
   const addInput = () => {
     setPuntos([...puntos, '']);
@@ -39,6 +54,17 @@ export const ModalAdd = ({ isOpen, onClose }) => {
   };
 
   const handleSubmit = async () => {
+
+    if (!ruta.trim()) {
+      notify('La ruta es obligatoria');
+      return;
+    }
+  
+    if (puntos.length === 0 || puntos.some(punto => !punto.trim())) {
+      notify('Debe haber al menos un punto de control válido');
+      return;
+    }
+
     const formData = {
       ruta,
       puntos,
@@ -58,13 +84,21 @@ export const ModalAdd = ({ isOpen, onClose }) => {
           icon: 'success',
           title: '¡Éxito!',
           text: 'Ruta creada con éxito',
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
         });
+        setRuta('');
+        setPuntos(['']);
         onClose();
       } else {
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'Error al crear la ruta',
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
         });
       }
     } catch (error) {
@@ -72,6 +106,9 @@ export const ModalAdd = ({ isOpen, onClose }) => {
         icon: 'error',
         title: 'Error',
         text: 'Error de red. Intente nuevamente.',
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
       });
     }
   };
@@ -140,6 +177,7 @@ export const ModalAdd = ({ isOpen, onClose }) => {
         <button onClick={handleSubmit}>Crear</button>
         </div>
       </motion.div>
+      <ToastContainer closeButton={false} limit={1} />
     </div>
   );
 };

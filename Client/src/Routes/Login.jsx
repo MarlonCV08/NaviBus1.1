@@ -28,7 +28,7 @@ export const Login = () => {
     toast.dismiss();
     toast.error(message, {
       position: "top-center",
-      autoClose: 20000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -168,7 +168,7 @@ export const Login = () => {
           />
           <span onClick={() => setShowModal(true)}>Recuperar contraseña</span>
         </form>
-        <ToastContainer closeButton={false} limit={1}/>
+        <ToastContainer closeButton={false} limit={1} />
       </div>
       <Camion/>
       
