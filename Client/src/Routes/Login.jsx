@@ -166,8 +166,8 @@ export const Login = () => {
             isOpen={showModal}
             onRequestClose={() => setShowModal(false)}
           />
+          <span onClick={() => setShowModal(true)}>Recuperar contraseña</span>
         </form>
-        <button onClick={() => setShowModal(true)}>Recuperar contraseña</button>
         <ToastContainer closeButton={false} limit={1}/>
       </div>
       <Camion/>
