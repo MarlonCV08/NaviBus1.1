@@ -69,6 +69,43 @@ app.get('/api/rutas', (req, res) => {
   });
 });
 
+//Consulta para crear rutas
+app.post('/api/crear-ruta', (req, res) => {
+  const { ruta, puntos } = req.body;
+  
+  if (!ruta) {
+    return res.status(400).json({ error: 'El nombre de la ruta es obligatorio. '});
+  }
+
+  const sqlInsertRuta = 'INSERT INTO ruta (nombre) VALUES (?)';
+
+  db.query(sqlInsertRuta, [ruta], (err, result) => {
+    if (err) {
+      console.error('Error al ejecutar la consulta:', err);
+      res.status(500).json({ error: 'Error al ejecutar la consulta' });
+    }
+
+    const rutaId = result.insertId;
+    console.log(rutaId);
+
+    if (puntos && puntos.length > 0) {
+      const sqlInsertPunto = 'INSERT INTO puntoscontrol (nombre, ruta) VALUES ?'
+      const puntosData = puntos.map((punto) => [punto, rutaId]);
+
+      db.query(sqlInsertPunto, [puntosData], (errPuntos) => {
+        if (errPuntos) {
+          console.error('Error al insertar los puntos de control:', errPuntos);
+          return res.status(500).json({ error: 'Error al insertar los puntos de control' });
+        }
+
+        return res.status(201).json({ message: 'Ruta y puntos de control creados correctamente' });
+      })
+    } else {
+      return res.status(201).json({ message: 'Ruta creada correctamente' });
+    }
+  });
+});
+
 //Traer el ultimo registro del conductor
 app.get('/api/ultimo-registro/:cedula', (req, res) => {
   const { cedula } = req.params; // Obtén la cédula del parámetro de la URL

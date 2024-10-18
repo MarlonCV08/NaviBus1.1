@@ -2,20 +2,26 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import '../Styles/ModalAdd.css';
 import PlusButton from './PlusButton';
+import Swal from "sweetalert2"
 
 export const ModalAdd = ({ isOpen, onClose }) => {
-  const [inputs, setInputs] = useState(['']);
+  const [ruta, setRuta] = useState('');
+  const [puntos, setPuntos] = useState(['']);
   const [focusedIndex, setFocusedIndex] = useState(null);
   const [isPlusButtonOpen, setIsPlusButtonOpen] = useState(false); // Nuevo estado
 
   const addInput = () => {
-    setInputs([...inputs, '']);
+    setPuntos([...puntos, '']);
   };
 
-  const handleInputChange = (e, index) => {
-    const newInputs = [...inputs];
-    newInputs[index] = e.target.value;
-    setInputs(newInputs);
+  const handleRutaChange = (e) => {
+    setRuta(e.target.value);
+  }
+
+  const handlePuntoChange = (e, index) => {
+    const newPuntos = [...puntos];
+    newPuntos[index] = e.target.value;
+    setPuntos(newPuntos);
   };
 
   const handleFocus = (index) => {
@@ -30,6 +36,44 @@ export const ModalAdd = ({ isOpen, onClose }) => {
   const handlePlusButtonClick = () => {
     addInput();
     setIsPlusButtonOpen(!isPlusButtonOpen); // Alternar el estado
+  };
+
+  const handleSubmit = async () => {
+    const formData = {
+      ruta,
+      puntos,
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/api/crear-ruta', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: '¡Éxito!',
+          text: 'Ruta creada con éxito',
+        });
+        onClose();
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al crear la ruta',
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error de red. Intente nuevamente.',
+      });
+    }
   };
 
   if (!isOpen) return null;
@@ -48,6 +92,8 @@ export const ModalAdd = ({ isOpen, onClose }) => {
           <motion.input
             className="RNameInput"
             type="text"
+            value={ruta}
+            onChange={handleRutaChange}
             placeholder="Ruta"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -65,13 +111,13 @@ export const ModalAdd = ({ isOpen, onClose }) => {
         </div>
         <div className="raya"></div>
         <div className='PName'>
-          {inputs.map((input, index) => (
+          {puntos.map((punto, index) => (
             <motion.input
               className='PNameInput'
               key={index}
               type="text"
-              value={input}
-              onChange={(e) => handleInputChange(e, index)}
+              value={punto}
+              onChange={(e) => handlePuntoChange(e, index)}
               placeholder={`Punto ${index + 1}`}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -89,8 +135,9 @@ export const ModalAdd = ({ isOpen, onClose }) => {
             />
           ))}
           <div className="PDiv">
-            <PlusButton onClick={handlePlusButtonClick} /> {/* Usamos el componente PlusButton aquí */}
+            <PlusButton onClick={handlePlusButtonClick} />
           </div>
+        <button onClick={handleSubmit}>Crear</button>
         </div>
       </motion.div>
     </div>
