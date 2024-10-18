@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import Modal from 'react-modal';
+import { motion } from "framer-motion";
+import { useState } from "react";
+import '../Styles/RecuperarClave.css';
 
-
-export const RecuperarClave = ({ isOpen ,onRequestClose }) => {
+export const RecuperarClave = ({ isOpen, onRequestClose }) => {
   const [email, setEmail] = useState('');
-  
+  const [isFocused, setIsFocused] = useState(false); // Estado para controlar el foco
+
   const handleEnviarClave = () => {
     fetch('http://localhost:3000/api/recuperar-clave', {
       method: 'POST',
@@ -26,17 +27,52 @@ export const RecuperarClave = ({ isOpen ,onRequestClose }) => {
       });
   };
 
+  const handleCloseModal = (e) => {
+    if (e.target.className === 'modal-backdrop') {
+      onRequestClose();
+    }
+  };
+
+  if (!isOpen) return null;
+
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
-      <h2>Recuperar clave</h2>
-      <input 
-        type="email"
-        placeholder="Escribe donde tu correo electrónico"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <button onClick={handleEnviarClave}>Enviar</button>
-      <button onClick={onRequestClose}>Cerrar</button>
-    </Modal>
+    <div className="modal-backdrop" onClick={handleCloseModal}>
+      <motion.div
+        className="divModal"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+        onClick={(e) => e.stopPropagation()} // Evitar que los clics en el contenido cierren el modal
+      >
+        <div className='modalRecuperar'>
+          <h2 className="hRecuperar">Recuperar clave</h2>
+          <motion.input
+            className="inputRecuperar"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Ruta"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{
+              padding: '10px',
+              borderRadius: '5px',
+              width: '100%',
+              outline: 'none',
+              border: isFocused ? '1px solid #7579e7' : '1px solid #ccc', // Cambia el color del borde en foco
+              transition: 'border-color 0.3s ease' // Transición suave
+            }}
+            onFocus={() => setIsFocused(true)} // Establece el foco en true
+            onBlur={() => setIsFocused(false)} // Establece el foco en false
+          />
+          <div className="divBtnRecuperar">
+            <button onClick={handleEnviarClave} className="btnRecuperar">Enviar</button>
+            <button onClick={onRequestClose} className="btnRecuperar">Cerrar</button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
   );
 };
