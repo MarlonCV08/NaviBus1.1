@@ -65,9 +65,14 @@ export const ModalAdd = ({ isOpen, onClose }) => {
       return;
     }
 
+    const puntosData = puntos.map((punto, index) => ({
+      nombre: punto,
+      ultimo: index === puntos.length -1 ? 1 : 0,
+    }));
+
     const formData = {
       ruta,
-      puntos,
+      puntos: puntosData,
     };
 
     try {

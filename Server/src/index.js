@@ -89,8 +89,8 @@ app.post('/api/crear-ruta', (req, res) => {
     console.log(rutaId);
 
     if (puntos && puntos.length > 0) {
-      const sqlInsertPunto = 'INSERT INTO puntoscontrol (nombre, ruta) VALUES ?'
-      const puntosData = puntos.map((punto) => [punto, rutaId]);
+      const sqlInsertPunto = 'INSERT INTO puntoscontrol (nombre, ruta, ultimo) VALUES ?'
+      const puntosData = puntos.map((punto) => [punto.nombre, rutaId, punto.ultimo]);
 
       db.query(sqlInsertPunto, [puntosData], (errPuntos) => {
         if (errPuntos) {
