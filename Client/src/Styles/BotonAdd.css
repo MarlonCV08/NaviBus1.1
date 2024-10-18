@@ -8,7 +8,7 @@
     justify-content: center;
     text-align: center;
     font-weight: bold;
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 20px;
 }

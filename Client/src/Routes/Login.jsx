@@ -162,12 +162,14 @@ export const Login = () => {
             />
           </div>
           <input type="submit" className='buttonLogin' value="Ingresar" />
+          <div className='divSpan'>
+            <span className='recuperar' onClick={() => setShowModal(true)}>Recuperar contraseña</span>
+          </div>
+        </form>
           <RecuperarClave 
             isOpen={showModal}
             onRequestClose={() => setShowModal(false)}
           />
-          <span onClick={() => setShowModal(true)}>Recuperar contraseña</span>
-        </form>
         <ToastContainer closeButton={false} limit={1} />
       </div>
       <Camion/>
