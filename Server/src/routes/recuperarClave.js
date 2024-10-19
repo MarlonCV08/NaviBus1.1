@@ -32,12 +32,12 @@ const recuperarClave = (db) => {
         let mailOptions = {
           from: 'stevensanchez1024@gmail.com',
           to: email,
-          subject: 'Recuperación de clave',
+          subject: 'Recordatorio de clave',
           html: `
             <div style="font-family: Arial, sans-serif; color: #333;">
-              <h2 style="color: #4CAF50;">Recuperación de clave</h2>
+              <h2 style="color: #4CAF50;">Recordatorio de clave</h2>
               <p>Estimado usuario,</p>
-              <p>Hemos recibido una solicitud para la recuperación de tu clave. A continuación encontrarás tus datos:</p>
+              <p>Hemos recibido una solicitud para el recordatorio de tu clave. A continuación encontrarás tus datos:</p>
 
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>

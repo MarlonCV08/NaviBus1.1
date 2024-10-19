@@ -71,6 +71,12 @@ export const Administrador =()=>{
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Validación de la longitud de la cédula
+        if (cedula.length > 10) {
+            notify('La cédula no puede tener más de 10 caracteres');
+            return;
+        }
+
         if (cedula !== confirmCedula) {
             notify('El documento y la confirmación de documento no coinciden');
             return;
@@ -112,7 +118,7 @@ export const Administrador =()=>{
                 setConfirmCedula('');
                 setCorreo('');
                 setSelectedDropdown('');
-                /* navigate('/Ruta'); */
+                navigate('/Ruta');
             } else {
                 if (data.errors) {
                     setErrorQueue(data.errors.map(error => error.msg));

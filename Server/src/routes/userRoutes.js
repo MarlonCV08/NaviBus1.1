@@ -14,7 +14,8 @@ const userRoutes = (db) => {
       body('cedula').notEmpty().withMessage('El usuario es obligatorio'),
       body('clave')
       .notEmpty().withMessage('La clave es obligatoria')
-      .isLength({ min: 8 }).withMessage('La clave debe tener al menos 8 caracteres')
+      .isLength({ min: 7 }).withMessage('La clave debe tener al menos 8 caracteres')
+      .isLength({ max: 10 }).withMessage('La clave no debe tener más de 10 caracteres')
     ],
 
     (req, res) => {
