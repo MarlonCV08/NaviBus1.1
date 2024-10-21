@@ -34,7 +34,7 @@ const recuperarClave = (db) => {
           to: email,
           subject: 'Recordatorio de clave',
           html: `
-            <div style="font-family: Arial, sans-serif; color: #333;">
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
               <h2 style="color: #4CAF50;">Recordatorio de clave</h2>
               <p>Estimado usuario,</p>
               <p>Hemos recibido una solicitud para el recordatorio de tu clave. A continuación encontrarás tus datos:</p>
